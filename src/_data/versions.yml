@@ -1,0 +1,3 @@
+- edition: kuma
+  version: preview
+  release: dev

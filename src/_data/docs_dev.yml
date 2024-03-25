@@ -1,0 +1,75 @@
+items:
+  - title: Introduction
+    items:
+      - text: Qui sommes-nous ?
+        url: /posts/intro/about
+      - text: Comment fonctionne Metarisc ?
+        url: /posts/intro/how-it-works
+  - title: ERP
+    items:
+      - text: Commissions
+        items:
+          - text: Programmer les commissions dans le calendrier
+            url: /posts/erp/commissions/programmer_commissions
+          - text: Traiter la sous-commission
+            url: /posts/erp/commissions/traiter_sous_commission
+      - text: Traitement des études
+        items: 
+          - text: Enregistrer une étude
+            url: /posts/erp/traitement_etudes/enregistrer_etude
+          - text: Instruire une étude
+            url: /posts/erp/traitement_etudes/instruire_etude
+          - text: Inscrire en commission
+            url: /posts/erp/traitement_etudes/inscrire_commission
+      - text: Fiche ERP
+        items:
+          - text: Création
+            url: /posts/erp/fiche_erp/creation
+      - text: Visites
+        url: /posts/erp/visites
+  - title: DECI
+    items:
+      - text: ROA
+        items:
+          - text: Programmer une ROA
+            url: /posts/deci/roa/programmer-roa
+          - text: Consulter une ROA programmée
+            url: /posts/deci/roa/consulter-roa
+          - text: Exécuter la ROA
+            url: /posts/deci/roa/executer-roa
+      - text: Indisponibilité / Remise en service
+        items: 
+          - text: Via ROA
+            url: /posts/deci/indisponibilite/roa
+          - text: Via fiche PEI
+            url: /posts/deci/indisponibilite/fiche-pei
+          - text: Via déclaration externe
+            url: /posts/deci/indisponibilite/declaration-externe
+      - text: Déclarer un PEI
+        items:
+          - text: Déclaration externe
+            url: /posts/deci/declarer-pei/declaration-externe
+          - text: Déclaration interne
+            url: /posts/deci/declarer-pei/declaration-interne
+      - text: Fiche PEI
+        url: /posts/deci/fiche-pei
+  - title: Commun
+    items:
+      - text: Effectuer une recherche
+        url: /posts/commun/recherche
+  - title: Administration Organisation
+    items:
+      - text: Les RDDECI
+        items:
+          - text: Calcul de performance
+            url: /posts/administration-org/rddeci/calcul-perf
+          - text: Bibliothèque anomalies
+            url: /posts/administration-org/rddeci/bibliotheque-anomalies
+      - text: Les ERP 
+        items: 
+          - text: Bibliothèque de prescriptions
+            url: /posts/administration-org/erp-org/bibliotheque-prescriptions
+      - text: Workflow études
+        url: /posts/administration-org/workflow-etudes
+  - title: Administration Fonctionnelle
+    url: /posts/administration-fonc

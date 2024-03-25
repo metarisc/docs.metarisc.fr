@@ -1,0 +1,26 @@
+---
+    layout: layouts/home.liquid
+---
+
+<div class="container-fluid side-bar">
+  <div class="row flex-nowrap">
+    <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
+      <div class="d-flex flex-column align-items-center align-items-sm-start pt-2 text-white min-vh-100">
+        {% include "selectVersion.liquid" %}
+        <ul class="nav nav-pills flex-column text-light gap-2 mb-sm-auto mb-0 align-items-center align-items-sm-start px-3">
+          <li>
+            <a href="/api" class="nav-link px-0 align-middle">
+              <span class="ms-1 d-none d-sm-inline">Developpeur</span>
+            </a>
+          </li>
+          {% render "sidebarDropdown"
+            , list: docs_dev.items %}
+        </ul>
+        <hr>
+      </div>
+    </div>
+    <div class="col py-3">
+      {{ content }}
+    </div>
+  </div>
+</div>

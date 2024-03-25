@@ -1,0 +1,9 @@
+<select class="form-select mb-5 mt-2" aria-label="Selectionner une version">
+  {% for version in versions %}
+    {{ version.release }}
+    {% assign option_value = version.release %}
+    <option value="{{ option_value }}" selected>
+      {{ version.release }}
+    </option>
+  {% endfor %}
+</select>

@@ -1,0 +1,25 @@
+---
+layout: layouts/sidebar.liquid
+eleventyNavigation:
+key: Home
+order: 1
+---
+
+<div class="row">
+  <div class="col-2"></div>
+  <div class="col-8">
+    <p class="fs-1">Bienvenue sur Metarisc</p>
+    <p>Un portail opérationnel unique conçu en mode SaaS, disponible à tout moment et en tout lieu,   
+      permettant de collecter, enregistrer et consulter vos données de prévention et de prévision.</p>
+    <div class="w-100 bg-secondary mt-5" style="height: 1px;"></div>
+    <p class="fs-2 mt-3 mb-2">{{ docs_dev.items[0].title }}</p>
+    <ul class="d-flex flex-column gap-1">
+      {% for item in docs_dev.items[0].items %}
+        <li>
+          <a href="{{ item.url }}">{{ item.text }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+  <div class="col-2"></div>
+</div>

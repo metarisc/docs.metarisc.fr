@@ -1,0 +1,20 @@
+{
+  "name": "docs-metarisc-web",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "generate": "npx @11ty/eleventy --output=dist",
+    "serve": "DEBUG=* npx @11ty/eleventy --output=dist --watch --serve --port=8000"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@11ty/eleventy": "^2.0.1"
+  },
+  "dependencies": {
+    "bootstrap": "^5.3.3",
+    "eleventy-sass": "^2.2.4"
+  }
+}

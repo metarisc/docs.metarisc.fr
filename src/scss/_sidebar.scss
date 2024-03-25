@@ -1,0 +1,24 @@
+.side-bar {
+    a {
+        color: white !important;
+        text-decoration: none;
+    }
+
+    .i-arrow {
+        content: url("/img/arrow-down.svg");
+        height: 10px;
+        color: white;
+        rotate: -90deg;
+        transition: all 250ms ease-out;
+    }
+
+    .category-dropdown[aria-expanded=true] {
+        i {
+            rotate: 0deg;
+        }
+    }
+
+    li {
+        list-style: none;
+    }
+}

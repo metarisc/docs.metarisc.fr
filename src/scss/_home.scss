@@ -1,0 +1,11 @@
+.home-header{
+    background-color: #42464b;
+}
+
+a:not(.navbar-brand){
+    color: white !important;
+
+    &:hover{
+        text-decoration: underline !important;
+    }
+}

@@ -1,0 +1,31 @@
+{% for category in list %}
+
+  {% if category.title %}
+    {% assign title = category.title %}
+  {% else %}
+    {% assign title = category.text %}
+  {% endif %}
+
+  {% if category.items %}
+    <li>
+      <a
+        href="#submenu-{{ title | replace: " ", "" }}"
+        data-bs-toggle="collapse"
+        class="nav-link px-0 align-middle category-dropdown">
+        <i class="i-arrow"></i>
+        <span class="ms-1 d-none d-sm-inline fw-medium">{{ title }}</span>
+      </a>
+      <div class="collapse nav" id="submenu-{{ title | replace: " ", "" }}">
+        <ul class="d-flex flex-column gap-2">
+          {% render "sidebarDropdown"
+            , list: category.items %}
+        </ul>
+      </div>
+    </li>
+  {% else %}
+    {% render "sidebarLink"
+      , title: title 
+      , url: category.url %}
+  {% endif %}
+
+{% endfor %}
