@@ -1,9 +1,9 @@
-@use "navbar";
 @use "home";
 @use "global";
 @use "sidebar";
 @use "post";
 @use "mapTitles";
+@use "navbar";
 @use "breadcrumbs";
 @use "colors";
 
@@ -20,6 +20,8 @@ $spacer: 0.5rem;
   $h5-font-size: 1rem,
   $h6-font-size: 0.75rem,
   $nav-link-hover-color: #09806D,
+  $table-bg: transparent,
+  $table-color: white,
   $spacers: (
     0: 0,
     0_5: calc($spacer / 2), // 4px

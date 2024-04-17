@@ -6,8 +6,11 @@ templateClass: tmpl-post
   <div class="row post">
     <div class="col-2"></div>
     <div class="col-8">
-      <p class="fs-1 fw-semibold mb-3">{{ title }}</p>
       {{ content }}
+      {% assign pageUrl = page.url | remove_last: '/' %}
+      {% render "navigationButtons"
+        , list: docs_dev.items
+        , url: pageUrl %}
     </div>
     <div class="col-2"></div>
   </div>

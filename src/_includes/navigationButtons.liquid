@@ -1,0 +1,142 @@
+{% for category in list %}
+  {% assign category_forloop = forloop %}
+  <!-- SI LA CATEGORY A DES ITEMS ALORS ON LES PARCOURS -->
+  {% if category.items %}
+
+    {% for subcat in category.items %}
+      {% assign subcat_forloop = forloop %}
+      {% if subcat.items %}
+
+        {% for item in subcat.items %}
+          {% assign item_forloop = forloop %}
+            {% if item.url == url %}
+
+            <!-- DEFINITION DE LA PAGE SUIVANTE -->
+            {% if item_forloop.last == false %}
+              {% assign nextPage = subcat.items[item_forloop.index] %}
+            {% else %}
+              {% if subcat_forloop.last == false %}
+                {% assign nextPage = category.items[subcat_forloop.index] %}
+              {% else %}
+                {% if category_forloop.last == false %}
+                  {% assign nextPage = list[category_forloop.index] %}
+                {% endif %}
+              {% endif %}
+            {% endif %}
+
+            <!-- DEFINITION DE LA PAGE PRECEDENTE -->
+            {% if item_forloop.first == false %}
+              {% assign previousIndex = item_forloop.index0 | minus: 1 %}
+              {% assign previousPage = subcat.items[previousIndex] %}
+            {% else %}
+              {% if subcat_forloop.first == false %}
+                {% assign previousIndex = subcat_forloop.index0 | minus: 1 %}
+                {% assign previousPage = category.items[previousIndex] %}
+              {% else %}
+                {% if category_forloop.first == false %}
+                  {% assign previousIndex = category_forloop.index0 | minus: 1 %}
+                  {% assign previousPage = list[previousIndex] %}
+                {% endif %}
+              {% endif %}
+            {% endif %}
+
+          {% endif %}
+        {% endfor %}
+
+      {% else %}
+        {% if subcat.url == url %}
+
+          <!-- DEFINITION DE LA PAGE SUIVANTE -->
+          {% if subcat_forloop.last == false %}
+            {% assign nextPage = category.items[subcat_forloop.index] %}
+          {% else %}
+            {% if category_forloop.last == false %}
+              {% assign nextPage = list[category_forloop.index] %}
+            {% endif %}
+          {% endif %}
+
+          <!-- DEFINITION DE LA PAGE PRECEDENTE -->
+          {% if subcat_forloop.first == false %}
+            {% assign previousIndex = subcat_forloop.index0 | minus: 1 %}
+            {% assign previousPage = category.items[previousIndex] %}
+          {% else %}
+            {% if category_forloop.first == false %}
+              {% assign previousIndex = category_forloop.index0 | minus: 1 %}
+              {% assign previousPage = list[previousIndex] %}
+            {% endif %}
+          {% endif %}
+
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+
+  {% else %}
+    {% if category.url == url %}
+
+      <!-- DEFINITION DE LA PAGE SUIVANTE -->
+      {% if category_forloop.last == false %}
+        {% assign nextPage = category.items[forloop.index] %}
+      {% endif %}
+
+      <!-- DEFINITION DE LA PAGE PRECEDENTE -->
+      {% if category_forloop.first == false %}
+        {% assign previousIndex = category_forloop.index0 | minus: 1 %}
+        {% assign previousPage = list[previousIndex] %}
+      {% endif %}
+
+    {% endif %}
+  {% endif %}
+{% endfor %}
+
+{% if nextPage.items %}
+  {% assign nextPage = nextPage.items[0] %}
+  {% if nextPage.items[0] %}
+    {% assign nextPage = nextPage.items[0] %}
+  {% endif %}
+{% endif %}
+
+{% if previousPage.items %}
+  {% assign itemLengthIndex = previousPage.items.size | minus: 1 %}
+  {% assign previousPage = previousPage.items[itemLengthIndex] %}
+  {% if previousPage.items %}
+    {% assign itemLengthIndex = previousPage.items.size | minus: 1 %}
+    {% assign previousPage = previousPage.items[itemLengthIndex] %}
+  {% endif %}
+{% endif %}
+
+<div class="container">
+  <div class="row">
+    {% if previousPage %}
+      <div class="col d-flex justify-content-start">
+        <a href="{{ previousPage.url }}" class="text-decoration-none">
+          <button class="btn btn-snow d-flex flex-column p-1_5 fs-6" type="button">
+            <span class="text-white">Précédent</span>
+            <span id="previousPage" class="text-lagoon">
+              {% if previousPage.title %}
+                {{ previousPage.title }}
+              {% else %}
+                {{ previousPage.text }}
+              {% endif %}
+            </span>
+          </button>
+        </a>
+      </div>
+    {% endif %}
+    {% if nextPage %}
+      <div class="col d-flex justify-content-end">
+        <a href="{{ nextPage.url }}" class="text-decoration-none">
+          <button class="btn btn-snow d-flex flex-column p-1_5 fs-6" type="button">
+            <span class="text-white">Suivant</span>
+            <span id="nextPage" class="text-lagoon">
+              {% if nextPage.title %}
+                {{ nextPage.title }}
+              {% else %}
+                {{ nextPage.text }}
+              {% endif %}
+            </span>
+          </button>
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</div>
