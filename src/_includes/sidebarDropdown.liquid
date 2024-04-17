@@ -7,16 +7,18 @@
   {% endif %}
 
   {% if category.items %}
-    <li>
+    <li class="w-100">
       <a
         href="#submenu-{{ title | replace: " ", "" }}"
         data-bs-toggle="collapse"
-        class="nav-link px-0 align-middle category-dropdown">
-        <i class="i-arrow"></i>
-        <span class="ms-1 d-none d-sm-inline fw-medium">{{ title }}</span>
+        class="nav-link px-0 align-middle category-dropdown w-100">
+        <div class="d-flex justify-content-between w-100">
+          <span class="ms-1 d-none d-sm-inline fw-500">{{ title }}</span>
+          <i class="i-arrow my-auto"></i>
+        </div>
       </a>
       <div class="collapse nav" id="submenu-{{ title | replace: " ", "" }}">
-        <ul class="d-flex flex-column gap-2">
+        <ul class="d-flex flex-column gap-2 w-100">
           {% render "sidebarDropdown"
             , list: category.items %}
         </ul>

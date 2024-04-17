@@ -1,24 +1,29 @@
 .side-bar {
-    a {
-        color: white !important;
-        text-decoration: none;
-    }
+  border-right: 1px solid transparent;
+  border-image: linear-gradient(0.5turn, rgba(255, 255, 255, 0.24), #F0F0F0, rgba(255, 255, 255, 0.24)) 100% !important;
+  border-image-slice: 1 !important;
+  height: fit-content;
 
-    .i-arrow {
-        content: url("/img/arrow-down.svg");
-        height: 10px;
-        color: white;
-        rotate: -90deg;
-        transition: all 250ms ease-out;
-    }
+  a {
+    color: white !important;
+    text-decoration: none;
+  }
 
-    .category-dropdown[aria-expanded=true] {
-        i {
-            rotate: 0deg;
-        }
-    }
+  .i-arrow {
+    content: url("/img/arrow-down.svg");
+    height: 10px;
+    color: white;
+    rotate: -90deg;
+    transition: all 250ms ease-out;
+  }
 
-    li {
-        list-style: none;
+  .category-dropdown[aria-expanded=true] {
+    i {
+      rotate: 0deg;
     }
+  }
+
+  li {
+    list-style: none;
+  }
 }
