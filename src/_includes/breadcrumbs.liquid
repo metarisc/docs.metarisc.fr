@@ -1,0 +1,52 @@
+{% for category in list %}
+  {% if category.items %}
+
+    {% for subcat in category.items %}
+      {% if subcat.items %}
+
+        {% for item in subcat.items %}
+          {% if item.url == url %}
+
+            {% assign array = array | push: category.title %}
+            {% assign array = array | push: subcat.text %}
+            {% assign array = array | push: item.text %}
+          {% endif %}
+        {% endfor %}
+
+      {% else %}
+        {% if subcat.url == url %}
+
+          {% assign array = array | push: category.title %}
+          {% assign array = array | push: subcat.text %}
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+
+  {% else %}
+    {% if category.url == url %}
+      {% assign array = array | push: category.title %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
+
+{% if array.size > 0 %}
+  <nav
+    id="breadcrumb"
+    class="ms-3  my-auto"
+    aria-label="breadcrumb">
+    <ol class="breadcrumb gap-1 fs-4">
+      <li class="breadcrumb-item">
+        <a href="/">
+          <i class="bi bi-house-door-fill"></i>
+        </a>
+      </li>
+      {% for str in array %}
+        <li class="breadcrumb-item" aria-current="page">
+          <span class="{% if forloop.last == true %}bg-snow{% endif %} px-1 py-0_5">
+            {{ str }}
+          </span>
+        </li>
+      {% endfor %}
+    </ol>
+  </nav>
+{% endif %}
