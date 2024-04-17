@@ -1,0 +1,10 @@
+.mapTitles {
+  border-right: none !important;
+  border-image: linear-gradient(0.5turn, rgba(0, 0, 0, 0), #F0F0F0, rgba(0, 0, 0, 0)) !important;
+  border-image-slice: 1 !important;
+  height: fit-content !important;
+
+  a {
+    text-decoration: none;
+  }
+}
