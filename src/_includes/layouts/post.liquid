@@ -6,7 +6,9 @@ templateClass: tmpl-post
   <div class="row post">
     <div class="col-2"></div>
     <div class="col-8">
-      {{ content }}
+      <div class="mb-4">
+        {{ content }}
+      </div>
       {% assign pageUrl = page.url | remove_last: '/' %}
       {% render "navigationButtons"
         , list: docs_dev.items
