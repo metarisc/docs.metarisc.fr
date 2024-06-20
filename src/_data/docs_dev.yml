@@ -49,7 +49,7 @@ items:
         items:
           - text: Déclaration externe
             url: /posts/deci/declarer-pei/declaration-externe
-          - text: Déclaration interne
+          - text: Créer un poteau d'eau
             url: /posts/deci/declarer-pei/declaration-interne
       - text: Fiche PEI
         url: /posts/deci/fiche-pei
@@ -57,13 +57,13 @@ items:
     items:
       - text: Effectuer une recherche
         url: /posts/commun/recherche
-  - title: Administration Organisation
+  - title: Paramétrage organisation
     items:
       - text: Les RDDECI
         items:
           - text: Calcul de performance
             url: /posts/administration-org/rddeci/calcul-perf
-          - text: Bibliothèque anomalies
+          - text: Bibliothèque d'anomalies
             url: /posts/administration-org/rddeci/bibliotheque-anomalies
       - text: Les ERP 
         items: 
