@@ -3,22 +3,45 @@
 ---
 
 <div class="container-fluid">
+
   <div class="row flex-nowrap d-flex">
+
     <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 side-bar">
+
       <div class="d-flex flex-column align-items-center align-items-sm-start pt-2 text-white min-vh-100">
-        {% render "selectVersion"
-          , versions: versions %}
-        <ul class="nav nav-pills flex-column text-light gap-2 mb-sm-auto mb-0 align-items-center align-items-sm-start px-3">
-          {% render "sidebarDropdown"
-            , list: docs_dev.items %}
+
+        <!-- Logo de metarisc -->
+        <div class="page-header pb-1">
+          <a class="navbar-brand ps-2" href="/">
+            <img src="/img/logo.svg" alt="Metarisc" class="ms-1" width="125px">
+          </a>
+          <span class="badge bg-white text-dark h-100 my-auto fs-5">DOCS</span>
+        </div>
+
+        <!-- Choix de la version -->
+        {% render "selectVersion", versions: versions %}
+
+        <!-- Liens de l'arbre de navigation -->
+        <ul class="nav nav-pills flex-column text-light gap-1 mb-sm-auto mb-0 align-items-center align-items-sm-start">
+          {% render "sidebarDropdown", list: docs_dev.items %}
         </ul>
+        
       </div>
+
     </div>
 
-    <div class="col-8 py-3">
+    <div class="col-8 py-3 ms-3  ">
+
+      <!-- Breadcrumb -->
+      <div class="mb-4">
+        {% assign pageUrl = page.url | remove_last: '/' %}
+        {% render "breadcrumbs", list: docs_dev.items, url: pageUrl %}
+      </div>
+
       {{ content }}
+
     </div>
 
-    {% render "mapTitles" %}
   </div>
+
 </div>

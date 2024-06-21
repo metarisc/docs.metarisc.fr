@@ -2,18 +2,27 @@
 layout: layouts/sidebar.liquid
 templateClass: tmpl-post
 ---
-<div class="bg-gray">
-  <div class="row post">
-    <div class="col-2"></div>
-    <div class="col-8">
-      <div class="mb-4">
-        {{ content }}
-      </div>
-      {% assign pageUrl = page.url | remove_last: '/' %}
-      {% render "navigationButtons"
-        , list: docs_dev.items
-        , url: pageUrl %}
+
+<div class="row">
+
+  <div class="col-10">
+
+    <div class="mb-4">
+
+      {{ content }}
+
     </div>
-    <div class="col-2"></div>
+
   </div>
+
+  <div class="col-2">
+    <div class="mt-4 mb-4">
+      {% render "mapTitles" %}
+    </div>
+  </div>
+
 </div>
+
+<!-- Cartes de navigation (précédent et suivant) -->
+{% assign pageUrl = page.url | remove_last: '/' %}
+{% render "navigationButtons", list: docs_dev.items, url: pageUrl %}
