@@ -104,39 +104,37 @@
   {% endif %}
 {% endif %}
 
-<div class="container">
-  <div class="row">
-    {% if previousPage %}
-      <div class="col d-flex justify-content-start">
-        <a href="{{ previousPage.url }}" class="text-decoration-none">
-          <button class="btn btn-snow d-flex flex-column p-1_5 fs-6" type="button">
-            <span class="text-white">Précédent</span>
-            <span id="previousPage" class="text-lagoon">
-              {% if previousPage.title %}
-                {{ previousPage.title }}
-              {% else %}
-                {{ previousPage.text }}
-              {% endif %}
-            </span>
-          </button>
-        </a>
-      </div>
-    {% endif %}
-    {% if nextPage %}
-      <div class="col d-flex justify-content-end">
-        <a href="{{ nextPage.url }}" class="text-decoration-none">
-          <button class="btn btn-snow d-flex flex-column p-1_5 fs-6" type="button">
-            <span class="text-white">Suivant</span>
-            <span id="nextPage" class="text-lagoon">
-              {% if nextPage.title %}
-                {{ nextPage.title }}
-              {% else %}
-                {{ nextPage.text }}
-              {% endif %}
-            </span>
-          </button>
-        </a>
-      </div>
-    {% endif %}
-  </div>
+<div class="row">
+  {% if previousPage %}
+    <div class="col d-flex justify-content-start">
+      <a href="{{ previousPage.url }}" class="text-decoration-none">
+        <button class="btn btn-snow d-flex flex-column p-1_5 fs-6" type="button">
+          <span class="text-white">Précédent</span>
+          <span id="previousPage" class="text-lagoon">
+            {% if previousPage.title %}
+              {{ previousPage.title }}
+            {% else %}
+              {{ previousPage.text }}
+            {% endif %}
+          </span>
+        </button>
+      </a>
+    </div>
+  {% endif %}
+  {% if nextPage %}
+    <div class="col d-flex justify-content-end">
+      <a href="{{ nextPage.url }}" class="text-decoration-none">
+        <button class="btn btn-snow d-flex flex-column p-1_5 fs-6" type="button">
+          <span class="text-white">Suivant</span>
+          <span id="nextPage" class="text-lagoon">
+            {% if nextPage.title %}
+              {{ nextPage.title }}
+            {% else %}
+              {{ nextPage.text }}
+            {% endif %}
+          </span>
+        </button>
+      </a>
+    </div>
+  {% endif %}
 </div>

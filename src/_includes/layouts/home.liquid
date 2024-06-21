@@ -1,23 +1,5 @@
 ---
-    layout: layouts/base.liquid
+layout: layouts/base.liquid
 ---
-<nav class="navbar navbar-expand-lg">
-  <div class="container-fluid justify-content-start pt-2 gap-5">
 
-    <div class="page-header d-flex pb-1">
-      <a class="navbar-brand ps-2" href="/">
-        <img
-          src="/img/logo.svg"
-          alt=""
-          class="ms-1">
-      </a>
-      <span class="badge bg-white text-dark h-100 my-auto fs-5">DOCS</span>
-    </div>
-
-    {% assign pageUrl = page.url | remove_last: '/' %}
-    {% render "breadcrumbs"
-      , list: docs_dev.items
-      , url: pageUrl %}
-  </div>
-</nav>
 {{ content }}
