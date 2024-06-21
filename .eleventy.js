@@ -6,13 +6,9 @@ module.exports = function(eleventyConfig) {
 
   eleventyConfig.addDataExtension('yml', contents => yaml.safeLoad(contents))
 
-  // Copy the `img` folders to the output
+  // Copy files and dir folders to the output
   eleventyConfig.addPassthroughCopy("src/img");
-
   eleventyConfig.addPassthroughCopy("src/scripts");
-
-    
-  // Copy error page
   eleventyConfig.addPassthroughCopy("src/error.html");
   
   return {
