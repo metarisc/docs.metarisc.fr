@@ -5,15 +5,19 @@ layout: layouts/post.liquid
 ---
 # Déclaration externe d'un point d'eau incendie #
 
+
 {%
     render 'alert',
     level: 'info',
     text: "
     **_INFO_**
 
-    Il s'agit d'une démarche effectuée par une personne ou un service extérieur au service d'incendie et de secours.
+Il s'agit d'un espace réservé de l'application METARISC où les acteurs publics et partenaires des services d'incendie et de secours (SIS) ont accès à une plateforme d'échanges de données et de travail collaboratif.
+   
+Le partenaire effectue une démarche de déclaration   des points d'eau servant à la défense extérieure contre l'incendie. 
+
 Exemples:
-- une société déclare les poteaux d'eau situés sur son site, 
+- une commune déclare les poteaux d'eau situés sur son territoire, 
 - un exploitant agricole déclare un point d'eau naturel ou artificiel situé sur son exploitation.
 
 Le point d'eau nouvellement déclaré reste en statut *En attente de validation*. A la suite de cette procédure, le service d'incendie et secours effectue ses démarches de contrôle afin de renseigner la disponiblité du PEI"
@@ -52,3 +56,21 @@ Le point d'eau nouvellement déclaré reste en statut *En attente de validation*
 %}
 
     ![Déclaration externe 03](https://metarisc-docs.s3.fr-par.scw.cloud/images/DECI/Declaration%20externe%2003_1024.jpg)
+
+
+9. Compléter le formulaire **Descriptif** et les caractéristiques hydrauliques, puis cliquer sur **Suivant**
+     - **Caractéristiques hydrauliques** : le formulaire évolue selon la nature du point d'eau (PIBI, PENA).
+
+10. Téléverser les documents necessaires à l'instruction de la déclaration du point d'eau. Il peut s'agir de photos, de plans, fiches techniques... 
+    
+    L'**annexe norme** doit obligatoirement être ajouté afin de pouvoir finaliser la déclaration. 
+
+11. Terminer, puis confirmer les informations renseignées.    
+![décaration externe 04](https://metarisc-docs.s3.fr-par.scw.cloud/images/DECI/Declaration%20externe%2004_1024.jpg)
+
+12. De retour sur la première page du module de déclaration des points d'eau et la liste des PEI en cours de déclaration, vous pouvez, le cas échéant, compléter les informations relatives aux autres PEI (1) ou finaliser la déclaration (2). Un encart s'ouvre pour finaliser la déclaration et l'application vous confirme l'enregistrement du point d'eau.
+
+![Déclaration externe 05](https://metarisc-docs.s3.fr-par.scw.cloud/images/DECI/Declaration%20externe%2005_1024.jpg)
+
+Une notification est envoyée au SIS qui procédera aux démarches de contrôle de ce point d'eau.
+
