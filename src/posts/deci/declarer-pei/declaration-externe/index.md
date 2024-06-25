@@ -51,7 +51,7 @@ Le point d'eau nouvellement déclaré reste en statut *En attente de validation*
 
     L'application vous propose par défaut 5 adresses à proximité du point géographique. Si toutefois, les adresses proposées ne correspondaient pas, vous avez la possibilité de modifier manuellement l'adresse.
 
-    La localisation opérationnelle vous permet d'apporter des informations complémentaires adin de préciser la localisation de l'objet.
+    La localisation opérationnelle vous permet d'apporter des informations complémentaires afin de préciser la localisation de l'objet.
 
 %}
 
@@ -59,9 +59,9 @@ Le point d'eau nouvellement déclaré reste en statut *En attente de validation*
 
 
 9. Compléter le formulaire **Descriptif** et les caractéristiques hydrauliques, puis cliquer sur **Suivant**
-     - **Caractéristiques hydrauliques** : le formulaire évolue selon la nature du point d'eau (PIBI, PENA).
+    Le formulaire **Caractéristiques hydrauliques** est dynamique et évolue selon la nature du point d'eau (PIBI, PENA).
 
-10. Téléverser les documents necessaires à l'instruction de la déclaration du point d'eau. Il peut s'agir de photos, de plans, fiches techniques... 
+10. Téléverser les documents necessaires à l'instruction de la déclaration du point d'eau. Il peut s'agir de photos, plans, fiches techniques... 
     
     L'**annexe norme** doit obligatoirement être ajouté afin de pouvoir finaliser la déclaration. 
 
