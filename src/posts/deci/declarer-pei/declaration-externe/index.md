@@ -63,12 +63,18 @@ Le point d'eau nouvellement déclaré reste en statut *En attente de validation*
 
 10. Téléverser les documents necessaires à l'instruction de la déclaration du point d'eau. Il peut s'agir de photos, plans, fiches techniques... 
     
-    L'**annexe norme** doit obligatoirement être ajouté afin de pouvoir finaliser la déclaration. 
+    L'**annexe norme** doit obligatoirement être ajouté afin de pouvoir finaliser la déclaration: 
+    - Poteau ou bouche d’incendie : Annexe A ou B de la norme NFS 62-200 
+    - Citerne Souple :Annexe A des normes NFS 62-250 & NFS 62-240
+    - Autre citerne avec dispositif d’aspiration : Annexe A norme NFS 62-240
+    - Point d’aspiration équipé d’un dispositif d’aspiration :Annexe A norme NFS 62-240
+  
 
+ 
 11. Terminer, puis confirmer les informations renseignées.    
 ![décaration externe 04](https://metarisc-docs.s3.fr-par.scw.cloud/images/DECI/Declaration%20externe%2004_1024.jpg)
 
-12. De retour sur la première page du module de déclaration des points d'eau et la liste des PEI en cours de déclaration, vous pouvez, le cas échéant, compléter les informations relatives aux autres PEI (1) ou finaliser la déclaration (2). Un encart s'ouvre pour finaliser la déclaration et l'application vous confirme l'enregistrement du point d'eau.
+1.  De retour sur la première page du module de déclaration des points d'eau et la liste des PEI en cours de déclaration, vous pouvez, le cas échéant, compléter les informations relatives aux autres PEI (1) ou finaliser la déclaration (2). Un encart s'ouvre pour finaliser la déclaration et l'application vous confirme l'enregistrement du point d'eau.
 
 ![Déclaration externe 05](https://metarisc-docs.s3.fr-par.scw.cloud/images/DECI/Declaration%20externe%2005_1024.jpg)
 
