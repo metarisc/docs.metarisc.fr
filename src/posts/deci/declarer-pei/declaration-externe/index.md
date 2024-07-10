@@ -3,7 +3,7 @@ title: Déclaration externe
 date: 2023-01-01
 layout: layouts/post.liquid
 ---
-# Déclaration externe d'un point d'eau incendie #
+# Déclarer un point d'eau incendie avec un compte *invité* #
 
 
 {%
@@ -75,11 +75,11 @@ Le point d'eau nouvellement déclaré reste en statut *En attente de validation*
 11. Terminer, puis confirmer les informations renseignées.    
 ![décaration externe 04](https://metarisc-docs.s3.fr-par.scw.cloud/images/DECI/Declaration%20externe%2004_1024.jpg)
 
-1.  De retour sur la première page du module de déclaration des points d'eau et la liste des PEI en cours de déclaration, vous pouvez, le cas échéant, compléter les informations relatives aux autres PEI (1) ou finaliser la déclaration (2). 
+12. De retour sur la première page du module de déclaration des points d'eau et la liste des PEI en cours de déclaration, vous pouvez, le cas échéant, compléter les informations relatives aux autres PEI (1) ou finaliser la déclaration (2). 
 
     Un encart s'ouvre pour finaliser la déclaration et l'application vous confirme l'enregistrement du point d'eau.
 
 ![Déclaration externe 05](https://metarisc-docs.s3.fr-par.scw.cloud/images/DECI/Declaration%20externe%2005_1024.jpg)
 
 Un point d'eau déclaré par un compte invité reste avec le statut *"En attente de validation"*.
-Une notification est envoyée au SIS qui procédera aux démarches de contrôle de ce point d'eau.
+Une notification est envoyée au service d'incendie et de secours qui procédera aux démarches de contrôle de ce point d'eau.

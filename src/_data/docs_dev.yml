@@ -49,7 +49,7 @@ items:
         items:
           - text: Déclarer un PEI par un compte invité
             url: /posts/deci/declarer-pei/declaration-externe
-          - text: Créer un poteau d'eau
+          - text: Créer un PEI
             url: /posts/deci/declarer-pei/declaration-interne
       - text: Fiche PEI
         url: /posts/deci/fiche-pei
