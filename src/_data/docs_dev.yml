@@ -47,7 +47,7 @@ items:
             url: /posts/deci/indisponibilite/declaration-externe
       - text: Déclarer un PEI
         items:
-          - text: Déclaration externe
+          - text: Déclarer un PEI par un compte invité
             url: /posts/deci/declarer-pei/declaration-externe
           - text: Créer un poteau d'eau
             url: /posts/deci/declarer-pei/declaration-interne
