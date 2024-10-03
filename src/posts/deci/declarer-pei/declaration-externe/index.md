@@ -26,9 +26,12 @@ Le point d'eau nouvellement déclaré reste en statut *En attente de validation*
 
 
 1.  Depuis le site metarisc.fr, accéder à l'application.
-2.  Créer un compte. Les adresses mails extérieures à une organisation de type *Service d'Incendie et de Secours* garde un statut *Invité*.
-3. Depuis la barre larérale gauche, accéder au menu **DECI - Déclarer un PEI** 
-4. Dans l'espace de travail, cliquer sur **Commencer la déclaration**
+2.  Créer un compte.
+3.  Demander sa validation auprès de votre contact au sein du service d'incendie et de secours pour être associer à une organisation. 
+   Votre compte agargera le statut *Invité*.
+   
+4. Depuis la barre larérale gauche, accéder au menu **DECI - Déclarer un PEI** 
+5. Dans l'espace de travail, cliquer sur **Commencer la déclaration**
    
 ![Décmaration externe 01](https://metarisc-docs.s3.fr-par.scw.cloud/images/DECI/Declaration%20externe%2001_1024.jpg)
    
@@ -81,5 +84,5 @@ Le point d'eau nouvellement déclaré reste en statut *En attente de validation*
 
 ![Déclaration externe 05](https://metarisc-docs.s3.fr-par.scw.cloud/images/DECI/Declaration%20externe%2005_1024.jpg)
 
-Un point d'eau déclaré par un compte invité reste avec le statut *"En attente de validation"*.
+Un point d'eau déclaré par un compte invité reste avec le statut *"Déclaration en cours"*.
 Une notification est envoyée au service d'incendie et de secours qui procédera aux démarches de contrôle de ce point d'eau.
