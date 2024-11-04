@@ -28,7 +28,7 @@ Le point d'eau nouvellement déclaré reste en statut *En attente de validation*
 1.  Depuis le site metarisc.fr, accéder à l'application.
 2.  Créer un compte.
 3.  Demander sa validation auprès de votre contact au sein du service d'incendie et de secours pour être associer à une organisation. 
-   Votre compte agargera le statut *Invité*.
+   En tant que compte invité par une organisation, exemple un service d'incendie et de secours, votre compte gardera le statut *Invité*.
    
 4. Depuis la barre larérale gauche, accéder au menu **DECI - Déclarer un PEI** 
 5. Dans l'espace de travail, cliquer sur **Commencer la déclaration**
