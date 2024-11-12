@@ -1,0 +1,2 @@
+- name: main
+  version: https://raw.githubusercontent.com/metarisc/openapi/refs/heads/main/openapi.yaml
