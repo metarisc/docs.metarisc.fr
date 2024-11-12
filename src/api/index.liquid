@@ -11,7 +11,7 @@ eleventyNavigation:
     <form class="form-inline">
       <select class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
         {% for i in api_versions %}
-        <option value="{{ i.version }}">{{ i.name }}</option>
+        <option value="https://raw.githubusercontent.com/metarisc/openapi/refs/heads/{{ i.name }}/openapi.yaml">{{ i.name }}</option>
         {% endfor %}
       </select>
     </form>
@@ -32,17 +32,24 @@ eleventyNavigation:
 
   function switchVersion(url) {
     document.querySelector('elements-api').apiDescriptionUrl = url;
+    $('#apiurl').find('option').each(function() {
+      if ($(this).val() === url) {
+        $(this).attr('selected', 'selected');
+      } else {
+        $(this).removeAttr('selected');
+      }
+    });
   }
 
   $(document).ready(function() {
     const versions = {{ api_versions | json }};
+    /*
     const u = new URL(window.location.href);
     const version = u.searchParams.get("version") ?? 'main';
-
-    // search in versions array for the version with the name
     const url = versions.find(v => v.name === version).version;
+    */
 
-    switchVersion(url);
+    switchVersion("https://raw.githubusercontent.com/metarisc/openapi/refs/heads/main/openapi.yaml");
 
     $('#apiurl').on('change', function(event) {
       switchVersion($(this).find(":selected").val());
