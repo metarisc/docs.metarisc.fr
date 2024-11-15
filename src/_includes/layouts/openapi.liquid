@@ -3,8 +3,13 @@
   <head>
     <meta charset="utf-8">
     <title>Metarisc</title>
-    <link rel="stylesheet" href="{{ '/css/style.css' | url }}">
+    <link rel="stylesheet" href="{{ '/scss/style.css' | url }}">
     <link rel="stylesheet" href="https://unpkg.com/@stoplight/elements/styles.min.css">
+    <style text="text/css">
+      a:not(.navbar-brand) {
+        color: black !important;
+      }
+    </style>
   </head>
   <body>
     {{ content }}
