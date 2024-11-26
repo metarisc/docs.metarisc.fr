@@ -1,20 +1,17 @@
 ---
 layout: layouts/sidebar.liquid
-templateClass: tmpl-post
 ---
 
 <div class="row">
 
-  <div class="col-10">
-
+  <!-- Contenu de l'article -->
+  <div class="col-10 post">
     <div class="mb-4">
-
       {{ content }}
-
     </div>
-
   </div>
 
+  <!-- Liens d'accès rapide au post -->
   <div class="col-2">
     <div class="mt-4 mb-4">
       {% render "mapTitles" %}

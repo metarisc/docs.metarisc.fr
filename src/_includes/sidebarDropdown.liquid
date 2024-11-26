@@ -1,33 +1,54 @@
-{% for category in list %}
+<!-- Current page URL (without trailing slash) -->
+{% assign current_page =  page.url | remove_last: '/' %}
 
+<!-- Track level of sub-renders -->
+{% if level %}
+  {% assign level = level | plus: 1 %}
+{% else %}
+  {% assign level = 1 %}
+{% endif %}
+
+<!-- Loop through each category of the sidebar -->
+{% for category in list %}
+  
+  <!-- Set title to either title or text -->
   {% if category.title %}
     {% assign title = category.title %}
   {% else %}
     {% assign title = category.text %}
   {% endif %}
 
+  <!-- If category has nested pages (items), render a dropdown -->
   {% if category.items %}
-    <li class="w-100">
-      <a
-        href="#submenu-{{ title | replace: " ", "" }}"
-        data-bs-toggle="collapse"
-        class="nav-link px-0 align-middle category-dropdown w-100">
-        <div class="d-flex justify-content-between w-100">
-          <span class="ms-1 d-none d-sm-inline fw-500">{{ title }}</span>
-          <i class="i-arrow my-auto"></i>
-        </div>
-      </a>
-      <div class="collapse nav" id="submenu-{{ title | replace: " ", "" }}">
-        <ul class="d-flex flex-column gap-1 w-100">
-          {% render "sidebarDropdown"
-            , list: category.items %}
+    <li class="sidebar-group w-100">
+      {% case level %}
+        {% when 1 %}
+          <a
+            href="#submenu-{{ title | replace: " ", "" }}"
+            data-bs-toggle="collapse"
+            class="nav-link px-0 align-middle category-dropdown">
+            {{ title }}
+            <i class="i-arrow my-auto" style="height: 8px"></i>
+          </a>
+        {% else %}
+          <a
+            href="#submenu-{{ title | replace: " ", "" }}"
+            data-bs-toggle="collapse"
+            class="nav-link p-0 align-middle category-dropdown">
+            {{ title }}
+            <i class="i-arrow my-auto" style="height: 8px"></i>
+          </a>
+      {% endcase %}
+      <div class="collapse nav hide" id="submenu-{{ title | replace: " ", "" }}">
+        <ul class="d-flex flex-column w-100 fw-light p-1">
+          {% render "sidebarDropdown", list: category.items, level: level, page: page %}
         </ul>
       </div>
     </li>
   {% else %}
-    {% render "sidebarLink"
-      , title: title 
-      , url: category.url %}
+    <li>
+      <a href="{{ category.url }}" class="px-0 {% if category.url contains current_page %}active-link{% endif %} align-middle">{{ title }}</a>
+    </li>
   {% endif %}
 
 {% endfor %}

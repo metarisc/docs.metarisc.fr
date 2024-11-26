@@ -1,36 +1,37 @@
 ---
-  layout: layouts/home.liquid
+layout: layouts/home.liquid
 ---
 
-<div class="container-fluid">
+<div class="container">
 
   <div class="row flex-nowrap d-flex">
 
-    <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 side-bar">
+    <div class="col-auto col-md-4 col-xl-3 px-sm-2 px-0 side-bar">
 
       <div class="d-flex flex-column align-items-center align-items-sm-start pt-2 text-white min-vh-100">
 
         <!-- Logo de metarisc -->
         <div class="page-header pb-1">
-          <a class="navbar-brand ps-2" href="/">
-            <img src="/img/logo.svg" alt="Metarisc" class="ms-1" width="125px">
+          <a class="navbar-brand" href="/">
+            <img src="/img/logo.svg" alt="Metarisc" width="40" height="40">
+            <span class="fs-3 fw-bold" style="vertical-align: middle">METARISC</span>
+            <span class="badge bg-white text-dark h-100 my-auto fs-6" style="vertical-align: middle">DOCS</span>
           </a>
-          <span class="badge bg-white text-dark h-100 my-auto fs-5">DOCS</span>
         </div>
 
         <!-- Choix de la version -->
         {% render "selectVersion", versions: versions %}
 
         <!-- Liens de l'arbre de navigation -->
-        <ul class="nav nav-pills flex-column text-light gap-1 mb-sm-auto mb-0 align-items-center align-items-sm-start">
-          {% render "sidebarDropdown", list: docs_dev.items %}
+        <ul id="sidebar" class="nav nav-pills flex-column text-light mb-sm-auto mb-0 align-items-center align-items-sm-start">
+          {% render "sidebarDropdown", list: docs_dev.items, page: page %}
         </ul>
         
       </div>
 
     </div>
 
-    <div class="col-8 py-3 ms-3  ">
+    <div class="col-7 py-3 ms-3  ">
 
       <!-- Breadcrumb -->
       <div class="mb-4">
@@ -38,6 +39,7 @@
         {% render "breadcrumbs", list: docs_dev.items, url: pageUrl %}
       </div>
 
+      <!-- Contenu -->
       {{ content }}
 
     </div>
