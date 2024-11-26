@@ -9,7 +9,7 @@ layout: layouts/post.liquid
    Accéder au module de recherche en cliquant sur la loupe. 
 
 
- ![Recherche_01](https://metarisc-docs.s3.fr-par.scw.cloud/images/Recherche/recherche_01.jpg)
+ ![Recherche_01](https://metarisc-docs.s3.fr-par.scw.cloud/images/Recherche/recherche_01%201024.png)
 
 Le module de recherche s'ouvre. 
 
@@ -17,7 +17,7 @@ Le module de recherche s'ouvre.
 
 
 1. Choisir le module dans lequel vous souhaitez effectuer votre recherche (1) 
-2. Saisir dans la barre de recherche une référence, un mot clé, une adresse ou encore des coordonnées GPS (2). L'application effectue filtre les résulats.
+2. Saisir dans la barre de recherche une référence, un mot clé, encore des coordonnées GPS (2). L'application effectue filtre les résulats.
 3. Cliquer sur la référence de l'objet (3) pour entrer dans la fiche d'identité de l'objet.
 
 ![Recherhe_02](https://metarisc-docs.s3.fr-par.scw.cloud/images/Recherche/recherche_02.jpg)
