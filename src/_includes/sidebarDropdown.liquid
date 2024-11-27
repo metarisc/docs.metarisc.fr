@@ -47,7 +47,7 @@
     </li>
   {% else %}
     <li>
-      <a href="{{ category.url }}" class="px-0 {% if category.url contains current_page %}active-link{% endif %} align-middle">{{ title }}</a>
+      <a href="{{ category.url }}" class="px-0 {% if current_page != "" and category.url contains current_page %}active-link{% endif %} align-middle">{{ title }}</a>
     </li>
   {% endif %}
 
