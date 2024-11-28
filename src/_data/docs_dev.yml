@@ -57,6 +57,10 @@ items:
     items:
       - text: Effectuer une recherche
         url: /posts/commun/recherche
+  - title: Génération des rapports
+    items:
+      - text: Générer un rapport
+        url: /posts/rapport/generer
   - title: Paramétrage organisation
     items:
       - text: Les RDDECI
