@@ -62,4 +62,4 @@ Pour mettre en page votre fichier csv sur un format xls :
    -  Séparateur : *Virgules*
 -  
 ## Le tuto filmé
-<video controls src="https://metarisc-docs.s3.fr-par.scw.cloud/Tutos/Recherche.mp4?">La description alternative</video>
+<video controls src="https://metarisc-docs.s3.fr-par.scw.cloud/Tutos/Recherche.mp4">Vidéo de présentation sur la recherche</video>
