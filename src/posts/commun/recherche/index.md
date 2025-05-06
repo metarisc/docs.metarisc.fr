@@ -47,3 +47,19 @@ Metarisc vous propose un ou plusieurs résultats.
 Cliquer sur votre sélection. 
 Le résultat de votre est mise en évidence dans un polygone dessinait sur la carte. 
 ![recherche_06](https://metarisc-docs.s3.fr-par.scw.cloud/images/Recherche/recherche_06_1024.jpg)
+
+## Exporter vos résultats de recherche
+Vous avez la possiblité d'exporter vos résultats de recherche sur un tableur (.xls, .ods ...).
+1. Dans la zone de recherche, cliquer sur le bouton export à droite de l'écran. 
+Pour mettre en page votre fichier csv sur un format xls :
+2. Ouvrer un nouveau document dans votre tableur.
+3. Dans l'onglet *Données*, cliquer sur *Fichier text* (données externes)
+4. Sélectionner le document .csv téléchargé, une fenêtre *assistant importation* s'ouvre.
+5. Vérifier ou modifier les choix de la manière suivante
+   -  Type de fichier : *Délimité*
+   -  Origine du fichier : *65001 unicode (utf-8)*. Ce choix permettra une gestion correcte des accents
+   -  *Mes données ont des en-têtes* activé.
+   -  Séparateur : *Virgules*
+-  
+## Le tuto filmé
+<video controls src="https://metarisc-docs.s3.fr-par.scw.cloud/Tutos/Recherche.mp4">Vidéo de présentation sur la recherche</video>
