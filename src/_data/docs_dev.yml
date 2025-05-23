@@ -57,10 +57,18 @@ items:
     items:
       - text: Effectuer une recherche
         url: /posts/commun/recherche
-  - title: Génération des rapports
+  - title: Génération des PDF
     items:
-      - text: Générer un rapport
-        url: /posts/rapport/generer
+      - text: Introduction
+        url: /posts/pdf/intro
+      - text: Générer un rapport d'étude
+        url: /posts/pdf/generer-re
+      - text: Générer un compte de rendu de commission
+        url: /posts/pdf/generer-cr
+      - text: Générer un procès verbal de commission
+        url: /posts/pdf/generer-pv
+      #- text: Générer une convocation de commission
+        #url: /posts/pdf/generer-convoc
   - title: Paramétrage organisation
     items:
       - text: Les RDDECI
