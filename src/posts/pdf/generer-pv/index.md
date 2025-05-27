@@ -26,6 +26,23 @@ Ce document permet au maire de prendre connaissance de l’avis de la commission
 	"dossier.objet": "Reclassement : types X - L de 2ème catégorie\r\nUE : Véhicules de la libération les 18 et 19.05.2019",
 	"dossier.informations.numero_urba": "AT620000",
     "dossier.informations.service_instructeur": "MAIRIE ARRAS",
+	"dossier.rapport_etude.documents_techniques": [
+		{
+			"libelle": "Plans"
+		}
+	],
+	"dossier.rapport_etude.textes_applicables": [
+		{
+			"texte": "25 juin 1980"
+		}
+	],
+	"dossier.rapport_etude.prescriptions": [
+		{
+			"numero": 1,
+			"contenu": "Permettre l'évacuation du public et faciliter l'intervention des secours par la mise en place d'un éclairage de sécurité assurant les fonctions \"d'évacuation et d'ambiance ou antipanique\". \r\nCet éclairage doit être assuré :\r\n- soit par des blocs autonomes d'éclairage de sécurité ;\r\n- soit par une (arrêté du 19 novembre 2001) \"source centralisée\" ;\r\n- soit par la combinaison d'une (arrêté du 19 novembre 2001) \"source centralisée\" et de blocs autonomes.\r\n\r\n «L'éclairage d'évacuation» doit permettre à toute personne d'accéder à l'extérieur de l'établissement à l'aide de foyers lumineux assurant la signalisation des issues.\r\n\r\n",
+			"type": "liee_a_l_exploitation"
+		}
+	],
     "erp.commune": "LOCON",
 	"erp.adresse": "RUE VICTOR GENEL 62400 LOCON",
 	"erp.libelle": "Salle omnisports",
