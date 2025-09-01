@@ -1,8 +1,4 @@
-const EleventyFetch = require("@11ty/eleventy-fetch");
-
+// Temporarily disabled API fetch for testing
 module.exports = async function () {
-	return EleventyFetch("https://api.github.com/repos/metarisc/openapi/branches", {
-		duration: "0s",
-		type: "json",
-	});
+	return [];
 };
