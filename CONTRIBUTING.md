@@ -52,8 +52,6 @@ npm run generate
 
 Cette commande génère les fichiers statiques dans le dossier `dist/`.
 
-**Note :** Si vous rencontrez des erreurs liées à l'API GitHub (`Bad response for https://api.github.com/repos/metarisc/openapi/branches (403): Forbidden`), consultez la section [Dépannage](#dépannage) ci-dessous.
-
 ## Structure de la documentation
 
 ### Organisation des fichiers
@@ -62,7 +60,7 @@ Cette commande génère les fichiers statiques dans le dossier `dist/`.
 src/
 ├── _data/
 │   ├── docs_dev.yml          # Navigation principale
-│   ├── api_versions.js       # Versions de l'API
+│   ├── api_versions.js       # Versions de l'API REST
 │   └── versions.yml          # Métadonnées des versions
 ├── _includes/
 │   ├── layouts/              # Templates de page
@@ -126,82 +124,6 @@ Utilisez le composant `alert` pour afficher des messages importants :
 
 Niveaux disponibles : `info`, `warning`, `danger`, `success`
 
-#### Liens et navigation
-
-- Utilisez des liens relatifs : `/posts/ma-section/ma-page`
-- Les liens externes doivent avoir `target="_blank"`
-
-#### Images
-
-Stockez les images dans `src/img/` et référencez-les ainsi :
-
-```markdown
-![Description](https://metarisc-docs.s3.fr-par.scw.cloud/images/dossier/image.png)
-```
-
-### Guidelines de rédaction
-
-1. **Clarté** : Utilisez un langage simple et précis
-2. **Structure** : Organisez le contenu avec des titres hiérarchiques
-3. **Exemples** : Incluez des exemples concrets et des captures d'écran
-4. **Cohérence** : Respectez la terminologie utilisée dans Metarisc
-5. **Accessibilité** : Utilisez des textes alternatifs pour les images
-
-## Ajouter une nouvelle page
-
-### 1. Créer le fichier
-
-Créez un nouveau dossier et fichier sous `src/posts/` :
-
-```bash
-mkdir -p src/posts/ma-section/ma-nouvelle-page
-touch src/posts/ma-section/ma-nouvelle-page/index.md
-```
-
-### 2. Rédiger le contenu
-
-Ajoutez le front matter et le contenu :
-
-```markdown
----
-title: Ma nouvelle page
-date: 2024-01-01
-layout: layouts/post.liquid
----
-
-# Ma nouvelle page
-
-Contenu de votre documentation...
-```
-
-### 3. Ajouter à la navigation
-
-Modifiez `src/_data/docs_dev.yml` pour inclure votre page :
-
-```yaml
-- title: Ma section
-  items:
-    - text: Ma nouvelle page
-      url: /posts/ma-section/ma-nouvelle-page
-```
-
-## Tester vos modifications
-
-### 1. Vérification locale
-
-- Démarrez le serveur de développement : `npm run serve`
-- Naviguez vers `http://localhost:8000`
-- Vérifiez que votre page s'affiche correctement
-- Testez la navigation et les liens
-
-### 2. Build de production
-
-```bash
-npm run generate
-```
-
-Vérifiez qu'il n'y a pas d'erreurs de build.
-
 ## Processus de contribution
 
 ### 1. Fork et branche
@@ -247,60 +169,3 @@ git push origin feature/ma-nouvelle-fonctionnalite
 ## Déploiement
 
 Le site est automatiquement déployé sur Scaleway lors des merges sur la branche principale. Aucune action manuelle n'est nécessaire.
-
-## Dépannage
-
-### Erreur d'API GitHub lors du build
-
-Si vous rencontrez l'erreur suivante lors de la génération :
-
-```
-Bad response for https://api.github.com/repos/metarisc/openapi/branches (403): Forbidden
-```
-
-Cela est dû à des limitations d'accès à l'API GitHub. Pour contourner temporairement ce problème :
-
-1. Sauvegardez le fichier original :
-```bash
-cp src/_data/api_versions.js src/_data/api_versions.js.bak
-```
-
-2. Modifiez temporairement `src/_data/api_versions.js` :
-```javascript
-// Temporarily disabled API fetch for testing
-module.exports = async function () {
-	return [];
-};
-```
-
-3. Lancez votre build ou serveur de développement
-4. Restaurez le fichier original avant de commiter :
-```bash
-mv src/_data/api_versions.js.bak src/_data/api_versions.js
-```
-
-### Problèmes de dépendances
-
-Si vous rencontrez des erreurs lors de `npm install`, essayez :
-
-```bash
-rm -rf node_modules package-lock.json
-npm install
-```
-
-## Ressources
-
-- [Documentation Eleventy](https://www.11ty.dev/docs/)
-- [Syntaxe Markdown](https://www.markdownguide.org/)
-- [Bootstrap 5](https://getbootstrap.com/docs/5.0/)
-- [Liquid Template Language](https://shopify.github.io/liquid/)
-
-## Besoin d'aide ?
-
-Si vous rencontrez des difficultés ou avez des questions :
-
-1. Consultez les issues existantes sur GitHub
-2. Ouvrez une nouvelle issue avec le label `question`
-3. Regardez les exemples existants dans le repository
-
-Merci pour votre contribution à l'amélioration de la documentation Metarisc !
