@@ -16,6 +16,7 @@
   "dependencies": {
     "@11ty/eleventy-fetch": "^4.0.1",
     "bootstrap": "^5.3.3",
-    "eleventy-sass": "^2.2.4"
+    "eleventy-sass": "^2.2.4",
+    "html-minifier-terser": "^7.2.0"
   }
 }
