@@ -15,7 +15,7 @@ COPY .eleventy.js .eleventy.js
 RUN npm run generate
 
 # Phase 2 : set up nginx http server
-FROM nginx:1.24-alpine
+FROM nginx:1.27-alpine
 
 # Healthcheck routine.
 RUN apk add curl
