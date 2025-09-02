@@ -1,6 +1,7 @@
 const sass = require("eleventy-sass");
 const yaml = require("js-yaml");
 const htmlmin = require("html-minifier-terser");
+const multiEnvironmentPlugin = require('./plugins/environment.js');
 
 module.exports = function(eleventyConfig) {
   eleventyConfig.addPlugin(sass);
@@ -27,7 +28,14 @@ module.exports = function(eleventyConfig) {
     // If not an HTML output, return content as-is
     return content;
   });
-  
+
+  // Multi-environment plugin
+  eleventyConfig.addPlugin(multiEnvironmentPlugin, {
+    defaultEnvironments: ['', 'preview', 'staging'],
+    permalinkPattern: "{{ currentEnv }}/{{ page.filePathStem }}.{{ page.outputFileExtension }}",
+    alias: 'currentEnv'
+  });
+
   return {
     templateFormats: ['html', 'liquid', 'md', 'njk'],
     dir: {
