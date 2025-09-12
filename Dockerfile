@@ -11,6 +11,7 @@ RUN npm ci
 
 # Build routine
 COPY src src
+COPY plugins plugins
 COPY .eleventy.js .eleventy.js
 RUN npm run generate
 
