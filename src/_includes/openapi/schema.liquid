@@ -1,0 +1,41 @@
+<div class="card p-1 mb-1">
+
+    coucou
+
+    <span class="text-muted">{{ schema.type }}</span>
+
+    {% if schema.enum %}
+    Valeurs possibles :
+    <ul>
+    {%- for value in schema.enum -%}
+    <li>{{ value }}</li>
+    {%- endfor -%}
+    </ul>
+    {% endif %}
+
+    {% if schema.type == "object" %}
+        {%- for property in schema.properties -%}
+        {{ property[0] }}
+        {% render 'openapi/schema' with property[1] as schema %}
+        {%- endfor -%}
+    {% elsif schema.type == "array" %}
+        {% assign item_schema = schema.items %}
+        {% render 'openapi/schema' with item_schema as schema %}
+        {% if schema.uniqueItems | default: false %}
+        <span class="badge text-bg-info">unique items</span>
+        {% endif %}
+    {% endif %}
+
+    {%- for subschema in schema.allOf -%}
+    {% render 'openapi/schema' with subschema as schema %}
+    {%- endfor -%}
+
+    {%- for subschema in schema.oneOf -%}
+    {% render 'openapi/schema' with subschema as schema %}
+    {%- endfor -%}
+
+    {%- for subschema in schema.anyOf -%}
+    {% render 'openapi/schema' with subschema as schema %}
+    {%- endfor -%}
+
+</div>
