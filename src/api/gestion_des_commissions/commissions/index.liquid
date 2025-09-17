@@ -1,0 +1,101 @@
+---
+layout: layouts/base.liquid
+title: My Posts
+pagination:
+  data: openapi.operationsTags
+  alias: tag
+  size: 1
+permalink: "api/{{ pagination.items[0] | slugify }}/index.html"
+---
+
+<h1>
+  Points de terminaison d’API REST pour {{ tag }}
+</h1>
+
+{% # On parcourt toutes les chemins de l'API %}
+{%- for path in openapi.paths  -%}
+
+  {% # Sur chaque chemin, on récupère les méthodes exposées et les opérations associées %}
+  {%- for method in path[1]  -%}
+
+
+    {%  assign pageTag = method[1].tags[0] | replace: ' API', '' | slugify  %}
+    {%  assign operationTag = tag | replace: ' API', '' | slugify  %}
+
+    {%- if pageTag != operationTag -%}
+      {%- continue -%}
+    {%- endif -%}
+
+    <div class="card mb-2 p-1">
+      <h2>{{ method[1].summary }}</h2>
+      <p>{{ method[1].description }}</p>
+
+      <span class="badge text-bg-secondary">{{ method[1].operationId }}</span>
+      <span class="badge text-bg-secondary">{{ method[1].tags[0] }}</span>
+
+      Paramètres :
+      {%- if method[1].parameters == null -%}
+        <p>Aucun paramètre.</p>
+      {%- else -%}
+      <ul>
+      {%- for parameter in method[1].parameters  -%}
+        <li>
+          {{ parameter.name }} <span class="text-muted">{{ parameter.schema.type }}</span> (in: {{ parameter.in }})<br>
+          {{ parameter.description }}
+          {% if parameter['x-extension-metarisc-param-multiple'] | default: false %}
+            <span class="badge text-bg-info"">multiple</span>
+          {% endif %}
+        </li>
+      {%- endfor -%}
+      </ul>
+      {%- endif -%}
+
+      <hr>
+
+      Paramètres du corps de la requête :
+      {%- if method[1].requestBody == null -%}
+        <p>Aucun paramètre.</p>
+      {%- else -%}
+      <ul>
+      {% assign requestBody = method[1].requestBody.content["application/json"].schema %}
+      {%- for property in requestBody.properties -%}
+        <li>
+          {{ property[0] }} <span class="text-muted">{{ property[1].type }}</span><br>
+          {{ property[1].description }}
+        </li>
+      {%- endfor -%}
+      </ul>
+      {%- endif -%}
+
+      Réponses :
+      {%- if method[1].responses == null -%}
+        <p>Aucune réponse.</p>
+      {%- else -%}
+      {%- for response in method[1].responses  -%}
+        <strong>{{ response[0] }}</strong> <span class="text-muted">{{ response[1].description }}</span>
+
+        {%- if response[1].content != null and response[1].content["application/json"].schema.properties != null -%}
+        <ul>
+        {% assign responseSchema = response[1].content["application/json"].schema %}
+        {%- for property in responseSchema.properties -%}
+          <li>
+            {{ property[0] }} <span class="text-muted">{{ property[1].type }}</span><br>
+            {{ property[1].description }}
+          </li>
+        {%- endfor -%}
+        </ul>
+        {%- endif -%}
+
+      {%- endfor -%}
+      {%- endif -%}
+
+      <hr>
+
+      {{ method[0] | upcase }}
+      {{ path[0] }}
+      
+    </div>
+
+  {%- endfor -%}
+
+{%- endfor -%}

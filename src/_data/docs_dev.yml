@@ -91,4 +91,3 @@ items:
         url: /posts/developpeur
       - text: Documentation de référence
         url: /api
-        external: true
