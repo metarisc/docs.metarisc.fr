@@ -1,14 +1,30 @@
 <div class="card p-1 mb-1">
 
-    coucou
+    <p>
+        <span class="fw-bold">{{ title | escape | default: schema.title }}</span>
+        <span class="text-muted">{{ schema.type | escape }}</span>
 
-    <span class="text-muted">{{ schema.type }}</span>
+        {% # Indication si le champ est requis %}
+        {{ schema.required | has title }}
+        {% if schema.required contains title %}
+            <span class="badge text-bg-danger">requis</span>
+        {% endif %}
+
+        {% # Indication si le champ est nullable %}
+        {% if schema.nullable %}
+            <span class="badge text-bg-warning">nullable</span>
+        {% endif %}
+    </p>
+
+    <p>
+        {{ description | escape | default: schema.description | escape }}
+    </p>
 
     {% if schema.enum %}
     Valeurs possibles :
     <ul>
     {%- for value in schema.enum -%}
-    <li>{{ value }}</li>
+    <li>{{ value | escape }}</li>
     {%- endfor -%}
     </ul>
     {% endif %}

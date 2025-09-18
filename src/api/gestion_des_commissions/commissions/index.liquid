@@ -1,5 +1,5 @@
 ---
-layout: layouts/base.liquid
+layout: layouts/sidebar.liquid
 title: My Posts
 pagination:
   data: openapi.operationsTags
@@ -8,79 +8,121 @@ pagination:
 permalink: "api/{{ pagination.items[0] | slugify }}/index.html"
 ---
 
-<h1>
+<h1 class="mb-4">
   Points de terminaison d'API REST pour {{ tag }}
 </h1>
 
-{% # On parcourt toutes les chemins de l'API %}
+<hr>
+
+{% # On parcourt tous les chemins de l'API %}
 {%- for path in openapi.paths  -%}
 
   {% # Sur chaque chemin, on récupère les méthodes exposées et les opérations associées %}
   {%- for method in path[1]  -%}
 
-    {%  assign pageTag = method[1].tags[0] | replace: ' API', '' | slugify  %}
-    {%  assign operationTag = tag | replace: ' API', '' | slugify  %}
-
+    {% # On vérifie que le tag de la méthode correspond au tag de la page %}
+    {% assign pageTag = method[1].tags[0] | replace: ' API', '' | slugify %}
+    {% assign operationTag = tag | replace: ' API', '' | slugify %}
     {%- if pageTag != operationTag -%}
       {%- continue -%}
     {%- endif -%}
 
-    <div class="card mb-2 p-1">
-      <h2>{{ method[1].summary }}</h2>
-      <p>{{ method[1].description }}</p>
+    <div class="mb-2 p-1">
 
-      <span class="badge text-bg-secondary">{{ method[1].operationId }}</span>
-      <span class="badge text-bg-secondary">{{ method[1].tags[0] }}</span>
+      <div class="row">
 
-      Paramètres :
-      {%- if method[1].parameters == null -%}
-        <p>Aucun paramètre.</p>
-      {%- else -%}
-      <ul>
-      {%- for parameter in method[1].parameters  -%}
-        <li>
-          {{ parameter.name }} (in: {{ parameter.in }}) : {{ parameter.description }}
-          {% if parameter['x-extension-metarisc-param-multiple'] | default: false %}
-            <span class="badge text-bg-info"">multiple</span>
+        {% # Partie gauche : documentation de l'endpoint %}
+        <div class="col-6">
+
+          {% # Affichage de l'operationid, utile pour les développeurs %}
+          <div class="float-end">
+            <span class="badge text-bg-secondary">{{ method[1].operationId }}</span>
+          </div>
+
+          {% # Informations générales de l'endpoint %}
+          <h2 class="mb-4">{{ method[1].summary }}</h2>
+          <p class="mb-4">{{ method[1].description }}</p>
+
+          {% # On vérifie si l'en-tête Metarisc-Org-Id est requis # %}
+          {% assign metariscOrgHeader = method[1].parameters | where: 'in', 'header' | where: 'name', 'Metarisc-Org-Id' | size %}
+          {% if metariscOrgHeader > 0 %}
+          <div class="alert alert-info" role="alert">
+            <strong>Note :</strong> L'en-tête HTTP <code>Metarisc-Org-Id</code> est requis pour cette opération.
+          </div>
           {% endif %}
-          {% assign parameter_schema = parameter.schema %}
-          {% render 'openapi/schema' with parameter_schema as schema %}
-        </li>
-      {%- endfor -%}
-      </ul>
-      {%- endif -%}
 
-      <hr>
+          {% # Paramètres de la requête %}
+          {% assign parameters_query = method[1].parameters | where: 'in', 'query' -%}
+          {% assign parameters_query_size = parameters_query | size -%}
+          {%- if parameters_query_size > 0 -%}
+            <h3 class="fs-5 pb-2 mb-2">Paramètres</h3>
+            {%- for parameter in parameters_query -%}
+              {% if parameter['x-extension-metarisc-param-multiple'] | default: false %}
+                <span class="badge text-bg-info">multiple</span>
+              {% endif %}
+              {% assign parameter_schema = parameter.schema %}
+              {% render 'openapi/schema', schema: parameter_schema, title: parameter.name, description: parameter.description %}
+            {%- endfor -%}
+          {%- endif -%}
 
-      Paramètres du corps de la requête :
-      {%- if method[1].requestBody == null -%}
-        <p>Aucun paramètre.</p>
-      {%- else -%}
-      {% assign request_schema = method[1].requestBody.content["application/json"].schema %}
-      {% render 'openapi/schema' with request_schema as schema %}
-      {%- endif -%}
+          {% # Schéma du corps de la requête %}
+          {%- if method[1].requestBody != null -%}
+            <h3 class="fs-5 pb-2 mb-2">Paramètres du corps de la requête</h3>
+            {% assign request_schema = method[1].requestBody.content["application/json"].schema %}
+            {% render 'openapi/schema' with request_schema as schema %}
+          {%- endif -%}
 
-      Réponses :
-      {%- if method[1].responses == null -%}
-        <p>Aucune réponse.</p>
-      {%- else -%}
-      {%- for response in method[1].responses  -%}
-        <strong>{{ response[0] }}</strong> <span class="text-muted">{{ response[1].description }}</span>
+          {% # Schéma des réponses %}
+          <h3 class="fs-5 pb-2 mb-2">Réponses</h3>
+          {%- if method[1].responses != null -%}
+            {%- for response in method[1].responses  -%}
 
-        {%- if response[1].content != null and response[1].content["application/json"].schema != null -%}
-        {% assign response_schema = response[1].content["application/json"].schema %}
-        {% render 'openapi/schema' with response_schema as schema %}
-        {%- endif -%}
+              {% # On affiche uniquement les 200, 201 ou 204 pour simplifier la lecture de la doc %}
+              {%- if response[0] != "200" and response[0] != "201" and response[0] != "204" -%}
+                {%- continue -%}
+              {%- endif -%}
 
-      {%- endfor -%}
-      {%- endif -%}
+              <p class="mb-2">
+                <strong class="badge text-bg-success">{{ response[0] }}</strong>
+                <span class="text-muted">{{ response[1].description }}</span>
+              </p>
 
-      <hr>
+              {%- if response[1].content != null and response[1].content["application/json"].schema != null -%}
+              {% assign response_schema = response[1].content["application/json"].schema %}
+              {% render 'openapi/schema' with response_schema as schema %}
+              {%- endif -%}
 
-      {{ method[0] | upcase }}
-      {{ path[0] }}
-      
+            {%- endfor -%}
+          {%- endif -%}
+
+        </div>
+
+        {% # Partie droite : HTTP Rest illustration %}
+        <div class="col-6">
+
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">
+                {{ method[0] | upcase }} {{ path[0] }}
+              </h5>
+              <pre><code>{{ method[0] | upcase }} {{ path[0] }} HTTP/1.1
+Host: api.example.com
+Content-Type: application/json
+{
+  "param1": "value1",
+  "param2": "value2"
+}
+</code></pre>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
     </div>
+
+    <hr>
 
   {%- endfor -%}
 

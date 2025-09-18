@@ -4,7 +4,7 @@ const refRes = require("@json-schema-tools/reference-resolver");
 
 module.exports = async function () {
 	return EleventyFetch("https://raw.githubusercontent.com/metarisc/openapi/refs/heads/main/openapi.yaml", {
-		duration: "0s",
+		duration: "3600s",
 		type: "text"
 	}).then(async (data) => {
 		const expandRefs = async (schema, maxEvalsPerObj = 100) => {
