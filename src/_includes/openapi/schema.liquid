@@ -1,12 +1,12 @@
 <div class="card p-1 mb-1">
 
     <p>
-        <span class="fw-bold">{{ title | escape | default: schema.title }}</span>
-        <span class="text-muted">{{ schema.type | escape }}</span>
+        <code class="fw-bold">{{ title | escape | default: schema.title | escape }}</code>
+        <span class="text-muted fs-6">{{ schema.type | escape }}</span>
 
         {% # Indication si le champ est requis %}
-        {{ schema.required | has title }}
-        {% if schema.required contains title %}
+        {% assign isRequired = schema | where: "required", title | size %}
+        {% if isRequired > 0 %}
             <span class="badge text-bg-danger">requis</span>
         {% endif %}
 
@@ -16,23 +16,42 @@
         {% endif %}
     </p>
 
+    {% # Description du schéma, sauf si c'est une énumération car pour ce dernier un format spécial est généré %}
+    {% unless schema.enum %}
     <p>
-        {{ description | escape | default: schema.description | escape }}
+        {{ description | escape  }}
+        {{ schema.description | escape }}
     </p>
-
+    {% endunless %}
+    
+    {% # Liste des valeurs possibles pour une énumération %}
     {% if schema.enum %}
-    Valeurs possibles :
-    <ul>
-    {%- for value in schema.enum -%}
-    <li>{{ value | escape }}</li>
-    {%- endfor -%}
-    </ul>
+    {% assign enumDesc = schema.description | enumDesc %}
+    <p>
+        {{ enumDesc[0] | escape }}
+        <table class="table table-sm table-bordered m-0">
+            <thead>
+                <tr>
+                    <th class="fw-normal fs-5">Valeurs possibles</th>
+                </tr>
+            </thead>
+            <tbody>
+                {%- for enum in enumDesc[1] -%}
+                <tr>
+                    <td class="p-1">
+                        <small class="mb-2 d-inline-block"><code>{{ enum.value | escape }}</code></small><br/>
+                        {{ enum.desc | escape }}
+                    </td>
+                </tr>
+                {%- endfor -%}
+            </tbody>
+        </table>
+    </p>
     {% endif %}
 
     {% if schema.type == "object" %}
         {%- for property in schema.properties -%}
-        {{ property[0] }}
-        {% render 'openapi/schema' with property[1] as schema %}
+        {% render 'openapi/schema', schema: property[1], title: property[0] %}
         {%- endfor -%}
     {% elsif schema.type == "array" %}
         {% assign item_schema = schema.items %}
