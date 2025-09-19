@@ -31,6 +31,32 @@ module.exports = function(eleventyConfig) {
                 bulletValues
             ];
         });
+
+        eleventyConfig.addFilter("parameters", function(parameters) {
+            parametersFiltered = parameters.filter((parameter) => {
+                return parameter.in === 'query'
+                    && parameter.name !== 'page'
+                    && parameter.name !== 'per_page'
+                    && parameter.name !== 'sort';
+            });
+            return parametersFiltered.sort((a, b) => {
+                if (a.required && !b.required) return -1;
+                if (!a.required && b.required) return 1;
+                return a.name.localeCompare(b.name);
+            });
+        });
+
+        eleventyConfig.addFilter("moreParameters", function(parameters) {
+            parametersFiltered = parameters.filter((parameter) => {
+                return parameter.in === 'query'
+                    && (parameter.name == 'page' || parameter.name == 'per_page' || parameter.name == 'sort');
+            });
+            return parametersFiltered.sort((a, b) => {
+                if (a.required && !b.required) return -1;
+                if (!a.required && b.required) return 1;
+                return a.name.localeCompare(b.name);
+            });
+        });
         
     });
 
