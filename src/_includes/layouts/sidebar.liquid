@@ -13,7 +13,7 @@ layout: layouts/home.liquid
         <a class="navbar-brand" href="/">
           <img src="/img/logo.svg" alt="Metarisc" width="40" height="40">
           <span class="fs-3 fw-bold" style="vertical-align: middle">METARISC</span>
-          <span class="badge bg-white text-dark h-100 my-auto fs-6" style="vertical-align: middle">DOCS</span>
+          <span class="badge bg-white text-dark my-auto fs-6" style="vertical-align: middle">DOCS</span>
         </a>
       </div>
 
@@ -33,10 +33,10 @@ layout: layouts/home.liquid
 
   <div class="d-flex flex-column flex-shrink-0" style="width: calc(100% - 280px - 1.5rem);">
 
-    <div class="container">
+    <div class="container-fluid">
 
       <!-- Breadcrumb -->
-      <div class="mb-4">
+      <div class="mb-4 mt-4">
         {% assign pageUrl = page.url | remove_last: '/' %}
         {% render "breadcrumbs", list: docs_dev.items, url: pageUrl %}
       </div>

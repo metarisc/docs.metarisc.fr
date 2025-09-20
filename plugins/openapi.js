@@ -58,6 +58,11 @@ module.exports = function(eleventyConfig) {
             });
         });
         
+        // add tag to generate unique ids for headings
+        eleventyConfig.addFilter("uniqueId", function(value) {
+            return value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') + '-' + Math.random().toString(36).substr(2, 9);
+        });
+        
     });
 
     return {

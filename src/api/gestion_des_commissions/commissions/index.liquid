@@ -85,14 +85,41 @@ permalink: "api/{{ pagination.items[0] | slugify }}/index.html"
               {% # On affiche uniquement les 200, 201 ou 204 pour simplifier la lecture de la doc %}
               {%- if response[0] != "200" and response[0] != "201" and response[0] != "204" -%}
                 {%- continue -%}
+              {%- else -%}
+                <p class="mb-2">
+                  <strong class="badge text-bg-success">{{ response[0] }}</strong>
+                  <span class="text-muted">{{ response[1].description }}</span>
+                </p>
               {%- endif -%}
 
-              <p class="mb-2">
-                <strong class="badge text-bg-success">{{ response[0] }}</strong>
-                <span class="text-muted">{{ response[1].description }}</span>
-              </p>
+              {%- if response[0] == "200" -%}
+      
+                {%- if method[1]["x-extension-metarisc-codegen-ispagination"] == null and method[1]["x-extension-metarisc-codegen-islist"] == null -%}
+                  <p>Retourne un objet contenant les données demandées.</p>
+                {%- endif -%}
 
+                {%- if method[1]["x-extension-metarisc-codegen-ispagination"] -%}
+                  <p>
+                    Retourne un dictionnaire avec une propriété data contenant un tableau d'éléments (en respectant les limites de pagination).
+                    Chaque entrée du tableau constitue un objet distinct. Si aucun éléments n'est disponible, le tableau résultant sera vide.
+                  </p>
+                {%- endif -%}
 
+                {%- if method[1]["x-extension-metarisc-codegen-islist"] -%}
+                  <p>
+                    Retourne un tableau d'éléments. Chaque entrée du tableau constitue un objet distinct. Si aucun éléments n'est disponible, le tableau résultant sera vide.
+                  </p>
+                {%- endif -%}
+
+              {%- elsif response[0] == "204" -%}
+
+                <p>Retourne une réponse vide.</p>
+
+              {%- elsif response[0] == "201" -%}
+
+                <p>Retourne un objet contenant les données de l'élément créé.</p>
+
+              {%- endif -%}
 
             {%- endfor -%}
           {%- endif -%}
