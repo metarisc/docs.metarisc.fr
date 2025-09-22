@@ -1,122 +1,132 @@
-<div class="border-top p-0 mb-1 pt-1">
+<div class="schema p-0 mb-1 pt-1">
 
-    <p class="mb-1">
-        {%- assign titleParsed = title | escape | default: schema.title | escape -%}
-        <code class="fw-bold">{{ titleParsed }}</code>
-        <span class="text-muted fs-6">{{ schema.type | escape }}</span>
+    {% if schema.type != "object" %}
 
-        {% # Indication si le champ est multiple %}
-        {% if multiple %}
-            <span class="badge text-bg-info">multiple</span>
-        {% endif %}
-
-        {% # Indication si le champ est requis %}
-        {% assign isRequired = schema | where: "required", title | size %}
-        {% if isRequired > 0 %}
-            <span class="badge text-bg-danger">requis</span>
-        {% endif %}
-
-        {% # Indication si le champ est nullable %}
-        {% if schema.nullable %}
-            <span class="badge text-bg-warning">nullable</span>
-        {% endif %}
-    </p>
-
-    {% # Description du schéma, sauf si c'est une énumération car pour ce dernier un format spécial est généré %}
-    {% unless schema.enum %}
-    <p class="mb-1">
-        {%- if description != schema.description -%}
-            {{ description | escape }}
-        {%- endif -%}
-        {{ schema.description | escape }}
-    </p>
-    {% endunless %}
-    
-    {% # Liste des valeurs possibles pour une énumération %}
-    {% if schema.enum %}
-        {%- if description != schema.description -%}
-        {{ description | escape }}
-        {%- endif -%}
-        {% assign enumDesc = schema.description | enumDesc %}
         <p class="mb-1">
-            {{ enumDesc[0] | escape }}
-            <div class="card">
-                <table class="table table-sm m-0">
-                    <thead>
-                        <tr>
-                            <th class="fw-normal fs-5 p-1">Valeurs possibles</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {%- for enum in enumDesc[1] limit:2 -%}
-                        <tr>
-                            <td class="p-1">
-                                <small class="mb-1 d-inline-block"><code>{{ enum.value | escape }}</code></small><br/>
-                                {{ enum.desc | escape }}
-                            </td>
-                        </tr>
-                        {%- endfor -%}
-                        {%- for enum in enumDesc[1] offset:2 -%}
-                        <tr>
-                            <td class="p-1 d-none">
-                                <small class="mb-1 d-inline-block"><code>{{ enum.value | escape }}</code></small><br/>
-                                {{ enum.desc | escape }}
-                            </td>
-                        </tr>
-                        {%- endfor -%}
-                        {% assign enumSize = enumDesc[1] | size %}
-                        {%- if enumSize > 2 -%}
-                        <tr>
-                            <td class="p-1">
-                                {% assign randomNumber = "enum" | uniqueId %}
-                                {%- if enumSize > 3 -%}
-                                    <button class="btn btn-secondary" id="see-more-{{ randomNumber }}">Voir les {{ enumSize | minus: 2 }} autres valeurs</button>
-                                {%- else -%}
-                                    <button class="btn btn-secondary" id="see-more-{{ randomNumber }}">Voir la dernière valeur</button>
-                                {%- endif -%}
-                                <script>
-                                    document.getElementById("see-more-{{ randomNumber }}").addEventListener("click", function() {
-                                        var button = this;
-                                        var table = button.closest("table");
-                                        var rows = table.querySelectorAll("tbody tr td");
-                                        rows.forEach(function(row, index) {
-                                            row.classList.remove("d-none");
-                                        });
-                                        button.closest("tr").remove();
-                                    });
-                                </script>
-                            </td>
-                        </tr>
-                        {%- endif -%}
-                    </tbody>
-                </table>
-            </div>
+            {%- assign titleParsed = title | escape | default: schema.title | escape -%}
+            <code class="fw-bold">{{ titleParsed }}</code>
+            <span class="text-muted fs-6">{{ schema.type | escape }}</span>
+
+            {% if schema.uniqueItems | default: false %}
+                <span class="badge text-bg-info">unique items</span>
+            {% endif %}
+
+            {% # Indication si le champ est multiple %}
+            {% if multiple %}
+                <span class="badge text-bg-info">multiple</span>
+            {% endif %}
+
+            {% # Indication si le champ est requis %}
+            {% assign isRequired = schema | where: "required", title | size %}
+            {% if isRequired > 0 %}
+                <span class="badge text-bg-danger">requis</span>
+            {% endif %}
+
+            {% # Indication si le champ est nullable %}
+            {% if schema.nullable %}
+                <span class="badge text-bg-warning">nullable</span>
+            {% endif %}
         </p>
+
+        {% # Description du schéma, sauf si c'est une énumération car pour ce dernier un format spécial est généré %}
+        {% unless schema.enum %}
+        <p class="mb-1">
+            {%- if description != schema.description -%}
+                {{ description | markdownify }}
+            {%- endif -%}
+            {{ schema.description | markdownify }}
+        </p>
+        {% endunless %}
+        
+        {% # Liste des valeurs possibles pour une énumération %}
+        {% if schema.enum %}
+            {%- if description != schema.description -%}
+            {{ description | markdownify }}
+            {%- endif -%}
+            {% assign enumDesc = schema.description | enumDesc %}
+            <p class="mb-1">
+                {{ enumDesc[0] | markdownify }}
+                <div class="card">
+                    <table class="table table-sm m-0">
+                        <thead>
+                            <tr>
+                                <th class="fw-normal fs-5 p-1">Valeurs possibles</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {%- for enum in enumDesc[1] limit:2 -%}
+                            <tr>
+                                <td class="p-1">
+                                    <small class="mb-1 d-inline-block"><code>{{ enum.value | escape }}</code></small><br/>
+                                    {{ enum.desc | escape }}
+                                </td>
+                            </tr>
+                            {%- endfor -%}
+                            {%- for enum in enumDesc[1] offset:2 -%}
+                            <tr>
+                                <td class="p-1 d-none">
+                                    <small class="mb-1 d-inline-block"><code>{{ enum.value | escape }}</code></small><br/>
+                                    {{ enum.desc | escape }}
+                                </td>
+                            </tr>
+                            {%- endfor -%}
+                            {% assign enumSize = enumDesc[1] | size %}
+                            {%- if enumSize > 2 -%}
+                            <tr>
+                                <td class="p-1">
+                                    {% assign randomNumber = "enum" | uniqueId %}
+                                    {%- if enumSize > 3 -%}
+                                        <button class="btn btn-secondary" id="see-more-{{ randomNumber }}">Voir les {{ enumSize | minus: 2 }} autres valeurs</button>
+                                    {%- else -%}
+                                        <button class="btn btn-secondary" id="see-more-{{ randomNumber }}">Voir la dernière valeur</button>
+                                    {%- endif -%}
+                                    <script>
+                                        document.getElementById("see-more-{{ randomNumber }}").addEventListener("click", function() {
+                                            var button = this;
+                                            var table = button.closest("table");
+                                            var rows = table.querySelectorAll("tbody tr td");
+                                            rows.forEach(function(row, index) {
+                                                row.classList.remove("d-none");
+                                            });
+                                            button.closest("tr").remove();
+                                        });
+                                    </script>
+                                </td>
+                            </tr>
+                            {%- endif -%}
+                        </tbody>
+                    </table>
+                </div>
+            </p>
+        {% endif %}
+
     {% endif %}
 
     {% if schema.type == "object" %}
         <div class="card p-2 mb-2">
     {% endif %}
 
+    {%- if schema.allOf -%}
+        {% assign randomNumberAllOf = title | uniqueId %}
+        <button class="btn btn-secondary mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAllOf{{ randomNumberAllOf }}" aria-expanded="false" aria-controls="collapseAllOf{{ randomNumberAllOf }}">
+            Voir les paramètres composant cet objet
+        </button>
+        <div class="card p-2 mb-2 collapse" id="collapseAllOf{{ randomNumberAllOf }}">
+        {%- for subschema in schema.allOf -%}
+            {%- for prop in subschema.properties -%}
+                {% render 'openapi/schema', schema: prop[1], title: prop[0] %}
+            {%- endfor -%}
+        {%- endfor -%}
+        </div>
+    {%- else -%}
+
     {% # Si le schéma est de type objet ou array, on affiche ses propriétés ou items respectivement %}
     {% if schema.properties %}
         {%- for property in schema.properties -%}
         {% render 'openapi/schema', schema: property[1], title: property[0], inside_object: true %}
         {%- endfor -%}
-    {% elsif schema.items %}
-        {% assign item_schema = schema.items %}
-        {% render 'openapi/schema' with item_schema as schema %}
-        {% if schema.uniqueItems | default: false %}
-        <span class="badge text-bg-info">unique items</span>
-        {% endif %}
     {% endif %}
-
-    {%- for subschema in schema.allOf -%}
-        <div class="card border-info mb-2 p-2">
-        {% render 'openapi/schema' with subschema as schema %}
-        </div>
-    {%- endfor -%}
-
+    
     {%- for subschema in schema.oneOf -%}
     {% render 'openapi/schema' with subschema as schema %}
     {%- endfor -%}
@@ -128,5 +138,7 @@
     {% if schema.type == "object" %}
         </div>
     {% endif %}
+
+    {%- endif -%}
 
 </div>

@@ -41,7 +41,7 @@ permalink: "api/{{ pagination.items[0] | slugify }}/index.html"
 
           {% # Informations générales de l'endpoint %}
           <h2 class="mb-4">{{ method[1].summary }}</h2>
-          <p class="mb-4">{{ method[1].description }}</p>
+          <div class="mb-4">{{ method[1].description | markdownify }}</div>
 
           {% # On vérifie si l'en-tête Metarisc-Org-Id est requis # %}
           {% assign metariscOrgHeader = method[1].parameters | where: 'in', 'header' | where: 'name', 'Metarisc-Org-Id' | size %}
@@ -56,7 +56,7 @@ permalink: "api/{{ pagination.items[0] | slugify }}/index.html"
           {% assign parameters_query = method[1].parameters | parameters -%}
           {% assign parameters_query_size = parameters_query | size -%}
           {%- if parameters_query_size > 0 -%}
-            <h3 class="fs-5 pb-1 mb-1">Paramètres</h3>
+            <h3 class="fs-5 pb-1 mb-1 border-bottom">Paramètres</h3>
             {%- for parameter in parameters_query -%}
               {% assign parameter_schema = parameter.schema %}
               {% # Si le paramètre est multiple, on l'indique mais on n'affiche qu'un schéma sur les deux %}
@@ -70,15 +70,17 @@ permalink: "api/{{ pagination.items[0] | slugify }}/index.html"
 
           {% # Schéma du corps de la requête %}
           {%- if method[1].requestBody != null -%}
-            <h3 class="fs-5 pb-1 mb-1">Paramètres du corps de la requête</h3>
+            <h3 class="fs-5 pb-1 mb-1 border-bottom">Paramètres du corps de la requête</h3>
             {% assign request_schema = method[1].requestBody.content["application/json"].schema %}
             {%- for prop in request_schema.properties -%}
+              {%- if prop[1].type != "object" -%}
               {% render 'openapi/schema', schema: prop[1], title: prop[0], description: prop[1].description %}
+              {%- endif -%}
             {%- endfor -%}
           {%- endif -%}
 
           {% # Schéma des réponses %}
-          <h3 class="fs-5 pb-1 mb-1">Réponses</h3>
+          <h3 class="fs-5 pb-1 mb-1 border-bottom">Réponses</h3>
           {%- if method[1].responses != null -%}
             {%- for response in method[1].responses  -%}
 

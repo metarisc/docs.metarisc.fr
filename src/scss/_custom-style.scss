@@ -38,3 +38,7 @@ $spacer: 0.5rem;
   ),
   $enable-negative-margins: true
 );
+
+.schema + .schema {
+  border-top: 1px solid rgb(73, 80, 87);
+}

@@ -1,3 +1,5 @@
+const markdownIt = require("markdown-it");
+
 module.exports = function(eleventyConfig) {
 
     // Plugin principal
@@ -61,6 +63,13 @@ module.exports = function(eleventyConfig) {
         // add tag to generate unique ids for headings
         eleventyConfig.addFilter("uniqueId", function(value) {
             return value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') + '-' + Math.random().toString(36).substr(2, 9);
+        });
+
+        // markdownify a string with markdown-it
+        const md = new markdownIt();
+        eleventyConfig.addFilter("markdownify", function(value) {
+            if(!value) return undefined;
+            return md.render(value);
         });
         
     });
