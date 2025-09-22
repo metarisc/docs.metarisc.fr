@@ -71,6 +71,13 @@ module.exports = function(eleventyConfig) {
             if(!value) return undefined;
             return md.render(value);
         });
+
+        // arrayHas a specific value
+        eleventyConfig.addFilter("arrayHas", function(array, value) {
+            if(!array || !value) return false;
+            if(Array.isArray(array) === false) return false;
+            return array.includes(value);
+        });
         
     });
 

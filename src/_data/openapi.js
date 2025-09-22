@@ -59,13 +59,7 @@ module.exports = async function () {
 				return obj;
 			};
 
-			const components = schema.components || schema.components;
 			let schemaOnly = schema;
-			if (components) {
-				schemaOnly = { ...schema };
-				delete schemaOnly.components;
-			}
-
 			return await recExpandRefs(schemaOnly);
 		};
 

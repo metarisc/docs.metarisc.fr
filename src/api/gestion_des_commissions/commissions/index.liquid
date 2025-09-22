@@ -61,9 +61,9 @@ permalink: "api/{{ pagination.items[0] | slugify }}/index.html"
               {% assign parameter_schema = parameter.schema %}
               {% # Si le paramètre est multiple, on l'indique mais on n'affiche qu'un schéma sur les deux %}
               {% if parameter['x-extension-metarisc-param-multiple'] %}
-                {% render 'openapi/schema', schema: parameter_schema['oneOf'][0], title: parameter.name, description: parameter.description, multiple: true %}
+                {% render 'openapi/schema', schema: parameter_schema['oneOf'][0], title: parameter.name, description: parameter.description, multiple: true, required: parameter.required %}
               {% else %}
-                {% render 'openapi/schema', schema: parameter_schema, title: parameter.name, description: parameter.description %}
+                {% render 'openapi/schema', schema: parameter_schema, title: parameter.name, description: parameter.description, required: parameter.required %}
               {% endif %}
             {%- endfor -%}
           {%- endif -%}
@@ -72,11 +72,11 @@ permalink: "api/{{ pagination.items[0] | slugify }}/index.html"
           {%- if method[1].requestBody != null -%}
             <h3 class="fs-5 pb-1 mb-1 border-bottom">Paramètres du corps de la requête</h3>
             {% assign request_schema = method[1].requestBody.content["application/json"].schema %}
-            {%- for prop in request_schema.properties -%}
-              {%- if prop[1].type != "object" -%}
-              {% render 'openapi/schema', schema: prop[1], title: prop[0], description: prop[1].description %}
-              {%- endif -%}
-            {%- endfor -%}
+            {%- if request_schema.type == "array" -%}
+              {% render 'openapi/schema', schema: request_schema, expandArray: true %}
+            {%- else -%}
+              {% render 'openapi/schema', schema: request_schema %}
+            {%- endif -%}
           {%- endif -%}
 
           {% # Schéma des réponses %}
@@ -139,25 +139,25 @@ permalink: "api/{{ pagination.items[0] | slugify }}/index.html"
           </div>
 
           {%- if method[1].responses != null -%}
-            <div class="card mt-2" style="background-color: rgba(108, 117, 125, 0.2);">
-              <div class="card-header">
-                <strong>Schéma de la réponse</strong>
-              </div>
-              <div class="card-body">
               {%- for response in method[1].responses  -%}
                 {% # On affiche uniquement les 200, 201 ou 204 pour simplifier la lecture de la doc %}
                 {%- if response[0] != "200" and response[0] != "201" and response[0] != "204" -%}
                   {%- continue -%}
                 {%- else -%}
                     {%- if response[1].content != null and response[1].content["application/json"].schema != null -%}
-                    {% assign response_schema = response[1].content["application/json"].schema %}
-                    {% render 'openapi/schema' with response_schema as schema %}
+                      <div class="card mt-2" style="background-color: rgba(108, 117, 125, 0.2);">
+                        <div class="card-header">
+                          <strong>Schéma de la réponse</strong>
+                        </div>
+                        <div class="card-body">
+                        {% assign response_schema = response[1].content["application/json"].schema %}
+                        {% render 'openapi/schema', schema: response_schema, expandArray: true %}
+                        </div>
+                      </div>
                     {%- endif -%}
                   {%- continue -%}
                 {%- endif -%} 
               {%- endfor -%}
-              </div>
-            </div>
           {%- endif -%}
 
         </div>
