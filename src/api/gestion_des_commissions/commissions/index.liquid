@@ -103,13 +103,13 @@ permalink: "api/{{ pagination.items[0] | slugify }}/index.html"
                 {%- if method[1]["x-extension-metarisc-codegen-ispagination"] -%}
                   <p>
                     Retourne un dictionnaire avec une propriété data contenant un tableau d'éléments (en respectant les limites de pagination).
-                    Chaque entrée du tableau constitue un objet distinct. Si aucun éléments n'est disponible, le tableau résultant sera vide.
+                    Chaque entrée du tableau constitue un objet distinct. Si aucun élément n'est disponible, le tableau résultant sera vide.
                   </p>
                 {%- endif -%}
 
                 {%- if method[1]["x-extension-metarisc-codegen-islist"] -%}
                   <p>
-                    Retourne un tableau d'éléments. Chaque entrée du tableau constitue un objet distinct. Si aucun éléments n'est disponible, le tableau résultant sera vide.
+                    Retourne un tableau d'éléments. Chaque entrée du tableau constitue un objet distinct. Si aucun élément n'est disponible, le tableau résultant sera vide.
                   </p>
                 {%- endif -%}
 
@@ -131,24 +131,36 @@ permalink: "api/{{ pagination.items[0] | slugify }}/index.html"
         {% # Partie droite : HTTP Rest illustration %}
         <div class="col-6">
 
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">
-                {{ method[0] | upcase }} {{ path[0] }}
-              </h5>
-              <pre><code>{{ method[0] | upcase }} {{ path[0] }} HTTP/1.1
-Host: api.example.com
-Content-Type: application/json
-{
-  "param1": "value1",
-  "param2": "value2"
-}
-</code></pre>
-            </div>
+          <div class="card text-bg-secondary p-1">
+            <p class="m-0">
+              <span class="badge bg-info">{{ method[0] | upcase }}</span>
+              <span>{{ path[0] }}</span>
+            </p>
           </div>
 
-        </div>
+          {%- if method[1].responses != null -%}
+            <div class="card mt-2" style="background-color: rgba(108, 117, 125, 0.2);">
+              <div class="card-header">
+                <strong>Schéma de la réponse</strong>
+              </div>
+              <div class="card-body">
+              {%- for response in method[1].responses  -%}
+                {% # On affiche uniquement les 200, 201 ou 204 pour simplifier la lecture de la doc %}
+                {%- if response[0] != "200" and response[0] != "201" and response[0] != "204" -%}
+                  {%- continue -%}
+                {%- else -%}
+                    {%- if response[1].content != null and response[1].content["application/json"].schema != null -%}
+                    {% assign response_schema = response[1].content["application/json"].schema %}
+                    {% render 'openapi/schema' with response_schema as schema %}
+                    {%- endif -%}
+                  {%- continue -%}
+                {%- endif -%} 
+              {%- endfor -%}
+              </div>
+            </div>
+          {%- endif -%}
 
+        </div>
       </div>
 
     </div>

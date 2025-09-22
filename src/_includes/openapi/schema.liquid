@@ -107,7 +107,7 @@
     {% endif %}
 
     {%- if schema.allOf -%}
-        {% assign randomNumberAllOf = title | uniqueId %}
+        {% assign randomNumberAllOf = "allOf" | uniqueId %}
         <button class="btn btn-secondary mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAllOf{{ randomNumberAllOf }}" aria-expanded="false" aria-controls="collapseAllOf{{ randomNumberAllOf }}">
             Voir les paramètres composant cet objet
         </button>
