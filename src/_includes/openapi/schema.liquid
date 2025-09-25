@@ -1,7 +1,9 @@
 <div class="schema p-0 mb-1 pt-1">
 
-    {% if schema.type != "object" %}
+    {% # On affiche la description que pour les propriétés des objets (aucun intéret d'affiche le nom de l'objet) %}
+    {% if displayRootObjectInfo != false %}
 
+        {% # Affichage du type de schéma %}
         <p class="mb-1">
             {%- assign titleParsed = title | escape | default: schema.title | escape -%}
             <code class="fw-bold">{{ titleParsed }}</code>
@@ -25,7 +27,7 @@
             {% assign isRequired1 = schema | where: "required", title | size %}
             {% assign isRequired2 = required | arrayHas: title %}
             {% if isRequired1 > 0 or isRequired2 %}
-                <span class="badge text-bg-danger">requis</span>
+                <span class="badge text-bg-danger">required</span>
             {% endif %}
 
             {% # Indication si le champ est nullable %}
@@ -117,7 +119,7 @@
         <div class="card p-2 mb-2 collapse" id="collapseAllOf{{ randomNumberAllOf }}">
         {%- for subschema in schema.allOf -%}
             {%- for prop in subschema.properties -%}
-                {% render 'openapi/schema', schema: prop[1], title: prop[0] %}
+                {% render 'openapi/schema', schema: prop[1], title: prop[0], required: subschema.required %}
             {%- endfor -%}
         {%- endfor -%}
         </div>
@@ -144,10 +146,23 @@
         
     {%- else -%}
 
+        {% assign displayCardBecauseThereAreProps = insideObject and schema.properties %}
+        {% assign displayCardBecauseThereAreOneOf = insideObject and schema.oneOf %}
+        {% assign displayCardBecauseThereAreAnyOf = insideObject and schema.anyOf %}
+        {% assign displayCard = displayCardBecauseThereAreProps or displayCardBecauseThereAreOneOf or displayCardBecauseThereAreAnyOf %}
+
+        {% if displayCard %}
+            {% assign randomNumberCard = "card" | uniqueId %}
+            <button class="btn btn-secondary mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCard{{ randomNumberCard }}" aria-expanded="false" aria-controls="collapseCard{{ randomNumberCard }}">
+                Voir les paramètres composant cet objet
+            </button>
+            <div class="card p-2 mb-2 collapse" id="collapseCard{{ randomNumberCard }}">
+        {% endif %}
+
         {% # Si le schéma est de type objet ou array, on affiche ses propriétés ou items respectivement %}
         {% if schema.properties %}
             {%- for property in schema.properties -%}
-            {% render 'openapi/schema', schema: property[1], title: property[0], required: schema.required %}
+            {% render 'openapi/schema', schema: property[1], title: property[0], required: schema.required, insideObject: property[1].type == "object" %}
             {%- endfor -%}
         {% endif %}
         
@@ -158,6 +173,8 @@
         {%- for subschema in schema.anyOf -%}
         {% render 'openapi/schema' with subschema as schema %}
         {%- endfor -%}
+
+        {% if displayCard %}</div>{% endif %}
 
     {%- endif -%}
 

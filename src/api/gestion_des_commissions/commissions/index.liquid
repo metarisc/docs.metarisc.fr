@@ -75,7 +75,7 @@ permalink: "api/{{ pagination.items[0] | slugify }}/index.html"
             {%- if request_schema.type == "array" -%}
               {% render 'openapi/schema', schema: request_schema, expandArray: true %}
             {%- else -%}
-              {% render 'openapi/schema', schema: request_schema %}
+              {% render 'openapi/schema', schema: request_schema, displayRootObjectInfo: false %}
             {%- endif -%}
           {%- endif -%}
 
@@ -97,19 +97,22 @@ permalink: "api/{{ pagination.items[0] | slugify }}/index.html"
               {%- if response[0] == "200" -%}
       
                 {%- if method[1]["x-extension-metarisc-codegen-ispagination"] == null and method[1]["x-extension-metarisc-codegen-islist"] == null -%}
-                  <p>Retourne un objet contenant les données demandées.</p>
+                  {% assign object_name = response[1].content["application/json"].schema.title %}
+                  <p>Retourne un {{ object_name }} contenant les données demandées.</p>
                 {%- endif -%}
 
                 {%- if method[1]["x-extension-metarisc-codegen-ispagination"] -%}
+                  {% assign object_name = response[1].content["application/json"].schema.properties.data.items.title %}
                   <p>
-                    Retourne un dictionnaire avec une propriété data contenant un tableau d'éléments (en respectant les limites de pagination).
-                    Chaque entrée du tableau constitue un objet distinct. Si aucun élément n'est disponible, le tableau résultant sera vide.
+                    Retourne un dictionnaire avec une propriété data contenant un tableau d'{{ object_name }} (en respectant les limites de pagination).
+                    Chaque entrée du tableau constitue un {{ object_name }} distinct. Si aucun élément n'est disponible, le tableau résultant sera vide.
                   </p>
                 {%- endif -%}
 
                 {%- if method[1]["x-extension-metarisc-codegen-islist"] -%}
+                  {% assign object_name = response[1].content["application/json"].schema.properties.data.items.title %}
                   <p>
-                    Retourne un tableau d'éléments. Chaque entrée du tableau constitue un objet distinct. Si aucun élément n'est disponible, le tableau résultant sera vide.
+                    Retourne un tableau d'{{ object_name }}. Chaque entrée du tableau constitue un {{ object_name }} distinct. Si aucun élément n'est disponible, le tableau résultant sera vide.
                   </p>
                 {%- endif -%}
 
@@ -119,7 +122,8 @@ permalink: "api/{{ pagination.items[0] | slugify }}/index.html"
 
               {%- elsif response[0] == "201" -%}
 
-                <p>Retourne un objet contenant les données de l'élément créé.</p>
+                {% assign object_name = response[1].content["application/json"].schema.title %}
+                <p>Retourne l'{{ object_name }} créé.</p>
 
               {%- endif -%}
 
@@ -150,8 +154,12 @@ permalink: "api/{{ pagination.items[0] | slugify }}/index.html"
                           <strong>Schéma de la réponse</strong>
                         </div>
                         <div class="card-body">
-                        {% assign response_schema = response[1].content["application/json"].schema %}
-                        {% render 'openapi/schema', schema: response_schema, expandArray: true %}
+                          {% assign response_schema = response[1].content["application/json"].schema %}
+                          {%- if response_schema.type == "array" -%}
+                            {% render 'openapi/schema', schema: response_schema, expandArray: true %}
+                          {%- else -%}
+                            {% render 'openapi/schema', schema: response_schema, displayRootObjectInfo: false %}
+                          {%- endif -%}
                         </div>
                       </div>
                     {%- endif -%}
