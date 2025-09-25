@@ -180,15 +180,19 @@
 
     {%- if schema.allOf -%}
 
-        {% assign randomNumberAllOf = "allOf" | uniqueId %}
-        <button class="btn btn-secondary mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAllOf{{ randomNumberAllOf }}" aria-expanded="false" aria-controls="collapseAllOf{{ randomNumberAllOf }}">
-            Voir les paramètres composant cet objet
-        </button>
-        <div class="card p-2 mb-2 collapse" id="collapseAllOf{{ randomNumberAllOf }}">
+        {% if insideOneOf != true %}
+            {% assign randomNumberAllOf = "allOf" | uniqueId %}
+            <button class="btn btn-secondary mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAllOf{{ randomNumberAllOf }}" aria-expanded="false" aria-controls="collapseAllOf{{ randomNumberAllOf }}">
+                Voir les paramètres composant cet objet
+            </button>
+            <div class="card p-2 mb-2 collapse" id="collapseAllOf{{ randomNumberAllOf }}">
+        {% endif %}
+
         {%- for subschema in schema.allOf -%}
             {% render 'openapi/schema', schema: subschema, displayRootObjectInfo: false %}
         {%- endfor -%}
-        </div>
+
+        {% if insideOneOf != true %}</div>{% endif %}
 
     {%- elsif schema.items -%}
 
@@ -231,27 +235,37 @@
 
         {% # Gestion des onglets pour les oneOf %}
         {% if schema.oneOf %}
-            {% assign oneOfid = "oneOf" | uniqueId %}
-            <ul class="nav nav-tabs">
-                {%- for subschema in schema.oneOf -%}
-                <li class="nav-item">
-                    <button class="nav-link {% if forloop.first %}active{% endif %}" id="tab-{{ oneOfid }}-{{ forloop.index0 }}" data-bs-toggle="tab" data-bs-target="#tab-pane-{{ oneOfid }}-{{ forloop.index0 }}" type="button">
-                        {{ subschema.title }}
-                    </button>
-                </li>
-                {%- endfor -%}
-            </ul>
-            <div class="tab-content">
-                {%- for subschema in schema.oneOf -%}
-                    <div class="tab-pane show {% if forloop.first %}active{% endif %}" id="tab-pane-{{ oneOfid }}-{{ forloop.index0 }}" tabindex="{{ forloop.index0 }}">
-                        {% render 'openapi/schema', schema: subschema %}
+            <div class="card" style="background-color: rgba(0,0,0,0.2);">
+                {% assign oneOfid = "oneOf" | uniqueId %}
+                <div class="card-header">
+                    <ul class="nav nav-underline">
+                        {%- for subschema in schema.oneOf -%}
+                            <li class="nav-item">
+                                <button class="nav-link fs-6 {% if forloop.first %}active{% endif %}" id="tab-{{ oneOfid }}-{{ forloop.index0 }}" data-bs-toggle="tab" data-bs-target="#tab-pane-{{ oneOfid }}-{{ forloop.index0 }}" type="button">
+                                    {{ subschema.title }}
+                                </button>
+                            </li>
+                        {%- endfor -%}
+                    </ul>
+                </div>
+                <div class="card-body hide collapse" id="collapseBodyOneOf{{ oneOfid }}">
+                    <div class="tab-content">
+                        {%- for subschema in schema.oneOf -%}
+                            <div class="tab-pane show {% if forloop.first %}active{% endif %}" id="tab-pane-{{ oneOfid }}-{{ forloop.index0 }}" tabindex="{{ forloop.index0 }}">
+                                {% render 'openapi/schema', schema: subschema, insideObject: false, displayRootObjectInfo: false, insideOneOf: true %}
+                            </div>
+                        {%- endfor -%}
                     </div>
-                {%- endfor -%}
+                </div>
+                <div class="card-footer text-center d-grid">
+                    <button class="btn btn-secondary btn-block" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBodyOneOf{{ oneOfid }}">
+                        Afficher les paramètres
+                    </button>
+                </div>
             </div>
-
-            {% if displayCard %}</div>{% endif %}
-
         {% endif %}
+
+        {% if displayCard %}</div>{% endif %}
 
     {%- endif -%}
 
