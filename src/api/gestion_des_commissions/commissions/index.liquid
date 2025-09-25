@@ -57,77 +57,83 @@ permalink: "api/{{ pagination.items[0] | slugify }}/index.html"
           {% assign parameters_query_size = parameters_query | size -%}
           {%- if parameters_query_size > 0 -%}
             <h3 class="fs-5 pb-1 mb-1 border-bottom">Paramètres</h3>
-            {%- for parameter in parameters_query -%}
-              {% assign parameter_schema = parameter.schema %}
-              {% # Si le paramètre est multiple, on l'indique mais on n'affiche qu'un schéma sur les deux %}
-              {% if parameter['x-extension-metarisc-param-multiple'] %}
-                {% render 'openapi/schema', schema: parameter_schema['oneOf'][0], title: parameter.name, description: parameter.description, multiple: true, required: parameter.required %}
-              {% else %}
-                {% render 'openapi/schema', schema: parameter_schema, title: parameter.name, description: parameter.description, required: parameter.required %}
-              {% endif %}
-            {%- endfor -%}
+            <div class="mb-2">
+              {%- for parameter in parameters_query -%}
+                {% assign parameter_schema = parameter.schema %}
+                {% # Si le paramètre est multiple, on l'indique mais on n'affiche qu'un schéma sur les deux %}
+                {% if parameter['x-extension-metarisc-param-multiple'] %}
+                  {% render 'openapi/schema', schema: parameter_schema['oneOf'][0], title: parameter.name, description: parameter.description, multiple: true, required: parameter.required %}
+                {% else %}
+                  {% render 'openapi/schema', schema: parameter_schema, title: parameter.name, description: parameter.description, required: parameter.required %}
+                {% endif %}
+              {%- endfor -%}
+            </div>
           {%- endif -%}
 
           {% # Schéma du corps de la requête %}
           {%- if method[1].requestBody != null -%}
             <h3 class="fs-5 pb-1 mb-1 border-bottom">Paramètres du corps de la requête</h3>
-            {% assign request_schema = method[1].requestBody.content["application/json"].schema %}
-            {%- if request_schema.type == "array" -%}
-              {% render 'openapi/schema', schema: request_schema, expandArray: true %}
-            {%- else -%}
-              {% render 'openapi/schema', schema: request_schema, displayRootObjectInfo: false %}
-            {%- endif -%}
+            <div class="mb-2">
+              {% assign request_schema = method[1].requestBody.content["application/json"].schema %}
+              {%- if request_schema.type == "array" -%}
+                {% render 'openapi/schema', schema: request_schema, expandArray: true %}
+              {%- else -%}
+                {% render 'openapi/schema', schema: request_schema, displayRootObjectInfo: false %}
+              {%- endif -%}
+            </div>
           {%- endif -%}
 
           {% # Schéma des réponses %}
-          <h3 class="fs-5 pb-1 mb-1 border-bottom">Réponses</h3>
           {%- if method[1].responses != null -%}
-            {%- for response in method[1].responses  -%}
+            <h3 class="fs-5 pb-1 mb-1 border-bottom">Réponses</h3>
+            <div class="mb-2">
+              {%- for response in method[1].responses  -%}
 
-              {% # On affiche uniquement les 200, 201 ou 204 pour simplifier la lecture de la doc %}
-              {%- if response[0] != "200" and response[0] != "201" and response[0] != "204" -%}
-                {%- continue -%}
-              {%- else -%}
-                <p class="mb-2">
-                  <strong class="badge text-bg-success">{{ response[0] }}</strong>
-                  <span class="text-muted">{{ response[1].description }}</span>
-                </p>
-              {%- endif -%}
+                {% # On affiche uniquement les 200, 201 ou 204 pour simplifier la lecture de la doc %}
+                {%- if response[0] != "200" and response[0] != "201" and response[0] != "204" -%}
+                  {%- continue -%}
+                {%- else -%}
+                  <p class="mb-2">
+                    <strong class="badge text-bg-success">{{ response[0] }}</strong>
+                    <span class="text-muted">{{ response[1].description }}</span>
+                  </p>
+                {%- endif -%}
 
-              {%- if response[0] == "200" -%}
-      
-                {%- if method[1]["x-extension-metarisc-codegen-ispagination"] == null and method[1]["x-extension-metarisc-codegen-islist"] == null -%}
+                {%- if response[0] == "200" -%}
+        
+                  {%- if method[1]["x-extension-metarisc-codegen-ispagination"] == null and method[1]["x-extension-metarisc-codegen-islist"] == null -%}
+                    {% assign object_name = response[1].content["application/json"].schema.title %}
+                    <p>Retourne un {{ object_name }} contenant les données demandées.</p>
+                  {%- endif -%}
+
+                  {%- if method[1]["x-extension-metarisc-codegen-ispagination"] -%}
+                    {% assign object_name = response[1].content["application/json"].schema.properties.data.items.title %}
+                    <p>
+                      Retourne un dictionnaire avec une propriété data contenant un tableau d'{{ object_name }} (en respectant les limites de pagination).
+                      Chaque entrée du tableau constitue un {{ object_name }} distinct. Si aucun élément n'est disponible, le tableau résultant sera vide.
+                    </p>
+                  {%- endif -%}
+
+                  {%- if method[1]["x-extension-metarisc-codegen-islist"] -%}
+                    {% assign object_name = response[1].content["application/json"].schema.properties.data.items.title %}
+                    <p>
+                      Retourne un tableau d'{{ object_name }}. Chaque entrée du tableau constitue un {{ object_name }} distinct. Si aucun élément n'est disponible, le tableau résultant sera vide.
+                    </p>
+                  {%- endif -%}
+
+                {%- elsif response[0] == "204" -%}
+
+                  <p>Retourne une réponse vide.</p>
+
+                {%- elsif response[0] == "201" -%}
+
                   {% assign object_name = response[1].content["application/json"].schema.title %}
-                  <p>Retourne un {{ object_name }} contenant les données demandées.</p>
+                  <p>Retourne l'{{ object_name }} créé.</p>
+
                 {%- endif -%}
 
-                {%- if method[1]["x-extension-metarisc-codegen-ispagination"] -%}
-                  {% assign object_name = response[1].content["application/json"].schema.properties.data.items.title %}
-                  <p>
-                    Retourne un dictionnaire avec une propriété data contenant un tableau d'{{ object_name }} (en respectant les limites de pagination).
-                    Chaque entrée du tableau constitue un {{ object_name }} distinct. Si aucun élément n'est disponible, le tableau résultant sera vide.
-                  </p>
-                {%- endif -%}
-
-                {%- if method[1]["x-extension-metarisc-codegen-islist"] -%}
-                  {% assign object_name = response[1].content["application/json"].schema.properties.data.items.title %}
-                  <p>
-                    Retourne un tableau d'{{ object_name }}. Chaque entrée du tableau constitue un {{ object_name }} distinct. Si aucun élément n'est disponible, le tableau résultant sera vide.
-                  </p>
-                {%- endif -%}
-
-              {%- elsif response[0] == "204" -%}
-
-                <p>Retourne une réponse vide.</p>
-
-              {%- elsif response[0] == "201" -%}
-
-                {% assign object_name = response[1].content["application/json"].schema.title %}
-                <p>Retourne l'{{ object_name }} créé.</p>
-
-              {%- endif -%}
-
-            {%- endfor -%}
+              {%- endfor -%}
+              </div>
           {%- endif -%}
 
         </div>

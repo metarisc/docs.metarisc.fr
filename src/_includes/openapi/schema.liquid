@@ -36,24 +36,92 @@
             {% endif %}
         </p>
 
-        {% # Description du schéma, sauf si c'est une énumération car pour ce dernier un format spécial est généré %}
-        {% unless schema.enum %}
-        <p class="mb-1">
-            {%- if description != schema.description -%}
+        {% # Description du schéma %}
+        <div class="mb-1">
+
+            {% # Description du schéma, sauf si c'est une énumération car pour ce dernier un format spécial est généré %}
+            {% unless schema.enum %}
+                {%- if description != schema.description -%}
+                    {{ description | markdownify }}
+                {%- endif -%}
+                {{ schema.description | markdownify }}
+            {% endunless %}
+            
+            {% # Description d'une énumération %}
+            {% if schema.enum %}
+                {%- if description != schema.description -%}
                 {{ description | markdownify }}
-            {%- endif -%}
-            {{ schema.description | markdownify }}
+                {%- endif -%}
+                {% assign enumDesc = schema.description | enumDesc %}
+                {{ enumDesc[0] | markdownify }}
+            {% endif %}
+
+        </div>
+
+        {% # Affichage des badges d'informations sur l'utilisation du champ (maxItems, format ...) %}
+        <p class="mb-1">
+
+            {% if schema.format %}
+                <span class="badge border border-secondary">format : {{ schema.format }}</span>
+            {% endif %}
+
+            {% if schema.pattern %}
+                <span class="badge border border-secondary">pattern {{ schema.pattern }}</span>
+            {% endif %}
+            
+            {% if schema.maxItems and schema.maxItems != schema.minItems %}
+                <span class="badge border border-secondary">{{ schema.maxItems }} max items</span>
+            {% endif %}
+
+            {% if schema.minItems and schema.maxItems != schema.minItems%}
+                <span class="badge border border-secondary">{{ schema.minItems }} min items</span>
+            {% endif %}
+
+            {% if schema.maxItems == schema.minItems and schema.maxItems != null %}
+                <span class="badge border border-secondary">{{ schema.maxItems }} items</span>
+            {% endif %}
+
+            {% if schema.maxLength and schema.maxLength != schema.minLength %}
+                <span class="badge border border-secondary">{{ schema.maxLength }} max length</span>
+            {% endif %}
+
+            {% if schema.minLength and schema.maxLength != schema.minLength %}
+                <span class="badge border border-secondary">{{ schema.minLength }} min length</span>
+            {% endif %}
+
+            {% if schema.maxLength == schema.minLength and schema.maxLength != null %}
+                <span class="badge border border-secondary">{{ schema.maxLength }} fixed length</span>
+            {% endif %}
+
+            {% if schema.maximum %}
+                <span class="badge border border-secondary">&ge;={{ schema.maximum }}</span>
+            {% endif %}
+
+            {% if schema.minimum %}
+                <span class="badge border border-secondary">&le;={{ schema.minimum }}</span>
+            {% endif %}
+
+            {% if schema.exclusiveMaximum %}
+                <span class="badge border border-secondary">&gt; {{ schema.exclusiveMaximum }}</span>
+            {% endif %}
+
+            {% if schema.exclusiveMinimum %}
+                <span class="badge border border-secondary">&lt; {{ schema.exclusiveMinimum }}</span>
+            {% endif %}
+
+            {% if schema.multipleOf %}
+                <span class="badge border border-secondary">multiple of: {{ schema.multipleOf }}</span>
+            {% endif %}
+
+            {% if schema.default %}
+                <span class="badge border border-secondary">default: {{ schema.default }}</span>
+            {% endif %}
+
         </p>
-        {% endunless %}
-        
+
         {% # Liste des valeurs possibles pour une énumération %}
         {% if schema.enum %}
-            {%- if description != schema.description -%}
-            {{ description | markdownify }}
-            {%- endif -%}
-            {% assign enumDesc = schema.description | enumDesc %}
-            <p class="mb-1">
-                {{ enumDesc[0] | markdownify }}
+            <div class="mb-1">
                 <div class="card">
                     <table class="table table-sm m-0">
                         <thead>
@@ -105,7 +173,7 @@
                         </tbody>
                     </table>
                 </div>
-            </p>
+            </div>
         {% endif %}
 
     {% endif %}
@@ -118,9 +186,7 @@
         </button>
         <div class="card p-2 mb-2 collapse" id="collapseAllOf{{ randomNumberAllOf }}">
         {%- for subschema in schema.allOf -%}
-            {%- for prop in subschema.properties -%}
-                {% render 'openapi/schema', schema: prop[1], title: prop[0], required: subschema.required %}
-            {%- endfor -%}
+            {% render 'openapi/schema', schema: subschema, displayRootObjectInfo: false %}
         {%- endfor -%}
         </div>
 
@@ -135,12 +201,10 @@
         {% else %}
         <div class="card p-2 mb-2">
         {% endif %}
-        {% if schema.items.type != "object" %}
-            {% render 'openapi/schema', schema: schema.items %}
+        {% if schema.items.type == "object" %}
+            {% render 'openapi/schema', schema: schema.items, displayRootObjectInfo: false %}
         {% else %}
-            {%- for prop in schema.items.properties -%}
-                {% render 'openapi/schema', schema: prop[1], title: prop[0], required: schema.items.required %}
-            {%- endfor -%}
+            {% render 'openapi/schema', schema: schema.items %}
         {% endif %}
         </div>
         
@@ -148,8 +212,7 @@
 
         {% assign displayCardBecauseThereAreProps = insideObject and schema.properties %}
         {% assign displayCardBecauseThereAreOneOf = insideObject and schema.oneOf %}
-        {% assign displayCardBecauseThereAreAnyOf = insideObject and schema.anyOf %}
-        {% assign displayCard = displayCardBecauseThereAreProps or displayCardBecauseThereAreOneOf or displayCardBecauseThereAreAnyOf %}
+        {% assign displayCard = displayCardBecauseThereAreProps or displayCardBecauseThereAreOneOf %}
 
         {% if displayCard %}
             {% assign randomNumberCard = "card" | uniqueId %}
@@ -165,16 +228,30 @@
             {% render 'openapi/schema', schema: property[1], title: property[0], required: schema.required, insideObject: property[1].type == "object" %}
             {%- endfor -%}
         {% endif %}
-        
-        {%- for subschema in schema.oneOf -%}
-        {% render 'openapi/schema' with subschema as schema %}
-        {%- endfor -%}
 
-        {%- for subschema in schema.anyOf -%}
-        {% render 'openapi/schema' with subschema as schema %}
-        {%- endfor -%}
+        {% # Gestion des onglets pour les oneOf %}
+        {% if schema.oneOf %}
+            {% assign oneOfid = "oneOf" | uniqueId %}
+            <ul class="nav nav-tabs">
+                {%- for subschema in schema.oneOf -%}
+                <li class="nav-item">
+                    <button class="nav-link {% if forloop.first %}active{% endif %}" id="tab-{{ oneOfid }}-{{ forloop.index0 }}" data-bs-toggle="tab" data-bs-target="#tab-pane-{{ oneOfid }}-{{ forloop.index0 }}" type="button">
+                        {{ subschema.title }}
+                    </button>
+                </li>
+                {%- endfor -%}
+            </ul>
+            <div class="tab-content">
+                {%- for subschema in schema.oneOf -%}
+                    <div class="tab-pane show {% if forloop.first %}active{% endif %}" id="tab-pane-{{ oneOfid }}-{{ forloop.index0 }}" tabindex="{{ forloop.index0 }}">
+                        {% render 'openapi/schema', schema: subschema %}
+                    </div>
+                {%- endfor -%}
+            </div>
 
-        {% if displayCard %}</div>{% endif %}
+            {% if displayCard %}</div>{% endif %}
+
+        {% endif %}
 
     {%- endif -%}
 
