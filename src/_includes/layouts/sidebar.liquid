@@ -2,9 +2,9 @@
 layout: layouts/home.liquid
 ---
 
-<div class="d-flex flex-nowrap">
+<div class="d-flex vh-100 overflow-hidden">
 
-  <div class="d-flex flex-column flex-shrink-0 " style="width: 280px;">
+  <div class="d-flex flex-column w-100 position-relative overflow-visible" style="width: 280px;">
 
     <div class="d-flex flex-column align-items-center align-items-sm-start pt-2 text-white min-vh-100 px-sm-2 px-0 side-bar">
 
@@ -20,10 +20,31 @@ layout: layouts/home.liquid
       <!-- Choix de la version -->
       {% render "selectVersion", versions: versions %}
 
-      <!-- Liens de l'arbre de navigation -->
-      <ul id="sidebar" class="nav nav-pills flex-column text-light mb-sm-auto mb-0 align-items-center align-items-sm-start">
-        {% render "sidebarDropdown", list: docs_dev.items, page: page %}
-      </ul>
+      <div class="overflow-auto w-100 flex-grow-1">
+
+        <h3 class="text-uppercase fw-bold text-secondary-emphasis fs-5 mt-4">Guides</h3>
+
+        <!-- Liens de l'arbre de navigation -->
+        <ul id="sidebar" class="nav nav-pills flex-column text-light mb-2 align-items-center align-items-sm-start">
+          {% render "sidebarDropdown", list: docs_dev.items, page: page %}
+        </ul>
+
+        <h3 class="text-uppercase fw-bold text-secondary-emphasis fs-5 mt-4">API</h3>
+
+        {% assign current_page =  page.url | remove_last: '/' %}
+        <ul class="nav nav-pills flex-column text-light mb-2 align-items-center align-items-sm-start">
+          {%- for tag in openapi.operationsTags  -%}
+            {%- assign tagSlug = tag | slugify -%}
+            {% assign tagUrl = "/api/" | append: tagSlug %}
+            <li class="sidebar-group w-100">
+              <a href="{{ tagUrl }}" class="nav-link px-0 align-middle {% if current_page == tagUrl %}active-link{% endif %}">
+                {{ tag }}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+
+      </div>
       
     </div>
 
@@ -31,7 +52,7 @@ layout: layouts/home.liquid
 
   <div style="flex-shrink: 0; width: 1.5rem; height: 100vh;"></div>
 
-  <div class="d-flex flex-column flex-shrink-0" style="width: calc(100% - 280px - 1.5rem);">
+  <div class="d-flex flex-column flex-shrink-0" style="width: calc(100% - 280px - 1.5rem); height: 100vh; overflow: auto;">
 
     <div class="container-fluid">
 

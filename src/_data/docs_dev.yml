@@ -85,9 +85,3 @@ items:
         url: /posts/administration-org/workflow-etudes
   - title: Administration Fonctionnelle
     url: /posts/administration-fonc
-  - title: Développeur
-    items:
-      - text: Outils de développement
-        url: /posts/developpeur
-      - text: Documentation de référence
-        url: /api
