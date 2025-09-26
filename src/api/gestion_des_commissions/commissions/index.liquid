@@ -27,7 +27,7 @@ permalink: "api/{{ pagination.items[0] | slugify }}/index.html"
       {%- continue -%}
     {%- endif -%}
 
-    <div class="mb-2">
+    <div class="mb-2" id="{{ method[1].summary | slugify }}">
 
       <div class="row">
 
@@ -40,7 +40,11 @@ permalink: "api/{{ pagination.items[0] | slugify }}/index.html"
           </div>
 
           {% # Informations générales de l'endpoint %}
-          <h2 class="mb-4">{{ method[1].summary }}</h2>
+          <h2 class="mb-4">
+            <a href="#{{ method[1].summary | slugify }}" class="text-decoration-none">
+              {{ method[1].summary }}
+            </a>
+          </h2>
           <div class="mb-4">{{ method[1].description | markdownify }}</div>
 
           {% # On vérifie si l'en-tête Metarisc-Org-Id est requis # %}
