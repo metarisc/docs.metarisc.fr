@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', (event) => {
     new Sidebar('#sidebar');
+    new Sidebar('#sidebar-api');
 });
 
 class Sidebar {
@@ -7,6 +8,7 @@ class Sidebar {
       this.elem = document.querySelector(querySelector);  
       if (this.elem !== null) {
         this.expandActiveGroup();
+        this.scrollToActiveLink();
       }
     }
 
@@ -32,5 +34,12 @@ class Sidebar {
       console.log(items);
       items.classList.toggle('hide', hide);
       items.classList.toggle('show', !hide);
+    }
+
+    scrollToActiveLink() {
+      const activeLink = this.getActiveLink();
+      if (activeLink) {
+        activeLink.scrollIntoView({ block: 'center' });
+      }
     }
   }

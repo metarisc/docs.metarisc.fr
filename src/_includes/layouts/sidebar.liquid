@@ -32,14 +32,26 @@ layout: layouts/home.liquid
         <h3 class="text-uppercase fw-bold text-secondary-emphasis fs-5 mt-4">API</h3>
 
         {% assign current_page =  page.url | remove_last: '/' %}
-        <ul class="nav nav-pills flex-column text-light mb-2 align-items-center align-items-sm-start">
-          {%- for tag in openapi.operationsTags  -%}
-            {%- assign tagSlug = tag | slugify -%}
-            {% assign tagUrl = "/api/" | append: tagSlug %}
+        <ul id="sidebar-api" class="nav nav-pills flex-column text-light mb-2 align-items-center align-items-sm-start">
+          {%- for group in openapi["x-tagGroups"] -%}
             <li class="sidebar-group w-100">
-              <a href="{{ tagUrl }}" class="nav-link px-0 align-middle {% if current_page == tagUrl %}active-link{% endif %}">
-                {{ tag }}
+              <a href="#submenu-{{ group.name | slugify }}" data-bs-toggle="collapse" class="nav-link px-0 align-middle category-dropdown">
+                {{ group.name }} <i class="i-arrow my-auto" style="height: 8px"></i>
               </a>
+              <div class="collapse nav hide" id="submenu-{{ group.name | slugify }}">
+                <ul class="d-flex flex-column w-100 fw-light p-1">
+                  {%- for tag in group.tags -%}
+                    {%- assign tagAPI = tag | replace: ' API', '' -%}
+                    {%- assign tagSlug = tagAPI | slugify -%}
+                    {% assign tagUrl = "/api/" | append: tagSlug %}
+                    <li>
+                      <a href="{{ tagUrl }}" class="px-0 {% if current_page == tagUrl %}active-link{% endif %} align-middle">
+                        {{ tag }}
+                      </a>
+                    </li>
+                  {%- endfor -%}
+                </ul>
+              </div>
             </li>
           {% endfor %}
         </ul>
