@@ -27,7 +27,7 @@ permalink: "api/{{ pagination.items[0] | slugify }}/index.html"
       {%- continue -%}
     {%- endif -%}
 
-    <div class="mb-2" id="{{ method[1].summary | slugify }}">
+    <div class="mb-2 py-2" id="{{ method[1].summary | slugify }}">
 
       <div class="row">
 
@@ -39,29 +39,35 @@ permalink: "api/{{ pagination.items[0] | slugify }}/index.html"
             <span class="badge text-bg-secondary">{{ method[1].operationId }}</span>
           </div>
 
-          {% # Informations générales de l'endpoint %}
+          {% # Titre de l'endpoint %}
           <h2 class="mb-4">
             <a href="#{{ method[1].summary | slugify }}" class="text-decoration-none">
               {{ method[1].summary }}
             </a>
           </h2>
-          <div class="mb-4">{{ method[1].description | markdownify }}</div>
+          
+          {% # Informations générales de l'endpoint %}
+          <div class="mb-6">
+            
+            {{ method[1].description | markdownify }}
 
-          {% # On vérifie si l'en-tête Metarisc-Org-Id est requis # %}
-          {% assign metariscOrgHeader = method[1].parameters | where: 'in', 'header' | where: 'name', 'Metarisc-Org-Id' | size %}
-          {% if metariscOrgHeader > 0 %}
-          <p class="mb-4">
-            Cet endpoint nécessite l'en-tête <code class="fw-bold">Metarisc-Org-Id</code> pour identifier l'organisation faisant l'appel.
-            Le résultat de l'appel sera donc spécifique à cette organisation.
-          </p>
-          {% endif %}
+            {% # On vérifie si l'en-tête Metarisc-Org-Id est requis # %}
+            {% assign metariscOrgHeader = method[1].parameters | where: 'in', 'header' | where: 'name', 'Metarisc-Org-Id' | size %}
+            {% if metariscOrgHeader > 0 %}
+            <p>
+              Cet endpoint nécessite l'en-tête <code class="fw-bold">Metarisc-Org-Id</code> pour identifier l'organisation faisant l'appel.
+              Le résultat de l'appel sera donc spécifique à cette organisation.
+            </p>
+            {% endif %}
+          
+          </div>
 
           {% # Paramètres de la requête %}
           {% assign parameters_query = method[1].parameters | parameters -%}
           {% assign parameters_query_size = parameters_query | size -%}
           {%- if parameters_query_size > 0 -%}
             <h3 class="fs-5 pb-1 mb-1 border-bottom">Paramètres</h3>
-            <div class="mb-2">
+            <div class="mb-4">
               {%- for parameter in parameters_query -%}
                 {% assign parameter_schema = parameter.schema %}
                 {% # Si le paramètre est multiple, on l'indique mais on n'affiche qu'un schéma sur les deux %}
@@ -74,10 +80,31 @@ permalink: "api/{{ pagination.items[0] | slugify }}/index.html"
             </div>
           {%- endif -%}
 
+          {% # Paramètres de la requête %}
+          {% assign moreParameters_query = method[1].parameters | moreParameters -%}
+          {% assign parameters_query_size = moreParameters_query | size -%}
+          {%- if parameters_query_size > 0 -%}
+            <h3 class="fs-5 pb-1 mb-1 border-bottom">Paramètres supplémentaires</h3>
+            <div class="mb-4 collapse" id="moreParameters-{{ method[1].operationId | slugify }}">
+              {%- for parameter in moreParameters_query -%}
+                {% assign parameter_schema = parameter.schema %}
+                {% # Si le paramètre est multiple, on l'indique mais on n'affiche qu'un schéma sur les deux %}
+                {% if parameter['x-extension-metarisc-param-multiple'] %}
+                  {% render 'openapi/schema', schema: parameter_schema['oneOf'][0], title: parameter.name, description: parameter.description, multiple: true, required: parameter.required %}
+                {% else %}
+                  {% render 'openapi/schema', schema: parameter_schema, title: parameter.name, description: parameter.description, required: parameter.required %}
+                {% endif %}
+              {%- endfor -%}
+            </div>
+            <button class="btn btn-secondary mb-4" type="button" data-bs-toggle="collapse" data-bs-target="#moreParameters-{{ method[1].operationId | slugify }}" aria-expanded="false" aria-controls="moreParameters-{{ method[1].operationId | slugify }}">
+              Afficher les paramètres supplémentaires
+            </button>
+          {%- endif -%}
+
           {% # Schéma du corps de la requête %}
           {%- if method[1].requestBody != null -%}
             <h3 class="fs-5 pb-1 mb-1 border-bottom">Paramètres du corps de la requête</h3>
-            <div class="mb-2">
+            <div class="mb-4">
               {% assign request_schema = method[1].requestBody.content["application/json"].schema %}
               {%- if request_schema.type == "array" -%}
                 {% render 'openapi/schema', schema: request_schema, expandArray: true %}
@@ -90,7 +117,7 @@ permalink: "api/{{ pagination.items[0] | slugify }}/index.html"
           {% # Schéma des réponses %}
           {%- if method[1].responses != null -%}
             <h3 class="fs-5 pb-1 mb-1 border-bottom">Réponses</h3>
-            <div class="mb-2">
+            <div class="mb-4">
               {%- for response in method[1].responses  -%}
 
                 {% # On affiche uniquement les 200, 201 ou 204 pour simplifier la lecture de la doc %}
@@ -147,7 +174,19 @@ permalink: "api/{{ pagination.items[0] | slugify }}/index.html"
 
           <div class="card text-bg-secondary p-1">
             <p class="m-0">
-              <span class="badge bg-info">{{ method[0] | upcase }}</span>
+              {% if method[0] == "get" %}
+                <span class="badge bg-info">{{ method[0] | upcase }}</span>
+              {% elsif method[0] == "post" %}
+                <span class="badge bg-success">{{ method[0] | upcase }}</span>
+              {% elsif method[0] == "put" %}
+                <span class="badge bg-warning text-dark">{{ method[0] | upcase }}</span>
+              {% elsif method[0] == "delete" %}
+                <span class="badge bg-danger">{{ method[0] | upcase }}</span>
+              {% elsif method[0] == "patch" %}
+                <span class="badge bg-info">{{ method[0] | upcase }}</span>
+              {% else %}
+                <span class="badge bg-secondary">{{ method[0] | upcase }}</span>
+              {% endif %}
               <span>{{ path[0] }}</span>
             </p>
           </div>
@@ -161,7 +200,11 @@ permalink: "api/{{ pagination.items[0] | slugify }}/index.html"
                     {%- if response[1].content != null and response[1].content["application/json"].schema != null -%}
                       <div class="card mt-2" style="background-color: rgba(108, 117, 125, 0.2);">
                         <div class="card-header">
-                          <strong>Schéma de la réponse</strong>
+                          <ul class="nav nav-underline">
+                            <li class="nav-item">
+                              <a class="nav-link active">Schéma de la réponse</a>
+                            </li>
+                          </ul>
                         </div>
                         <div class="card-body">
                           {% assign response_schema = response[1].content["application/json"].schema %}
