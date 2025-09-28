@@ -4,7 +4,7 @@ layout: layouts/home.liquid
 
 <div class="d-flex vh-100 overflow-hidden">
 
-  <div class="d-flex flex-column w-100 position-relative overflow-visible" style="width: 280px;">
+  <div class="d-flex flex-column w-100 position-relative overflow-visible border-end" style="width: 280px;">
 
     <div class="d-flex flex-column align-items-center align-items-sm-start pt-2 text-white min-vh-100 px-sm-2 px-0 side-bar">
 
@@ -50,7 +50,8 @@ layout: layouts/home.liquid
                       </a>
                       <div class="nav hide collapse" id="submenu-ops-{{ tagSlug }}" style="">
                         <ul class="d-flex flex-column w-100 fw-light p-1">
-                          <li>
+                          <!-- Link to the tag overview page, hidden but useful for active link highlighting -->
+                          <li class="d-none">
                             <a href="{{ tagUrl }}" class="px-0 {% if current_page == tagUrl %}active-link{% endif %} align-middle">
                               Page de présentation
                             </a>
@@ -86,9 +87,9 @@ layout: layouts/home.liquid
 
   </div>
 
-  <div style="flex-shrink: 0; width: 1.5rem; height: 100vh;"></div>
+  <div style="flex-shrink: 0; width: 1.5rem; height: 100vh; background-color: #212529;"></div>
 
-  <div class="d-flex flex-column flex-shrink-0" style="width: calc(100% - 280px - 1.5rem); height: 100vh; overflow: auto;">
+  <div class="d-flex flex-column flex-shrink-0" style="width: calc(100% - 280px - 1.5rem); height: 100vh; overflow: auto; background-color: #212529;">
 
     <div class="container-fluid">
 

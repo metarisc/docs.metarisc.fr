@@ -27,7 +27,11 @@ permalink: "api/{{ pagination.items[0] | slugify }}/index.html"
       {%- continue -%}
     {%- endif -%}
 
-    <div class="mb-2 py-2" id="{{ method[1].summary | slugify }}">
+    {% # Chaque endpoint est contenu dans une div avec un id pour le lien d'ancrage # %}
+    {% assign anchorId = method[1].summary | slugify %}
+    {% assign operationIdSlug = method[1].operationId | slugify %}
+
+    <div class="py-6" id="{{ anchorId }}">
 
       <div class="row">
 
@@ -41,7 +45,7 @@ permalink: "api/{{ pagination.items[0] | slugify }}/index.html"
 
           {% # Titre de l'endpoint %}
           <h2 class="mb-4">
-            <a href="#{{ method[1].summary | slugify }}" class="text-decoration-none">
+            <a href="#{{ anchorId }}" class="text-decoration-none">
               {{ method[1].summary }}
             </a>
           </h2>
@@ -85,7 +89,7 @@ permalink: "api/{{ pagination.items[0] | slugify }}/index.html"
           {% assign parameters_query_size = moreParameters_query | size -%}
           {%- if parameters_query_size > 0 -%}
             <h3 class="fs-5 pb-1 mb-1 border-bottom">Paramètres supplémentaires</h3>
-            <div class="mb-4 collapse" id="moreParameters-{{ method[1].operationId | slugify }}">
+            <div class="mb-4 collapse" id="moreParameters-{{ operationIdSlug }}">
               {%- for parameter in moreParameters_query -%}
                 {% assign parameter_schema = parameter.schema %}
                 {% # Si le paramètre est multiple, on l'indique mais on n'affiche qu'un schéma sur les deux %}
@@ -96,7 +100,7 @@ permalink: "api/{{ pagination.items[0] | slugify }}/index.html"
                 {% endif %}
               {%- endfor -%}
             </div>
-            <button class="btn btn-secondary mb-4" type="button" data-bs-toggle="collapse" data-bs-target="#moreParameters-{{ method[1].operationId | slugify }}" aria-expanded="false" aria-controls="moreParameters-{{ method[1].operationId | slugify }}">
+            <button class="btn btn-secondary mb-4" type="button" data-bs-toggle="collapse" data-bs-target="#moreParameters-{{ operationIdSlug }}" aria-expanded="false" aria-controls="moreParameters-{{ operationIdSlug }}">
               Afficher les paramètres supplémentaires
             </button>
           {%- endif -%}

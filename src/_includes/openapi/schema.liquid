@@ -94,19 +94,19 @@
             {% endif %}
 
             {% if schema.maximum %}
-                <span class="badge border border-secondary">&ge;={{ schema.maximum }}</span>
+                <span class="badge border border-secondary">&le;={{ schema.maximum }}</span>
             {% endif %}
 
             {% if schema.minimum %}
-                <span class="badge border border-secondary">&le;={{ schema.minimum }}</span>
+                <span class="badge border border-secondary">&ge;={{ schema.minimum }}</span>
             {% endif %}
 
             {% if schema.exclusiveMaximum %}
-                <span class="badge border border-secondary">&gt; {{ schema.exclusiveMaximum }}</span>
+                <span class="badge border border-secondary">&lt; {{ schema.exclusiveMaximum }}</span>
             {% endif %}
 
             {% if schema.exclusiveMinimum %}
-                <span class="badge border border-secondary">&lt; {{ schema.exclusiveMinimum }}</span>
+                <span class="badge border border-secondary">&gt; {{ schema.exclusiveMinimum }}</span>
             {% endif %}
 
             {% if schema.multipleOf %}
