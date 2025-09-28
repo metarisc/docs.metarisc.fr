@@ -68,45 +68,45 @@
             {% if schema.pattern %}
                 <span class="badge border border-secondary">pattern {{ schema.pattern }}</span>
             {% endif %}
-            
-            {% if schema.maxItems and schema.maxItems != schema.minItems %}
-                <span class="badge border border-secondary">{{ schema.maxItems }} max items</span>
-            {% endif %}
 
             {% if schema.minItems and schema.maxItems != schema.minItems%}
                 <span class="badge border border-secondary">{{ schema.minItems }} min items</span>
+            {% endif %}
+
+            {% if schema.maxItems and schema.maxItems != schema.minItems %}
+                <span class="badge border border-secondary">{{ schema.maxItems }} max items</span>
             {% endif %}
 
             {% if schema.maxItems == schema.minItems and schema.maxItems != null %}
                 <span class="badge border border-secondary">{{ schema.maxItems }} items</span>
             {% endif %}
 
-            {% if schema.maxLength and schema.maxLength != schema.minLength %}
-                <span class="badge border border-secondary">{{ schema.maxLength }} max length</span>
-            {% endif %}
-
             {% if schema.minLength and schema.maxLength != schema.minLength %}
                 <span class="badge border border-secondary">{{ schema.minLength }} min length</span>
+            {% endif %}
+
+            {% if schema.maxLength and schema.maxLength != schema.minLength %}
+                <span class="badge border border-secondary">{{ schema.maxLength }} max length</span>
             {% endif %}
 
             {% if schema.maxLength == schema.minLength and schema.maxLength != null %}
                 <span class="badge border border-secondary">{{ schema.maxLength }} fixed length</span>
             {% endif %}
 
-            {% if schema.maximum %}
-                <span class="badge border border-secondary">&le;={{ schema.maximum }}</span>
-            {% endif %}
-
             {% if schema.minimum %}
                 <span class="badge border border-secondary">&ge;={{ schema.minimum }}</span>
             {% endif %}
 
-            {% if schema.exclusiveMaximum %}
-                <span class="badge border border-secondary">&lt; {{ schema.exclusiveMaximum }}</span>
+            {% if schema.maximum %}
+                <span class="badge border border-secondary">&le;={{ schema.maximum }}</span>
             {% endif %}
 
             {% if schema.exclusiveMinimum %}
                 <span class="badge border border-secondary">&gt; {{ schema.exclusiveMinimum }}</span>
+            {% endif %}
+
+            {% if schema.exclusiveMaximum %}
+                <span class="badge border border-secondary">&lt; {{ schema.exclusiveMaximum }}</span>
             {% endif %}
 
             {% if schema.multipleOf %}

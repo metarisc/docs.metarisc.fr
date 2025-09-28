@@ -50,8 +50,7 @@ layout: layouts/home.liquid
                       </a>
                       <div class="nav hide collapse" id="submenu-ops-{{ tagSlug }}" style="">
                         <ul class="d-flex flex-column w-100 fw-light p-1">
-                          <!-- Link to the tag overview page, hidden but useful for active link highlighting -->
-                          <li class="d-none">
+                          <li>
                             <a href="{{ tagUrl }}" class="px-0 {% if current_page == tagUrl %}active-link{% endif %} align-middle">
                               Page de présentation
                             </a>

@@ -61,6 +61,7 @@ class Sidebar {
             const linksActive = Array.from(links).filter(link => link.getAttribute('href').includes(`#${entry.target.id}`));
             linksActive.forEach(link => {
               link.classList.add('active-link');
+              this.scrollToActiveLink();
             });
           }
         });
