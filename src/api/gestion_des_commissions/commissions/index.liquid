@@ -1,0 +1,237 @@
+---
+layout: layouts/sidebar.liquid
+title: My Posts
+pagination:
+  data: openapi.operationsTags
+  alias: tag
+  size: 1
+permalink: "api/{{ pagination.items[0] | slugify }}/index.html"
+---
+
+<h1 class="mb-4">
+  Points de terminaison d'API REST pour {{ tag }}
+</h1>
+
+<hr>
+
+{% # On parcourt tous les chemins de l'API %}
+{%- for path in openapi.paths  -%}
+
+  {% # Sur chaque chemin, on récupère les méthodes exposées et les opérations associées %}
+  {%- for method in path[1]  -%}
+
+    {% # On vérifie que le tag de la méthode correspond au tag de la page %}
+    {% assign pageTag = method[1].tags[0] | replace: ' API', '' | slugify %}
+    {% assign operationTag = tag | replace: ' API', '' | slugify %}
+    {%- if pageTag != operationTag -%}
+      {%- continue -%}
+    {%- endif -%}
+
+    {% # Chaque endpoint est contenu dans une div avec un id pour le lien d'ancrage # %}
+    {% assign anchorId = method[1].summary | slugify %}
+    {% assign operationIdSlug = method[1].operationId | slugify %}
+
+    <div class="py-7" id="{{ anchorId }}">
+
+      <div class="row">
+
+        {% # Partie gauche : documentation de l'endpoint %}
+        <div class="col-6">
+
+          {% # Affichage de l'operationid, utile pour les développeurs %}
+          <div class="float-end">
+            <span class="badge text-bg-secondary">{{ method[1].operationId }}</span>
+          </div>
+
+          {% # Titre de l'endpoint %}
+          <h2 class="mb-4">
+            <a href="#{{ anchorId }}" class="text-decoration-none">
+              {{ method[1].summary }}
+            </a>
+          </h2>
+          
+          {% # Informations générales de l'endpoint %}
+          <div class="mb-6">
+            
+            {{ method[1].description | markdownify }}
+
+            {% # On vérifie si l'en-tête Metarisc-Org-Id est requis # %}
+            {% assign metariscOrgHeader = method[1].parameters | where: 'in', 'header' | where: 'name', 'Metarisc-Org-Id' | size %}
+            {% if metariscOrgHeader > 0 %}
+            <p>
+              Cet endpoint nécessite l'en-tête <code class="fw-bold">Metarisc-Org-Id</code> pour identifier l'organisation faisant l'appel.
+              Le résultat de l'appel sera donc spécifique à cette organisation.
+            </p>
+            {% endif %}
+          
+          </div>
+
+          {% # Paramètres de la requête %}
+          {% assign parameters_query = method[1].parameters | parameters -%}
+          {% assign parameters_query_size = parameters_query | size -%}
+          {%- if parameters_query_size > 0 -%}
+            <h3 class="fs-5 pb-1 mb-1 border-bottom">Paramètres</h3>
+            <div class="mb-4">
+              {%- for parameter in parameters_query -%}
+                {% assign parameter_schema = parameter.schema %}
+                {% # Si le paramètre est multiple, on l'indique mais on n'affiche qu'un schéma sur les deux %}
+                {% if parameter['x-extension-metarisc-param-multiple'] %}
+                  {% render 'openapi/schema', schema: parameter_schema['oneOf'][0], title: parameter.name, description: parameter.description, multiple: true, required: parameter.required %}
+                {% else %}
+                  {% render 'openapi/schema', schema: parameter_schema, title: parameter.name, description: parameter.description, required: parameter.required %}
+                {% endif %}
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+
+          {% # Paramètres de la requête %}
+          {% assign moreParameters_query = method[1].parameters | moreParameters -%}
+          {% assign parameters_query_size = moreParameters_query | size -%}
+          {%- if parameters_query_size > 0 -%}
+            <h3 class="fs-5 pb-1 mb-1 border-bottom">Paramètres supplémentaires</h3>
+            <div class="mb-4 collapse" id="moreParameters-{{ operationIdSlug }}">
+              {%- for parameter in moreParameters_query -%}
+                {% assign parameter_schema = parameter.schema %}
+                {% # Si le paramètre est multiple, on l'indique mais on n'affiche qu'un schéma sur les deux %}
+                {% if parameter['x-extension-metarisc-param-multiple'] %}
+                  {% render 'openapi/schema', schema: parameter_schema['oneOf'][0], title: parameter.name, description: parameter.description, multiple: true, required: parameter.required %}
+                {% else %}
+                  {% render 'openapi/schema', schema: parameter_schema, title: parameter.name, description: parameter.description, required: parameter.required %}
+                {% endif %}
+              {%- endfor -%}
+            </div>
+            <button class="btn btn-secondary mb-4" type="button" data-bs-toggle="collapse" data-bs-target="#moreParameters-{{ operationIdSlug }}" aria-expanded="false" aria-controls="moreParameters-{{ operationIdSlug }}">
+              Afficher les paramètres supplémentaires
+            </button>
+          {%- endif -%}
+
+          {% # Schéma du corps de la requête %}
+          {%- if method[1].requestBody != null -%}
+            <h3 class="fs-5 pb-1 mb-1 border-bottom">Paramètres du corps de la requête</h3>
+            <div class="mb-4">
+              {% assign request_schema = method[1].requestBody.content["application/json"].schema %}
+              {%- if request_schema.type == "array" -%}
+                {% render 'openapi/schema', schema: request_schema, expandArray: true %}
+              {%- else -%}
+                {% render 'openapi/schema', schema: request_schema, displayRootObjectInfo: false %}
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+
+          {% # Schéma des réponses %}
+          {%- if method[1].responses != null -%}
+            <h3 class="fs-5 pb-1 mb-1 border-bottom">Réponses</h3>
+            <div class="mb-4">
+              {%- for response in method[1].responses  -%}
+
+                {% # On affiche uniquement les 200, 201 ou 204 pour simplifier la lecture de la doc %}
+                {%- if response[0] != "200" and response[0] != "201" and response[0] != "204" -%}
+                  {%- continue -%}
+                {%- else -%}
+                  <p class="mb-2">
+                    <strong class="badge text-bg-success">{{ response[0] }}</strong>
+                    <span class="text-muted">{{ response[1].description }}</span>
+                  </p>
+                {%- endif -%}
+
+                {%- if response[0] == "200" -%}
+        
+                  {%- if method[1]["x-extension-metarisc-codegen-ispagination"] == null and method[1]["x-extension-metarisc-codegen-islist"] == null -%}
+                    {% assign object_name = response[1].content["application/json"].schema.title %}
+                    <p>Retourne un {{ object_name }} contenant les données demandées.</p>
+                  {%- endif -%}
+
+                  {%- if method[1]["x-extension-metarisc-codegen-ispagination"] -%}
+                    {% assign object_name = response[1].content["application/json"].schema.properties.data.items.title %}
+                    <p>
+                      Retourne un dictionnaire avec une propriété data contenant un tableau d'{{ object_name }} (en respectant les limites de pagination).
+                      Chaque entrée du tableau constitue un {{ object_name }} distinct. Si aucun élément n'est disponible, le tableau résultant sera vide.
+                    </p>
+                  {%- endif -%}
+
+                  {%- if method[1]["x-extension-metarisc-codegen-islist"] -%}
+                    {% assign object_name = response[1].content["application/json"].schema.properties.data.items.title %}
+                    <p>
+                      Retourne un tableau d'{{ object_name }}. Chaque entrée du tableau constitue un {{ object_name }} distinct. Si aucun élément n'est disponible, le tableau résultant sera vide.
+                    </p>
+                  {%- endif -%}
+
+                {%- elsif response[0] == "204" -%}
+
+                  <p>Retourne une réponse vide.</p>
+
+                {%- elsif response[0] == "201" -%}
+
+                  {% assign object_name = response[1].content["application/json"].schema.title %}
+                  <p>Retourne l'{{ object_name }} créé.</p>
+
+                {%- endif -%}
+
+              {%- endfor -%}
+              </div>
+          {%- endif -%}
+
+        </div>
+
+        {% # Partie droite : HTTP Rest illustration %}
+        <div class="col-6">
+
+          <div class="card text-bg-secondary p-1">
+            <p class="m-0">
+              {% if method[0] == "get" %}
+                <span class="badge bg-info">{{ method[0] | upcase }}</span>
+              {% elsif method[0] == "post" %}
+                <span class="badge bg-success">{{ method[0] | upcase }}</span>
+              {% elsif method[0] == "put" %}
+                <span class="badge bg-warning text-dark">{{ method[0] | upcase }}</span>
+              {% elsif method[0] == "delete" %}
+                <span class="badge bg-danger">{{ method[0] | upcase }}</span>
+              {% elsif method[0] == "patch" %}
+                <span class="badge bg-info">{{ method[0] | upcase }}</span>
+              {% else %}
+                <span class="badge bg-secondary">{{ method[0] | upcase }}</span>
+              {% endif %}
+              <span>{{ path[0] }}</span>
+            </p>
+          </div>
+
+          {%- if method[1].responses != null -%}
+              {%- for response in method[1].responses  -%}
+                {% # On affiche uniquement les 200, 201 ou 204 pour simplifier la lecture de la doc %}
+                {%- if response[0] != "200" and response[0] != "201" and response[0] != "204" -%}
+                  {%- continue -%}
+                {%- else -%}
+                    {%- if response[1].content != null and response[1].content["application/json"].schema != null -%}
+                      <div class="card mt-2" style="background-color: rgba(108, 117, 125, 0.2);">
+                        <div class="card-header">
+                          <ul class="nav nav-underline">
+                            <li class="nav-item">
+                              <a class="nav-link active">Schéma de la réponse</a>
+                            </li>
+                          </ul>
+                        </div>
+                        <div class="card-body">
+                          {% assign response_schema = response[1].content["application/json"].schema %}
+                          {%- if response_schema.type == "array" -%}
+                            {% render 'openapi/schema', schema: response_schema, expandArray: true %}
+                          {%- else -%}
+                            {% render 'openapi/schema', schema: response_schema, displayRootObjectInfo: false %}
+                          {%- endif -%}
+                        </div>
+                      </div>
+                    {%- endif -%}
+                  {%- continue -%}
+                {%- endif -%} 
+              {%- endfor -%}
+          {%- endif -%}
+
+        </div>
+      </div>
+
+    </div>
+
+    <hr>
+
+  {%- endfor -%}
+
+{%- endfor -%}

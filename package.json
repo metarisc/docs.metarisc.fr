@@ -10,13 +10,13 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "@11ty/eleventy": "^2.0.1"
-  },
   "dependencies": {
+    "@11ty/eleventy": "^2.0.1",
     "@11ty/eleventy-fetch": "^4.0.1",
+    "@apidevtools/json-schema-ref-parser": "^14.2.1",
     "bootstrap": "^5.3.3",
     "eleventy-sass": "^2.2.4",
-    "html-minifier-terser": "^7.2.0"
+    "html-minifier-terser": "^7.2.0",
+    "markdown-it": "^14.1.0"
   }
 }

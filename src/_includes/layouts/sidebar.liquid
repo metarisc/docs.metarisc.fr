@@ -2,39 +2,98 @@
 layout: layouts/home.liquid
 ---
 
-<div class="container">
+<div class="d-flex vh-100 overflow-hidden">
 
-  <div class="row flex-nowrap d-flex">
+  <div class="d-flex flex-column w-100 position-relative overflow-visible border-end" style="width: 280px;">
 
-    <div class="col-3 px-sm-2 px-0 side-bar">
+    <div class="d-flex flex-column align-items-center align-items-sm-start pt-2 text-white min-vh-100 px-sm-2 px-0 side-bar">
 
-      <div class="d-flex flex-column align-items-center align-items-sm-start pt-2 text-white min-vh-100">
-
-        <!-- Logo de metarisc -->
-        <div class="page-header pb-1">
-          <a class="navbar-brand" href="/">
-            <img src="/img/logo.svg" alt="Metarisc" width="40" height="40">
-            <span class="fs-3 fw-bold" style="vertical-align: middle">METARISC</span>
-            <span class="badge bg-white text-dark h-100 my-auto fs-6" style="vertical-align: middle">DOCS</span>
-          </a>
-        </div>
-
-        <!-- Choix de la version -->
-        {% render "selectVersion", versions: versions %}
-
-        <!-- Liens de l'arbre de navigation -->
-        <ul id="sidebar" class="nav nav-pills flex-column text-light mb-sm-auto mb-0 align-items-center align-items-sm-start">
-          {% render "sidebarDropdown", list: docs_dev.items, page: page %}
-        </ul>
-        
+      <!-- Logo de metarisc -->
+      <div class="page-header pb-1">
+        <a class="navbar-brand" href="/">
+          <img src="/img/logo.svg" alt="Metarisc" width="40" height="40">
+          <span class="fs-3 fw-bold" style="vertical-align: middle">METARISC</span>
+          <span class="badge bg-white text-dark my-auto fs-6" style="vertical-align: middle">DOCS</span>
+        </a>
       </div>
 
+      <!-- Choix de la version -->
+      {% render "selectVersion", versions: versions %}
+
+      <div class="overflow-auto w-100 flex-grow-1" style="scrollbar-width: none;">
+
+        <h3 class="text-uppercase fw-bold text-secondary-emphasis fs-5 mt-4">Guides</h3>
+
+        <!-- Liens de l'arbre de navigation -->
+        <ul id="sidebar" class="nav nav-pills flex-column text-light mb-2 align-items-center align-items-sm-start">
+          {% render "sidebarDropdown", list: docs_dev.items, page: page %}
+        </ul>
+
+        <h3 class="text-uppercase fw-bold text-secondary-emphasis fs-5 mt-4">API</h3>
+
+        {% assign current_page =  page.url | remove_last: '/' %}
+        <ul id="sidebar-api" class="nav nav-pills flex-column text-light mb-2 align-items-center align-items-sm-start">
+          {%- for group in openapi["x-tagGroups"] -%}
+            <li class="sidebar-group w-100">
+              <a href="#submenu-{{ group.name | slugify }}" data-bs-toggle="collapse" class="nav-link px-0 align-middle category-dropdown">
+                {{ group.name }} <i class="i-arrow my-auto" style="height: 8px"></i>
+              </a>
+              <div class="collapse nav hide" id="submenu-{{ group.name | slugify }}">
+                <ul class="d-flex flex-column w-100 fw-light p-1">
+                  {%- for tag in group.tags -%}
+                    {%- assign tagAPI = tag | replace: ' API', '' -%}
+                    {%- assign tagSlug = tagAPI | slugify -%}
+                    {% assign tagUrl = "/api/" | append: tagSlug %}
+                    <li class="sidebar-group w-100">
+                      <a href="#submenu-ops-{{ tagSlug }}" data-bs-toggle="collapse" class="nav-link p-0 align-middle category-dropdown collapsed" aria-expanded="true">
+                        {{ tag }} <i class="i-arrow my-auto" style="height: 8px"></i>
+                      </a>
+                      <div class="nav hide collapse" id="submenu-ops-{{ tagSlug }}" style="">
+                        <ul class="d-flex flex-column w-100 fw-light p-1">
+                          <li>
+                            <a href="{{ tagUrl }}" class="px-0 {% if current_page == tagUrl %}active-link{% endif %} align-middle">
+                              Page de présentation
+                            </a>
+                          </li>
+                          {%- for path in openapi.paths  -%}
+                            {%- for method in path[1]  -%}
+                              {% assign pageTag = method[1].tags[0] | replace: ' API', '' %}
+                              {%- if pageTag != tagAPI -%}
+                                {%- continue -%}
+                              {%- endif -%}
+                              {% assign operationIdSlug = method[1].summary | slugify %}
+                              {% assign tagUrlWithHash = tagUrl | append: '/#' | append: operationIdSlug %}
+                              <li>
+                                <a href="{{ tagUrlWithHash }}" class="px-0 align-middle">
+                                  {{ method[1].summary }}
+                                </a>
+                              </li>
+                            {%- endfor -%}
+                          {%- endfor -%}
+                        </ul>
+                      </div>
+                    </li>
+                  {%- endfor -%}
+                </ul>
+              </div>
+            </li>
+          {% endfor %}
+        </ul>
+
+      </div>
+      
     </div>
 
-    <div class="col-9 py-3 ms-3">
+  </div>
+
+  <div style="flex-shrink: 0; width: 1.5rem; height: 100vh; background-color: #212529;"></div>
+
+  <div class="d-flex flex-column flex-shrink-0" style="width: calc(100% - 280px - 1.5rem); height: 100vh; overflow: auto; background-color: #212529;">
+
+    <div class="container-fluid">
 
       <!-- Breadcrumb -->
-      <div class="mb-4">
+      <div class="mb-4 mt-4">
         {% assign pageUrl = page.url | remove_last: '/' %}
         {% render "breadcrumbs", list: docs_dev.items, url: pageUrl %}
       </div>

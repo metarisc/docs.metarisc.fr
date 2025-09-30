@@ -2,11 +2,12 @@ const sass = require("eleventy-sass");
 const yaml = require("js-yaml");
 const htmlmin = require("html-minifier-terser");
 const multiEnvironmentPlugin = require('./plugins/environment.js');
+const openapiPlugin = require('./plugins/openapi.js');
 
 module.exports = function(eleventyConfig) {
   eleventyConfig.addPlugin(sass);
 
-  eleventyConfig.addDataExtension('yml', contents => yaml.safeLoad(contents))
+  eleventyConfig.addDataExtension('yml', contents => yaml.load(contents))
 
   // Copy files and dir folders to the output
   eleventyConfig.addPassthroughCopy("src/img");
@@ -35,6 +36,9 @@ module.exports = function(eleventyConfig) {
     permalinkPattern: "{{ currentEnv }}/{{ page.filePathStem }}.{{ page.outputFileExtension }}",
     alias: 'currentEnv'
   });
+
+  // Multi-environment plugin
+  eleventyConfig.addPlugin(openapiPlugin);
 
   return {
     templateFormats: ['html', 'liquid', 'md', 'njk'],

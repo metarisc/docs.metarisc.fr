@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', (event) => {
     new Sidebar('#sidebar');
+    new Sidebar('#sidebar-api');
 });
 
 class Sidebar {
@@ -7,6 +8,8 @@ class Sidebar {
       this.elem = document.querySelector(querySelector);  
       if (this.elem !== null) {
         this.expandActiveGroup();
+        this.scrollToActiveLink();
+        this.updateActiveLinkOnScroll();
       }
     }
 
@@ -29,8 +32,41 @@ class Sidebar {
 
     toggleGroup(group, hide) {
       let items = group.querySelector('.nav.collapse');
-      console.log(items);
       items.classList.toggle('hide', hide);
       items.classList.toggle('show', !hide);
+    }
+
+    scrollToActiveLink() {
+      const activeLink = this.getActiveLink();
+      if (activeLink) {
+        activeLink.scrollIntoView({ block: 'center' });
+      }
+    }
+
+    updateActiveLinkOnScroll() {
+      const links = this.elem.querySelectorAll('a');
+      const sections = Array.from(links)
+        .map(link => link.getAttribute('href'))
+        .filter(href => href && href.includes('#') && !href.startsWith('#submenu'))
+        .map(href => {
+          const targetId = href.substring(href.indexOf('#'));
+          return document.querySelector(targetId);
+        })
+        .filter((section) => section !== null);
+
+      const observer = new IntersectionObserver((entries) => {
+        links.forEach(link => link.classList.remove('active-link'));
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const linksActive = Array.from(links).filter(link => link.getAttribute('href').includes(`#${entry.target.id}`));
+            linksActive.forEach(link => {
+              link.classList.add('active-link');
+              this.scrollToActiveLink();
+            });
+          }
+        });
+      }, { rootMargin: '-50% 0px'});
+
+      sections.forEach(section => observer.observe(section));
     }
   }
