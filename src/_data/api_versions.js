@@ -2,7 +2,7 @@ const EleventyFetch = require("@11ty/eleventy-fetch");
 
 module.exports = async function () {
 	return EleventyFetch("https://api.github.com/repos/metarisc/openapi/branches", {
-		duration: "0s",
+		duration: "1200s",
 		type: "json",
 	});
 };

@@ -5,7 +5,7 @@ const $RefParser = require("@apidevtools/json-schema-ref-parser");
 module.exports = async function () {
 	// fetch the OpenAPI spec from Metarisc OpenAPI repo
 	const data = await EleventyFetch("https://raw.githubusercontent.com/metarisc/openapi/refs/heads/main/openapi.yaml", {
-		duration: "0s",
+		duration: "1200s",
 		type: "text"
 	});
 
