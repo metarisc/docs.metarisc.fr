@@ -20,11 +20,13 @@
 
   <!-- If category has nested pages (items), render a dropdown -->
   {% if category.items %}
+    <!-- Set title slug -->
+    {% assign title_slug = title | slugify %}
     <li class="sidebar-group w-100">
       {% case level %}
         {% when 1 %}
           <a
-            href="#submenu-{{ title | slugify }}"
+            href="#submenu-{{ title_slug }}"
             data-bs-toggle="collapse"
             class="nav-link px-0 align-middle category-dropdown">
             {{ title }}
@@ -32,14 +34,14 @@
           </a>
         {% else %}
           <a
-            href="#submenu-{{ title | slugify }}"
+            href="#submenu-{{ title_slug }}"
             data-bs-toggle="collapse"
             class="nav-link p-0 align-middle category-dropdown">
             {{ title }}
             <i class="i-arrow my-auto" style="height: 8px"></i>
           </a>
       {% endcase %}
-      <div class="collapse nav hide" id="submenu-{{ title | slugify }}">
+      <div class="collapse nav hide" id="submenu-{{ title_slug }}">
         <ul class="d-flex flex-column w-100 fw-light p-1">
           {% render "sidebarDropdown", list: category.items, level: level, page: page %}
         </ul>
