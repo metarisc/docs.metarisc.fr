@@ -47,7 +47,7 @@
         </ul>
       </div>
     </li>
-  {% else %}
+  {% elsif category.url %}
     <li>
       <a
           href="{{ category.url }}{% if category.hash %}#{{ category.hash | slugify }}{% endif %}"
@@ -59,6 +59,10 @@
             <i class="bi bi-box-arrow-up-right"></i>
           {% endif %}
         </a>
+    </li>
+  {% else %}
+    <li class="nav-link px-0 align-middle">
+      <h3 class="text-uppercase fw-bold text-secondary-emphasis fs-5 my-2">{{ title }}</h3>
     </li>
   {% endif %}
 

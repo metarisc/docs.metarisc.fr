@@ -50,6 +50,9 @@ module.exports = async function () {
                     }
                 ]
             },
+            {
+                title: "Core resources",
+            }
         ]
     };
 

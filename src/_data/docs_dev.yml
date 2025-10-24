@@ -5,6 +5,7 @@ items:
         url: /posts/intro/about
       - text: Comment fonctionne Metarisc ?
         url: /posts/intro/how-it-works
+  - title: Guides d'utilisation
   - title: ERP
     items:
       - text: Commissions
@@ -69,6 +70,7 @@ items:
         url: /posts/pdf/generer-pv
       #- text: Générer une convocation de commission
         #url: /posts/pdf/generer-convoc
+  - title: Guides d'administration
   - title: Paramétrage organisation
     items:
       - text: Les RDDECI
