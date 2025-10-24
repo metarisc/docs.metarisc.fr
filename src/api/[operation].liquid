@@ -21,8 +21,8 @@ permalink: "api/{{ pagination.items[0] | slugify }}/index.html"
   {%- for method in path[1]  -%}
 
     {% # On vérifie que le tag de la méthode correspond au tag de la page %}
-    {% assign pageTag = method[1].tags[0] | replace: ' API', '' | slugify %}
-    {% assign operationTag = tag | replace: ' API', '' | slugify %}
+    {% assign pageTag = method[1].tags[0] | replace: ' API', '' %}
+    {% assign operationTag = tag | replace: ' API', '' %}
     {%- if pageTag != operationTag -%}
       {%- continue -%}
     {%- endif -%}
