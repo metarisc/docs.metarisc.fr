@@ -2,62 +2,78 @@
 layout: layouts/home.liquid
 ---
 
-<div class="d-flex vh-100 overflow-hidden">
+{% assign current_page =  page.url | remove_last: '/' %}
 
-  <div class="d-flex flex-column w-100 position-relative overflow-visible border-end" style="width: 280px;">
+<div class="page-wrapper">
+    
+  <nav class="navbar navbar-main">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">
+        <img src="/img/logo.svg" alt="Metarisc" width="40" height="40">
+        <span class="fs-3 fw-bold" style="vertical-align: middle">METARISC</span>
+        <span class="badge bg-white text-dark my-auto fs-6" style="vertical-align: middle">DOCS</span>
+      </a>
+    </div>
+  </nav>
 
-    <div class="d-flex flex-column align-items-center align-items-sm-start pt-2 text-white min-vh-100 px-sm-2 px-0 side-bar">
-
-      <!-- Logo de metarisc -->
-      <div class="page-header pb-1">
-        <a class="navbar-brand" href="/">
-          <img src="/img/logo.svg" alt="Metarisc" width="40" height="40">
-          <span class="fs-3 fw-bold" style="vertical-align: middle">METARISC</span>
-          <span class="badge bg-white text-dark my-auto fs-6" style="vertical-align: middle">DOCS</span>
+  <nav class="navbar navbar-secondary">
+    <div class="container-fluid">
+      <div class="d-flex gap-1">
+        <a class="btn btn-lg btn-opacity {% if current_page not contains '/api' %}active{% endif %}" href="/">
+          <i class="bi bi-book-half me-1"></i>
+          Guides
+        </a>
+        <a class="btn btn-lg btn-opacity {% if current_page contains '/api' %}active{% endif %}" href="/api/introduction">
+          <i class="bi bi-code me-1"></i>
+          API Reference
         </a>
       </div>
+    </div>
+  </nav>
 
-      <!-- Choix de la version -->
-      {% render "selectVersion", versions: versions %}
+  <div class="content-wrapper">
 
-      <div class="overflow-auto w-100 flex-grow-1" style="scrollbar-width: none;">
+    <aside class="sidebar-scroll border-end">
 
-        <h3 class="text-uppercase fw-bold text-secondary-emphasis fs-5 mt-4">Guides</h3>
+      <div class="d-flex flex-column align-items-center align-items-sm-start pt-2 text-white px-sm-2 px-0 side-bar">
 
-        <!-- Liens de l'arbre de navigation -->
-        <ul id="sidebar" class="nav nav-pills flex-column text-light mb-2 align-items-center align-items-sm-start">
-          {% render "sidebarDropdown", list: docs_dev.items, page: page %}
-        </ul>
+        <div class="overflow-auto w-100 flex-grow-1" style="scrollbar-width: none;">
 
-        <h3 class="text-uppercase fw-bold text-secondary-emphasis fs-5 mt-4">API</h3>
+          <!-- Liens de l'arbre de navigation -->
+          <ul id="sidebar" class="nav nav-pills flex-column text-light mb-2 align-items-center align-items-sm-start">
+            {% if current_page not contains '/api' %}
+              {% render "sidebarDropdown", list: docs_dev.items, page: page %}
+            {% else %}
+              {% render "sidebarDropdown", list: docs_api.items, page: page %}
+            {% endif %}
+          </ul>
 
-        <!-- Liens de l'arbre de navigation API -->
-        <ul id="sidebar" class="nav nav-pills flex-column text-light mb-2 align-items-center align-items-sm-start">
-          {% render "sidebarDropdown", list: docs_api.items, page: page %}
-        </ul>
+        </div>
 
       </div>
-      
-    </div>
 
-  </div>
+    </aside>
 
-  <div style="flex-shrink: 0; width: 1.5rem; height: 100vh; background-color: #212529;"></div>
+    <main class="main-scroll">
 
-  <div class="d-flex flex-column flex-shrink-0" style="width: calc(100% - 280px - 1.5rem); height: 100vh; overflow: auto; background-color: #212529;">
+      <div class="container-fluid">
 
-    <div class="container-fluid">
+        <!-- Breadcrumb -->
+        <div class="mb-4 mt-4">
+          {% assign pageUrl = page.url | remove_last: '/' %}
+          {% if current_page not contains '/api' %}
+            {% render "breadcrumbs", list: docs_dev.items, url: pageUrl %}
+          {% else %}
+            {% render "breadcrumbs", list: docs_api.items, url: pageUrl %}
+          {% endif %}
+        </div>
 
-      <!-- Breadcrumb -->
-      <div class="mb-4 mt-4">
-        {% assign pageUrl = page.url | remove_last: '/' %}
-        {% render "breadcrumbs", list: docs_dev.items, url: pageUrl %}
+        <!-- Contenu -->
+        {{ content }}
+
       </div>
 
-      <!-- Contenu -->
-      {{ content }}
-
-    </div>
+    </main>
 
   </div>
 

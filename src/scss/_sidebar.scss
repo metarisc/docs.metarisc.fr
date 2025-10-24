@@ -29,3 +29,24 @@
     font-weight: bold;
   }
 }
+
+.page-wrapper {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    height: 100vh;
+}
+
+.content-wrapper {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    min-height: 0;
+}
+
+.sidebar-scroll {
+    scrollbar-width: none;
+    overflow-y: auto;
+}
+
+.main-scroll {
+    overflow-y: auto;
+}
