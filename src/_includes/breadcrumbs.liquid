@@ -5,7 +5,7 @@
       {% if subcat.items %}
 
         {% for item in subcat.items %}
-          {% if item.url == url %}
+          {% if item.url == url and item.hash == null %}
 
             {% assign array = array | push: category.title %}
             {% assign array = array | push: subcat.text %}
