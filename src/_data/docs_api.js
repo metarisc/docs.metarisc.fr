@@ -67,8 +67,6 @@ module.exports = async function () {
         for (const group of openapi["x-tagGroups"]) {
             const groupItem = {
                 title: group.name,
-                collapsible: true,
-                collapseId: `submenu-${slugify(group.name)}`,
                 items: []
             };
 
@@ -78,9 +76,7 @@ module.exports = async function () {
                 const tagUrl = `/api/${tagSlug}`;
 
                 const tagItem = {
-                    title: tag,
-                    collapsible: true,
-                    collapseId: `submenu-ops-${tagSlug}`,
+                    text: tag,
                     items: [
                         {
                             text: "Page de présentation",
