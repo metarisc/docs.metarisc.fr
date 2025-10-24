@@ -24,7 +24,7 @@
       {% case level %}
         {% when 1 %}
           <a
-            href="#submenu-{{ title | replace: " ", "" }}"
+            href="#submenu-{{ title | slugify }}"
             data-bs-toggle="collapse"
             class="nav-link px-0 align-middle category-dropdown">
             {{ title }}
@@ -32,14 +32,14 @@
           </a>
         {% else %}
           <a
-            href="#submenu-{{ title | replace: " ", "" }}"
+            href="#submenu-{{ title | slugify }}"
             data-bs-toggle="collapse"
             class="nav-link p-0 align-middle category-dropdown">
             {{ title }}
             <i class="i-arrow my-auto" style="height: 8px"></i>
           </a>
       {% endcase %}
-      <div class="collapse nav hide" id="submenu-{{ title | replace: " ", "" }}">
+      <div class="collapse nav hide" id="submenu-{{ title | slugify }}">
         <ul class="d-flex flex-column w-100 fw-light p-1">
           {% render "sidebarDropdown", list: category.items, level: level, page: page %}
         </ul>
@@ -48,7 +48,7 @@
   {% else %}
     <li>
       <a
-          href="{{ category.url }}"
+          href="{{ category.url }}{% if category.hash %}#{{ category.hash | slugify }}{% endif %}"
           class="px-0 {% if current_page != "" and category.url contains current_page %}active-link{% endif %} align-middle"
           {% if category.external %}target="_blank"{% endif %}
         >

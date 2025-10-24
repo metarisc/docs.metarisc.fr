@@ -1,15 +1,6 @@
 const EleventyFetch = require("@11ty/eleventy-fetch");
 const yaml = require("js-yaml");
-
-function slugify(text) {
-    return text
-        .toString()
-        .toLowerCase()
-        .trim()
-        .replace(/\s+/g, '-')
-        .replace(/[^\w\-]+/g, '')
-        .replace(/\-\-+/g, '-');
-}
+const slugify = require("@sindresorhus/slugify");
 
 module.exports = async function () {
     // Charger et parser le fichier OpenAPI
@@ -86,17 +77,17 @@ module.exports = async function () {
                 };
 
                 // Parcourir les paths pour trouver les opérations de ce tag
-                for (const [pathUrl, pathItem] of Object.entries(openapi.paths)) {
-                    for (const [method, operation] of Object.entries(pathItem)) {
+                for (const [, pathItem] of Object.entries(openapi.paths)) {
+                    for (const [, operation] of Object.entries(pathItem)) {
                         if (typeof operation !== 'object' || !operation.tags) continue;
                         
                         const pageTag = operation.tags[0].replace(' API', '');
                         if (pageTag !== tagAPI) continue;
 
-                        const operationIdSlug = slugify(operation.summary);
                         tagItem.items.push({
                             text: operation.summary,
-                            url: `${tagUrl}/#${operationIdSlug}`
+                            url: tagUrl,
+                            hash: operation.summary
                         });
                     }
                 }
