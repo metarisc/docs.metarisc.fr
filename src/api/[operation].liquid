@@ -41,6 +41,9 @@ permalink: "api/{{ pagination.items[0] | slugify }}/index.html"
           {% # Affichage de l'operationid, utile pour les développeurs %}
           <div class="float-end">
             <span class="badge text-bg-secondary">{{ method[1].operationId }}</span>
+            {% if method[1].deprecated %}
+            <span class="badge text-bg-warning ms-1">DEPRECATED</span>
+            {% endif %}
           </div>
 
           {% # Titre de l'endpoint %}
