@@ -7,6 +7,8 @@ layout: layouts/sidebar.liquid
   <!-- Contenu de l'article -->
   <div class="col-10 post">
     <div class="mb-4">
+      <h1>{{ title }}</h1>
+      <hr />
       {{ content }}
     </div>
   </div>
@@ -18,8 +20,12 @@ layout: layouts/sidebar.liquid
     </div>
   </div>
 
+  <div class="col-12">
+    <hr />
+    <!-- <p class="text-muted" style="text-align: right; font-style: italic;">Document mis à jour le {{ date }}</p> -->
+  </div>
 </div>
 
 <!-- Cartes de navigation (précédent et suivant) -->
 {% assign pageUrl = page.url | remove_last: '/' %}
-{% render "navigationButtons", list: docs_dev.items, url: pageUrl %}
+{% render "navigationButtons", list: docs_app.items, url: pageUrl %}

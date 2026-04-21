@@ -1,6 +1,6 @@
 window.addEventListener("load", (event) => {
 
-  const titles = document.querySelectorAll("h2, h3");
+  const titles = document.querySelectorAll("h2, h3, h4");
   const mapTitlesList = document.getElementById("mapTitlesList");
   if (titles.length > 0) {
     titles.forEach(title => {
@@ -14,6 +14,9 @@ window.addEventListener("load", (event) => {
       
       if(title.nodeName == "H3"){
         li.classList.add("ps-1");
+      }
+      else if(title.nodeName == "H4"){
+        li.classList.add("ps-2");
       }
       li.appendChild(a);
       mapTitlesList.appendChild(li);

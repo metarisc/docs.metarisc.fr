@@ -42,7 +42,7 @@ layout: layouts/home.liquid
           <!-- Liens de l'arbre de navigation -->
           <ul id="sidebar" class="nav nav-pills flex-column text-light mb-2 align-items-center align-items-sm-start">
             {% if current_page not contains '/api' %}
-              {% render "sidebarDropdown", list: docs_dev.items, page: page %}
+              {% render "sidebarDropdown", list: docs_app.items, page: page %}
             {% else %}
               {% render "sidebarDropdown", list: docs_api.items, page: page %}
             {% endif %}
@@ -62,7 +62,7 @@ layout: layouts/home.liquid
         <div class="mb-4 mt-4">
           {% assign pageUrl = page.url | remove_last: '/' %}
           {% if current_page not contains '/api' %}
-            {% render "breadcrumbs", list: docs_dev.items, url: pageUrl %}
+            {% render "breadcrumbs", list: docs_app.items, url: pageUrl %}
           {% else %}
             {% render "breadcrumbs", list: docs_api.items, url: pageUrl %}
           {% endif %}

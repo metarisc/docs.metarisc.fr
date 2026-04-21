@@ -2,10 +2,80 @@ items:
   - title: Introduction
     items:
       - text: Qui sommes-nous ?
+        url: /app/introduction/qui-sommes-nous
+      - text: Comment fonctionne Metarisc ?
+        url: /app/introduction/comment-fonctionne-metarisc
+
+  - title: Commun
+    items:
+      - text: Recherche
+        url: /app/commun/recherche
+      - text: Tableau de bord
+        url: /app/commun/tableau-bord
+      - text: Suivi des dossiers
+        url: /app/commun/suivi-dossiers
+      - text: Explorer la carte
+        url: /app/commun/explorer-carte
+      - text: Notifications
+        url: /app/commun/notifications
+      - text: Calendrier
+        url: /app/commun/calendrier
+
+  - title: Module ERP
+    items:
+      - text: Fiche ERP
+        items:
+          - text: Création
+            url: /app/module-erp/fiche-erp/creation
+      - text: Traitement des études
+        items: 
+          - text: Enregistrer une étude
+            url: /app/module-erp/traitement-etudes/enregistrer-etude
+          - text: Instruire une étude
+            url: /app/module-erp/traitement-etudes/instruire-etude
+          - text: Inscrire en commission
+            url: /app/module-erp/traitement-etudes/inscrire-commission
+      - text: Visites
+        url: /app/module-erp/visites
+      - text: Commissions
+        items:
+          - text: Programmer les commissions
+            url: /app/module-erp/commissions/programmer-commissions
+          - text: Traiter la sous-commission
+            url: /app/module-erp/commissions/traiter-sous-commission
+
+  - title: Génération des PDF
+    items:
+      - text: Introduction
+        url: /app/generation-pdf/introduction
+      - text: Générer un Rapport d'Étude
+        url: /app/generation-pdf/generer-re
+      - text: Générer un Compte de Rendu de commission
+        url: /app/generation-pdf/generer-cr-commission
+      - text: Générer un Procès Verbal de commission
+        url: /app/generation-pdf/generer-pv-commission
+      - text: Générer une convocation de commission
+        url: /app/generation-pdf/generer-convocation-commission
+
+  - title: Paramétrage de l'Organisation
+    items:
+      - text: ...
+        url: /app/parametrage-organisation/
+
+  - title: Administration Fonctionnelle
+    items:
+      - text: ...
+        url: /app/administration-fonctionnelle/
+
+
+
+  - title: Documentation OLD
+  - title: Introduction
+    items:
+      - text: Qui sommes-nous ?
         url: /posts/intro/about
       - text: Comment fonctionne Metarisc ?
         url: /posts/intro/how-it-works
-  - title: Guides d'utilisation
   - title: ERP
     items:
       - text: Commissions
@@ -70,7 +140,6 @@ items:
         url: /posts/pdf/generer-pv
       #- text: Générer une convocation de commission
         #url: /posts/pdf/generer-convoc
-  - title: Guides d'administration
   - title: Paramétrage organisation
     items:
       - text: Les RDDECI
