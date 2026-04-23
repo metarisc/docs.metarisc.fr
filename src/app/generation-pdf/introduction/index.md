@@ -14,6 +14,8 @@ Un fichier modèle est un document **ODT** qui est créé par un administrateur 
 
 Il est à intégrer dans les préférences d'une commission de sécurité ou plus globalement dans les paramètres d'une organisation.
 
+(@TODO : Lien vers la configuration de l'organisation)
+
 Le document modèle contient des champs de fusion qui seront remplacés par Metarisc par les valeurs adéquates.
 
 ## Champs de fusion
@@ -92,7 +94,7 @@ Le champ de fusion "Image" permet de générer des images à partir d'une URL.
 
 #### QrCode
 
-Le champs de fusion "QrCode" permet de générer un QrCode.
+Le champ de fusion "QrCode" permet de générer un QrCode.
 
 ```
 {qrcode:key,size:150}
@@ -104,7 +106,7 @@ Options disponibles :
 
 #### MarkDown
 
-Le champs de fusion "MarkDown" permet de rendre le contenu MarkDown.
+Le champ de fusion "MarkDown" permet de rendre le contenu MarkDown.
 
 ```
 {md:key}
