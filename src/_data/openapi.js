@@ -17,8 +17,8 @@ module.exports = async function () {
 	openapi = await $RefParser.dereference(openapi, {
 		dereference: {
 			excludedPathMatcher: (path) => {
-				// Exclude circular references in "etablissement_rattache" to avoid infinite loop
-				return path.includes("etablissement_rattache");
+				// Exclude circular references in "etablissement_rattache" and "dossiers_enfants" to avoid infinite loop
+				return path.includes("etablissement_rattache") || path.includes("dossiers_enfants");
 			},
 		}
 	});
