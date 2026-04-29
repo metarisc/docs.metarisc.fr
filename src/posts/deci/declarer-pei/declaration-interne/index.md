@@ -9,7 +9,7 @@ layout: layouts/post.liquid
 1. Depuis la barre larérale gauche, accéder au menu **DECI - Déclarer un PEI** 
 2. Dans l'espace de travail, cliquer sur **Commencer la déclaration**
   
-   ![Décmaration externe 01](https://metarisc-docs.s3.fr-par.scw.cloud/images/DECI/Declaration%20externe%2001_1024.jpg)
+   ![Décmaration externe 01](https://ressources.metarisc.fr/images/DECI/Declaration%20externe%2001_1024.jpg)
    
 3. Afficher la position géographique du point d'eau, soit:
    -    en entrant une adresse dans la barre de recherche,
@@ -20,7 +20,7 @@ layout: layouts/post.liquid
 
 5. Cliquer sur **Modifier** pour accéder au formulaire de création
 
-    ![Déclaration externe 02](https://metarisc-docs.s3.fr-par.scw.cloud/images/DECI/Declaration%20externe%2002_1024.jpg)
+    ![Déclaration externe 02](https://ressources.metarisc.fr/images/DECI/Declaration%20externe%2002_1024.jpg)
 
 
 6. Compléter le formulaire **Implantation**, puis cliquer sur **Suivant**
@@ -36,9 +36,9 @@ layout: layouts/post.liquid
 
 %}
 
-    ![Déclaration externe 03](https://metarisc-docs.s3.fr-par.scw.cloud/images/DECI/Declaration%20externe%2003_1024.jpg)
+    ![Déclaration externe 03](https://ressources.metarisc.fr/images/DECI/Declaration%20externe%2003_1024.jpg)
 
-    ![Déclaration externe 03](https://metarisc-docs.s3.fr-par.scw.cloud/images/DECI/Declaration%20externe%2003_1024.jpg)
+    ![Déclaration externe 03](https://ressources.metarisc.fr/images/DECI/Declaration%20externe%2003_1024.jpg)
 
 
 7. Compléter le formulaire **Descriptif** et les **caractéristiques hydrauliques**, puis cliquer sur **Suivant**.
@@ -49,10 +49,10 @@ layout: layouts/post.liquid
     L'**annexe norme** doit obligatoirement être ajouté afin de pouvoir finaliser la déclaration. 
 
 9.  Terminer, puis confirmer les informations renseignées.    
-    ![décaration externe 04](https://metarisc-docs.s3.fr-par.scw.cloud/images/DECI/Declaration%20externe%2004_1024.jpg)
+    ![décaration externe 04](https://ressources.metarisc.fr/images/DECI/Declaration%20externe%2004_1024.jpg)
 
 10.  De retour sur la première page du module de déclaration des points d'eau et la liste des PEI en cours de déclaration, vous pouvez, le cas échéant, compléter les informations relatives aux autres PEI (1) ou finaliser la déclaration (2). Un encart s'ouvre pour finaliser la déclaration et l'application vous confirme l'enregistrement du point d'eau.
 
-    ![Déclaration externe 05](https://metarisc-docs.s3.fr-par.scw.cloud/images/DECI/Declaration%20externe%2005_1024.jpg)
+    ![Déclaration externe 05](https://ressources.metarisc.fr/images/DECI/Declaration%20externe%2005_1024.jpg)
 
 

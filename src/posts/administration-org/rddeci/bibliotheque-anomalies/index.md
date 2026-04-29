@@ -25,13 +25,13 @@ Vous avez la possibilité de créer autant d'anomalies que vous le souhaitez. </
 2. Sélectionner l'organisation que vous souhaitez paramétrer.
    
 
-![anomalie1](https://metarisc-docs.s3.fr-par.scw.cloud/images/Param%C3%A9trage%20administration/Cr%C3%A9er%20anomalie%2001_1024.jpg)
+![anomalie1](https://ressources.metarisc.fr/images/Param%C3%A9trage%20administration/Cr%C3%A9er%20anomalie%2001_1024.jpg)
 
 3. Cliquer ensuite sur **Configurer** pour accéder aux différents menus de paramétrage.
 4. Depuis la barre latérale gauche, cliquer sur le menu **DECI** - **Anomalies**. 
 5. Enfin, cliquer sur **Ajouter une anomalie** pour ouvrir le formulaire de création.
 
-![anomalie2](https://metarisc-docs.s3.fr-par.scw.cloud/images/Param%C3%A9trage%20administration/Cr%C3%A9er%20anomalie%2002_1024.jpg)
+![anomalie2](https://ressources.metarisc.fr/images/Param%C3%A9trage%20administration/Cr%C3%A9er%20anomalie%2002_1024.jpg)
 
 
 ### Depuis le formulaire de création d'une anomalie ###
@@ -43,6 +43,6 @@ Vous avez la possibilité de créer autant d'anomalies que vous le souhaitez. </
 
 7. Valider l'enregistrement.
 
-![anomalie3](https://metarisc-docs.s3.fr-par.scw.cloud/images/Param%C3%A9trage%20administration/Cr%C3%A9er%20anomalie%2003_1024.jpg)
+![anomalie3](https://ressources.metarisc.fr/images/Param%C3%A9trage%20administration/Cr%C3%A9er%20anomalie%2003_1024.jpg)
 
 L'anomalie nouvellement créée est ajoutée à la bibiothèque et sera maintenant disponible pour la gestion des points d'eau.

@@ -33,7 +33,7 @@ Le point d'eau nouvellement déclaré reste en statut *En attente de validation*
 4. Depuis la barre larérale gauche, accéder au menu **DECI - Déclarer un PEI** 
 5. Dans l'espace de travail, cliquer sur **Commencer la déclaration**
    
-![Décmaration externe 01](https://metarisc-docs.s3.fr-par.scw.cloud/images/DECI/Declaration%20externe%2001_1024.jpg)
+![Décmaration externe 01](https://ressources.metarisc.fr/images/DECI/Declaration%20externe%2001_1024.jpg)
    
 5. Afficher la position géographique du point d'eau, soit:
    -    en entrant une adresse dans la barre de recherche,
@@ -42,7 +42,7 @@ Le point d'eau nouvellement déclaré reste en statut *En attente de validation*
 
 7. Cliquer sur **Modifier** pour accéder au formulaire de création
 
-![Déclaration externe 02](https://metarisc-docs.s3.fr-par.scw.cloud/images/DECI/Declaration%20externe%2002_1024.jpg)
+![Déclaration externe 02](https://ressources.metarisc.fr/images/DECI/Declaration%20externe%2002_1024.jpg)
 
 
 8. Compléter le formulaire **Implantation**, puis cliquer sur **Suivant**
@@ -58,7 +58,7 @@ Le point d'eau nouvellement déclaré reste en statut *En attente de validation*
 
 %}
 
-![Déclaration externe 03](https://metarisc-docs.s3.fr-par.scw.cloud/images/DECI/Declaration%20externe%2003_1024.jpg)
+![Déclaration externe 03](https://ressources.metarisc.fr/images/DECI/Declaration%20externe%2003_1024.jpg)
 
 
 9. Compléter le formulaire **Descriptif** et les caractéristiques hydrauliques, puis cliquer sur **Suivant**
@@ -76,13 +76,13 @@ Le point d'eau nouvellement déclaré reste en statut *En attente de validation*
  
  
 11. Terminer, puis confirmer les informations renseignées.    
-![décaration externe 04](https://metarisc-docs.s3.fr-par.scw.cloud/images/DECI/Declaration%20externe%2004_1024.jpg)
+![décaration externe 04](https://ressources.metarisc.fr/images/DECI/Declaration%20externe%2004_1024.jpg)
 
 12. De retour sur la première page du module de déclaration des points d'eau et la liste des PEI en cours de déclaration, vous pouvez, le cas échéant, compléter les informations relatives aux autres PEI (1) ou finaliser la déclaration (2). 
 
     Un encart s'ouvre pour finaliser la déclaration et l'application vous confirme l'enregistrement du point d'eau.
 
-![Déclaration externe 05](https://metarisc-docs.s3.fr-par.scw.cloud/images/DECI/Declaration%20externe%2005_1024.jpg)
+![Déclaration externe 05](https://ressources.metarisc.fr/images/DECI/Declaration%20externe%2005_1024.jpg)
 
 Un point d'eau déclaré par un compte invité reste avec le statut *"Déclaration en cours"*.
 Une notification est envoyée au service d'incendie et de secours qui procédera aux démarches de contrôle de ce point d'eau.

@@ -12,7 +12,7 @@ Ces étapes ont plusieurs objectifs :
 
 Vous retrouvez ces étapes sur le premier onglet d'un dossier d'étude. 
 
-![workflow](https://metarisc-docs.s3.fr-par.scw.cloud/images/Workflow/workflow.png?)
+![workflow](https://ressources.metarisc.fr/images/Workflow/workflow.png?)
 
 ## Détails des étapes :
 

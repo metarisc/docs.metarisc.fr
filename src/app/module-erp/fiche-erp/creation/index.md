@@ -8,7 +8,7 @@ layout: layouts/post.liquid
 
 2. Cliquer sur ***Commencer la déclaration***.
 
-![Créer un ERP](https://metarisc-docs.s3.fr-par.scw.cloud/app/module-erp/fiche-erp/creation/69ef25759000b.png)
+![Créer un ERP](https://ressources.metarisc.fr/app/module-erp/fiche-erp/creation/69ef25759000b.png)
 
 ## Implantation
 
@@ -18,11 +18,11 @@ La première étape consiste à localiser l'ERP.
 
 2. Cliquer sur la carte afin de préciser l'emplacement de l'établissement. Un point rouge matérialise la position géographique.
 
-![Implantation](https://metarisc-docs.s3.fr-par.scw.cloud/app/module-erp/fiche-erp/creation/69ef27462bf1e.png)
+![Implantation](https://ressources.metarisc.fr/app/module-erp/fiche-erp/creation/69ef27462bf1e.png)
 
 3. Sur le formulaire à droite, sélectionner une adresse. L'application vous propose par défaut 5 adresses à proximité du point géographique. Sélectionner une des adresses proposées puis cliquer sur ***remplir les champs***.
 
-![Implantation](https://metarisc-docs.s3.fr-par.scw.cloud/app/module-erp/fiche-erp/creation/69ef2958cf6e1.png)
+![Implantation](https://ressources.metarisc.fr/app/module-erp/fiche-erp/creation/69ef2958cf6e1.png)
 
 4. L'adresse se reporte automatiquement dans la seconde partie du formulaire. Si, les adresses proposées ne correspondent pas, vous avez la possibilité de modifier manuellement l'adresse.
 
@@ -30,13 +30,13 @@ La première étape consiste à localiser l'ERP.
 
 5. Enfin cliquer sur ***Suivant*** pour passer à l'étape suivante.
 
-![Implantation](https://metarisc-docs.s3.fr-par.scw.cloud/app/module-erp/fiche-erp/creation/69ef2a9a06c82.png)
+![Implantation](https://ressources.metarisc.fr/app/module-erp/fiche-erp/creation/69ef2a9a06c82.png)
 
 ## Descriptif
 
 Sur cette page, certains champs sont obligatoires, mentionnés par **\***, notamment la dénomination sociale et le statut de l’ERP, ainsi que le type et son activité.
 
-![Descriptif](https://metarisc-docs.s3.fr-par.scw.cloud/app/module-erp/fiche-erp/creation/69ef2ff74a62b.png)
+![Descriptif](https://ressources.metarisc.fr/app/module-erp/fiche-erp/creation/69ef2ff74a62b.png)
 
 Pour le reste, vous pouvez choisir de renseigner les informations dès la création de l’ERP sur cette page, où vous avez la possibilité d’y revenir et de modifier la fiche ERP à posteriori.
 
@@ -52,7 +52,7 @@ Voici certaines précisions pour les champs présents sur cette page :
 
 - **Tableau des effectifs** : Metarisc vous permet de saisir le tableau des effectifs. Il est organisé par niveau et zone (Local). Renseigner les informations pour un niveau et une zone précise, cliquer sur Ajouter tableau des effectifs pour renseigner une nouvelle zone. Metarisc ne contrôle pas vos calculs.
 
-![Descriptif](https://metarisc-docs.s3.fr-par.scw.cloud/app/module-erp/fiche-erp/creation/69ef49634d98f.png)
+![Descriptif](https://ressources.metarisc.fr/app/module-erp/fiche-erp/creation/69ef49634d98f.png)
 
 Une fois les champs renseignés, cliquer ensuite sur ***Suivant*** pour passer à la prochaine étape du module de création.
 
@@ -62,7 +62,7 @@ Dans cette étape, vous pouvez renseigner la commission compétente et sa pério
 
 Cliquer ensuite sur ***Suivant*** pour passer à la prochaine étape du module de création.
 
-![Visites / Périodes](https://metarisc-docs.s3.fr-par.scw.cloud/app/module-erp/fiche-erp/creation/69ef49d742808.png)
+![Visites / Périodes](https://ressources.metarisc.fr/app/module-erp/fiche-erp/creation/69ef49d742808.png)
 
 ## Documents
 
@@ -70,18 +70,18 @@ Dans cette étape, vous pouvez joindre des documents qui apparaitront dans la fi
 
 Cliquer ensuite sur ***Suivant*** pour passer à la prochaine étape du module de création.
 
-![Documents](https://metarisc-docs.s3.fr-par.scw.cloud/app/module-erp/fiche-erp/creation/69ef4a19ad8de.png)
+![Documents](https://ressources.metarisc.fr/app/module-erp/fiche-erp/creation/69ef4a19ad8de.png)
 
 ## Exploitant
 
 Enfin vous avez la possibilité d'entrer des contacts que vous retrouverez ensuite dans la fiche d'identité de l'établissement.
 
-![Exploitant](https://metarisc-docs.s3.fr-par.scw.cloud/app/module-erp/fiche-erp/creation/69ef4acaa9a78.png)
+![Exploitant](https://ressources.metarisc.fr/app/module-erp/fiche-erp/creation/69ef4acaa9a78.png)
 
 Cliquer ensuite sur ***Enregistrer*** pour valider les informations renseignées, puis ***Confirmer***.
 
-![Enregistrer l'ERP](https://metarisc-docs.s3.fr-par.scw.cloud/app/module-erp/fiche-erp/creation/69ef4b076fe67.png)
+![Enregistrer l'ERP](https://ressources.metarisc.fr/app/module-erp/fiche-erp/creation/69ef4b076fe67.png)
 
 Les informations concernant l'établissement sont enregistrées, vous pouvez ensuite consulter votre établissement via le bouton ***Aller à l’ERP***.
 
-![Aller à l’ERP](https://metarisc-docs.s3.fr-par.scw.cloud/app/module-erp/fiche-erp/creation/69ef4b4945497.png)
+![Aller à l’ERP](https://ressources.metarisc.fr/app/module-erp/fiche-erp/creation/69ef4b4945497.png)

@@ -8,7 +8,7 @@ layout: layouts/post.liquid
 
 Vous pouvez accéder à la recherche à partir de n'importe quel endroit sur Metarisc, soit en tapant un libellé directement, soit en cliquant sur la loupe afin d'accéder à la recherche avancée.
 
-![Zone recherche](https://metarisc-docs.s3.fr-par.scw.cloud/app/commun/recherche/69e62a939fcc8.png)
+![Zone recherche](https://ressources.metarisc.fr/app/commun/recherche/69e62a939fcc8.png)
 
 ## Recherche avancée
 
@@ -27,7 +27,7 @@ Une série de filtres vous est proposée :
 - Présence de locaux à sommeil : permet de filtrer les locaux à sommeil
 - Afficher les cellules : permet d'afficher les cellules en plus des ERP
 
-![Rechercher un ERP](https://metarisc-docs.s3.fr-par.scw.cloud/app/commun/recherche/69e62debf3132.png)
+![Rechercher un ERP](https://ressources.metarisc.fr/app/commun/recherche/69e62debf3132.png)
 
 #### Site géographique
 
@@ -35,13 +35,13 @@ Les sites géographiques permettent de regrouper plusieurs EPR.
 
 Exemple : un groupe scolaire peut regrouper plusieurs établissements scolaires.
 
-![Site géographique](https://metarisc-docs.s3.fr-par.scw.cloud/app/commun/recherche/69e630ef6c3df.png)
+![Site géographique](https://ressources.metarisc.fr/app/commun/recherche/69e630ef6c3df.png)
 
 #### Commission concernée
 
 L'ERP étant rattaché à une commission, il est possible de filtrer sur ce critère.
 
-![Commission concernée](https://metarisc-docs.s3.fr-par.scw.cloud/app/commun/recherche/69e630fb1e97f.png)
+![Commission concernée](https://ressources.metarisc.fr/app/commun/recherche/69e630fb1e97f.png)
 
 #### Zone de recherche
 
@@ -54,14 +54,14 @@ Vous avez la possibilité d'effectuer une recherche en sélectionnant une zone g
     2. Renseigner le lieu dans le champ de recherche, puis ***Recherche***.
     3. Cliquer sur le bouton ***OSM*** afin de mettre en évidence la zone sur la carte.
 
-![Zone de recherche par zone](https://metarisc-docs.s3.fr-par.scw.cloud/app/commun/recherche/69e634551e320.png)
+![Zone de recherche par zone](https://ressources.metarisc.fr/app/commun/recherche/69e634551e320.png)
 
 - Recherche par zone :
 
     2. A l'aide de la souris, dessiner un polygone.
     3. Double cliquer pour fermer le polygone.
 
-![Zone de recherche par lieu](https://metarisc-docs.s3.fr-par.scw.cloud/app/commun/recherche/69e631049d3e8.png)
+![Zone de recherche par lieu](https://ressources.metarisc.fr/app/commun/recherche/69e631049d3e8.png)
 
 4. Cliquer sur ***Valider***, puis ***Rechercher***.
 
@@ -82,4 +82,4 @@ Les premières lignes du fichier reprennent la date de l'export, le nombre de li
 
 ### Rechercher un Site Géographique
 
-![Rechercher un Site Géographique](https://metarisc-docs.s3.fr-par.scw.cloud/app/commun/recherche/69e62ed7bb454.png)
+![Rechercher un Site Géographique](https://ressources.metarisc.fr/app/commun/recherche/69e62ed7bb454.png)

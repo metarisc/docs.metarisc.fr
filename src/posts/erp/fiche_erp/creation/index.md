@@ -7,7 +7,7 @@ layout: layouts/post.liquid
 1.  Accéder au module de création ERP en cliquant sur **Créer un ERP** dans la menu de la barre larérale gauche
 2.  Cliquer sur **Commencer la déclaration**
 
-    ![créationERP01](https://metarisc-docs.s3.fr-par.scw.cloud/images/ERP/CreationERP01.jpg)
+    ![créationERP01](https://ressources.metarisc.fr/images/ERP/CreationERP01.jpg)
 
 
 3.  Cliquer ensuite sur **Ajouter un établissement**.
@@ -20,7 +20,7 @@ layout: layouts/post.liquid
 
 4. Pour renseigner les informations concernant l'établissement en cours de création, cliquer sur **Modifier**
 
-    ![créationERP02](https://metarisc-docs.s3.fr-par.scw.cloud/images/ERP/CreationERP02.jpg?)
+    ![créationERP02](https://ressources.metarisc.fr/images/ERP/CreationERP02.jpg?)
 
 
 ## Implantation
@@ -32,7 +32,7 @@ La première étape consite à localiser l'ERP.
     > Attention: ici **Arrondissement** fait référence à la division administrative des villes de Paris, Lyon, Marseille et non de la divisiopn administrative du département.
 5.  Enfin cliquer sur **Valider** pour passer à l'étape suivante.
 
-    ![créationERP03](https://metarisc-docs.s3.fr-par.scw.cloud/images/ERP/CreationERP03.jpg)
+    ![créationERP03](https://ressources.metarisc.fr/images/ERP/CreationERP03.jpg)
 
 
 ## Descriptif
@@ -53,10 +53,10 @@ Voici quelques informations sur certains champs du formulaire:
 -   **Références externes**: Il s'agit de pouvoir renseigner des références extérieures au logiciel Metarisc. Exemple de cas d'utilisation: L'identifiant RNB (Référentiel Nationale Batimentaire), une ancienne dénomination sociale, la référence de l'ERP sur un autre logiciel...
 Par la suite, vous pourrez utiliser ces références extérieures dans le module de recherche.
 
-    ![creation ERP04](https://metarisc-docs.s3.fr-par.scw.cloud/images/ERP/Creation%20ERP04%20%20800.png)
+    ![creation ERP04](https://ressources.metarisc.fr/images/ERP/Creation%20ERP04%20%20800.png)
 -   **Tableau des effectifs**: Metarisc vous permet de saisir le tableau des effectifs. Il est organisé par niveau et zone (**Local**). Renseigner les informations pour un niveau et une zone précise, cliquer sur **Ajouter tableau des effectifs** pour renseigner une nouvelle zone. Metarisc ne controle pas vos calculs.
 
-    ![creation ERP04](https://metarisc-docs.s3.fr-par.scw.cloud/images/ERP/Creation%20ERP05%20800.png)
+    ![creation ERP04](https://ressources.metarisc.fr/images/ERP/Creation%20ERP05%20800.png)
 
 
 ## Visites/Périodes
@@ -76,7 +76,7 @@ Enfin vous avez la possibilité d'entrer des contacts que vous retrouverez dans 
 
 Cliquer ensuite sur **Enregistrer** (1) pour valider les informations renseignées. Enfin **Confirmer**(2)
 
-![creation ERP 06](https://metarisc-docs.s3.fr-par.scw.cloud/images/ERP/Creation%20ERP06.png)
+![creation ERP 06](https://ressources.metarisc.fr/images/ERP/Creation%20ERP06.png)
 
 
 Les informations concernant l'établissement sont enregistrés mais il vous faut encore **Finaliser la déclaration** en cliquant sur le bouton en bas à droite. Vous recevez un message de confirmation. 
