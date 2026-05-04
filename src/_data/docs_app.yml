@@ -27,6 +27,8 @@ items:
         items:
           - text: Création
             url: /app/module-erp/fiche-erp/creation
+          - text: Consultation
+            url: /app/module-erp/fiche-erp/consultation
       - text: Traitement des études
         items: 
           - text: Enregistrer une étude

@@ -1,7 +1,7 @@
 ---
 title: Explorer la carte
-date: 2026-01-01
+date: 2026-05-04
 layout: layouts/post.liquid
 ---
 
-![alt text](69e744f087d01.png)
+![Explorer la carte](https://ressources.metarisc.fr/app/commun/explorer-carte/69e744f087d01.png)
